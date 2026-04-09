@@ -4,49 +4,6 @@ window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-// ─── SIDE MENU ─────────────────────────────────────────────────
-const menuBtn   = null;
-const sideMenu  = null;
-const overlay   = null;
-const closeMenu = null;
-const supportLink = document.getElementById('supportLink');
-
-function openMenu() {
-  sideMenu.classList.add('open');
-  overlay.classList.add('active');
-  menuBtn.classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeMenuFn() {
-  sideMenu.classList.remove('open');
-  overlay.classList.remove('active');
-  menuBtn.classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-menuBtn.addEventListener('click', () => {
-  sideMenu.classList.contains('open') ? closeMenuFn() : openMenu();
-});
-closeMenu.addEventListener('click', closeMenuFn);
-overlay.addEventListener('click', closeMenuFn);
-
-// Close menu + smooth scroll when Support link is clicked
-if (supportLink) {
-  supportLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    closeMenuFn();
-    setTimeout(() => {
-      const el = document.getElementById('support');
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    }, 350);
-  });
-}
-
-// Close menu on Escape key
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMenuFn();
-});
-
 // ─── SCROLL REVEAL ─────────────────────────────────────────────
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
