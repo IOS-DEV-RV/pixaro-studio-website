@@ -4,53 +4,63 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Tellio</title>
+  <link rel="icon" type="image/png" href="icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <style>
-    .menu-btn,.fullmenu,.menu-overlay,.slide-menu{display:none!important}
-    body{background:#07040F}
-    .navbar{background:rgba(26,16,64,.97)!important;position:sticky!important;top:0!important;z-index:999!important}
-    .nav-inner{display:flex!important;grid-template-columns:unset!important;justify-content:space-between!important;align-items:center!important;max-width:100%!important;margin:0!important;padding:0 20px!important;box-sizing:border-box!important}
-    .tl-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#F0EBE3;text-decoration:none}
-    .tl-back-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
-    .tl-back-btn:hover{background:rgba(255,255,255,.13);color:#fff}
-    @media(max-width:480px){.nav-inner{padding:0 16px!important}.tl-back-btn{padding:6px 11px;font-size:12px}}
+    .menu-btn, .menu-overlay, .slide-menu { display: none !important; }
+    .navbar { padding: 0 !important; }
+    #navbar .nav-inner {
+        display: flex !important;
+        grid-template-columns: unset !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 20px !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+        box-sizing: border-box !important;
+    }
+    .nav-logo-priv {
+        display: flex !important;
+        align-items: center;
+        gap: 8px;
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+    }
+    .nav-logo-priv .logo-emoji { font-size: 20px; line-height: 1; }
+    .nav-back-priv {
+        display: inline-flex; align-items: center; gap: 6px;
+        padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+        border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+        color: rgba(255,255,255,0.6); text-decoration: none; transition: all 0.2s;
+    }
+    .nav-back-priv:hover { color: #fff; background: rgba(255,255,255,0.12); }
+    html, body { background-color: #07040F !important; color: #F0EBE3; min-height: 100vh; }
+    .navbar { background: rgba(26, 16, 64, 0.98) !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; display: flex !important; align-items: center !important; }
+    @media (max-width: 480px) { #navbar .nav-inner { padding: 0 14px !important; } }
   </style>
 </head>
 <body>
 
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
-      <a href="javascript:history.back()" class="tl-logo">
-        <img src="../../images/tellio-icon.png" alt="Tellio" style="width:26px;height:26px;border-radius:7px;object-fit:cover;flex-shrink:0;">
+      <a class="nav-logo-priv" href="javascript:history.back()">
+        <img src="../../images/tellio-icon.png" alt="Tellio" style="width:28px;height:28px;border-radius:7px;object-fit:cover;" />
         Tellio
       </a>
-      <a href="javascript:history.back()" class="tl-back-btn">
+      <a href="javascript:history.back()" class="nav-back-priv">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         Back
       </a>
     </div>
   </nav>
 
-  <div class="menu-overlay" id="menuOverlay"></div>
-  <aside class="slide-menu" id="slideMenu">
-    <button class="menu-close" id="menuClose" aria-label="Close menu">✕</button>
-    <nav class="slide-nav">
-      <a href="privacy.html" class="slide-link">
-        <span class="slide-icon"></span> Privacy Policy
-      </a>
-      <a href="support.html" class="slide-link">
-        <span class="slide-icon">✉️</span> Support
-      </a>
-    </nav>
-    <p class="slide-footer">© 2026 Tellio</p>
-  </aside>
-
   <section class="doc-section">
     <div class="doc-inner">
-      <a href="javascript:history.back()" class="back-link">← Back</a>
       <h1 class="doc-title">Privacy Policy</h1>
       <p class="doc-meta">Effective Date: March 24, 2026</p>
 

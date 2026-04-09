@@ -4,54 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lumivo — Turn Videos Into Live Photos</title>
+  <link rel="icon" type="image/png" href="icon.png">
+  <link rel="apple-touch-icon" href="icon.png">
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .nav__menu-btn,.overlay,.side-menu{display:none!important}
-    body{background:#060918}
-    .nav{background:rgba(6,9,24,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
-    .lv-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .2s}
-    .lv-back:hover{color:#fff}
-    .lv-btns{display:flex;align-items:center;gap:8px}
-    .lv-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
-    .lv-btn:hover{background:rgba(255,255,255,.13);color:#fff}
-    @media(max-width:480px){.nav{padding:0 16px!important}.lv-btn{padding:6px 11px;font-size:12px}}
+    .nav__menu-btn { display: none !important; }
+    .overlay, .side-menu { display: none !important; }
+    .nav { display: flex; align-items: center; justify-content: space-between; }
+    .nav__logo { display: none !important; }
+    .nav-back-lv {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-back-lv:hover { color: #fff; }
+    .nav { padding: 0 20px !important; }
+    .nav-btn-lv {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.6); text-decoration: none; transition: all 0.2s;
+    }
+    .nav-btn-lv:hover { color: #fff; background: rgba(255,255,255,0.12); }
+    .nav-back-lv, .nav-btn-lv { white-space: nowrap; }
+    @media (max-width: 480px) {
+      .nav { padding: 0 14px !important; }
+      .nav-back-lv { font-size: 12px; gap: 4px; }
+      .nav-btn-lv { padding: 6px 10px; font-size: 12px; }
+    }
+    html, body { background-color: #060918 !important; color: #fff; min-height: 100vh; }
+    .nav { background: rgba(26, 36, 87, 0.98) !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; }
   </style>
 </head>
 <body>
 
-  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <!-- NAV -->
   <nav class="nav" id="nav">
-    <a href="../../apps.html" class="lv-back">
+    <a href="../../apps.html" class="nav-back-lv">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
       Our Apps
     </a>
-    <div class="lv-btns">
-      <a href="privacy.html" class="lv-btn">Privacy</a>
-    </div>
+    <a href="privacy.html" class="nav-btn-lv">🔒 Privacy</a>
   </nav>
-
-  <!-- ─── SIDE MENU ─────────────────────────────────────────── -->
-  <div class="overlay" id="overlay"></div>
-  <aside class="side-menu" id="sideMenu">
-    <button class="side-menu__close" id="closeMenu" aria-label="Close menu">✕</button>
-    <div class="side-menu__content">
-      <p class="side-menu__app">Lumivo</p>
-      <nav class="side-menu__nav">
-        <a href="privacy.html" class="side-menu__link">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Privacy Policy
-        </a>
-        <a href="#support" class="side-menu__link" id="supportLink">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          Support
-        </a>
-      </nav>
-      <div class="side-menu__badge">
-        <span>Available on</span>
-        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" class="side-menu__appstore" />
-      </div>
-    </div>
-  </aside>
 
   <!-- ─── HERO ──────────────────────────────────────────────── -->
   <section class="hero">

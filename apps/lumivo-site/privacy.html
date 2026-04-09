@@ -4,29 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Privacy Policy — Lumivo</title>
+  <link rel="icon" type="image/png" href="icon.png">
   <link rel="stylesheet" href="css/style.css" />
   <style>
-    .nav__menu-btn,.overlay,.side-menu{display:none!important}
-    body{background:#060918}.privacy-page{padding-top:0!important;padding:40px 20px 80px!important}
-    .nav{background:rgba(6,9,24,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
-    .lv-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#fff;text-decoration:none}
-    .lv-back-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
-    .lv-back-btn:hover{background:rgba(255,255,255,.13);color:#fff}
-    @media(max-width:480px){.nav{padding:0 16px!important}.lv-back-btn{padding:6px 11px;font-size:12px}}
+    .nav { padding: 0 20px !important; }
+    .nav__menu-btn { display: none !important; }
+    .overlay, .side-menu { display: none !important; }
+    html, body { background-color: #060918 !important; color: #fff; min-height: 100vh; }
+    .nav { background: rgba(26, 36, 87, 0.98) !important; border-bottom: 1px solid rgba(255,255,255,0.08) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; display: flex !important; align-items: center !important; }
+    @media (max-width: 480px) { .nav { padding: 0 14px !important; } }
   </style>
 </head>
 <body>
 
   <!-- ─── NAV ─────────────────────────────────────────────────── -->
   <nav class="nav scrolled" id="nav">
-    <a href="javascript:history.back()" class="lv-logo">
-      <img src="../../images/lumivo-icon.png" alt="Lumivo" style="width:26px;height:26px;border-radius:7px;object-fit:cover;flex-shrink:0;">
-      Lumivo
+    <a class="nav__logo" href="javascript:history.back()">
+      <span class="nav__logo-icon">✦</span> Lumivo
     </a>
-    <a href="javascript:history.back()" class="lv-back-btn">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
-      Back
-    </a>
+    <a href="javascript:history.back()" class="btn btn--ghost" style="padding: 10px 18px; font-size: 14px;">← Back</a>
   </nav>
 
   <!-- ─── CONTENT ──────────────────────────────────────────────── -->
