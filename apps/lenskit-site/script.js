@@ -31,6 +31,7 @@ function openPanel(panelId) {
     if (!overlay || !panel) return;
     overlay.classList.add('open');
     panel.classList.add('open');
+    panel.scrollTop = 0;
     document.body.classList.add('no-scroll');
 }
 

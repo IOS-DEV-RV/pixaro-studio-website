@@ -14,29 +14,50 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="stylesheet" href="styles.css" />
     <style>
-        .menu-btn,.menu-overlay,.slide-menu{display:none!important}
-        body{background:#080808}
-        .nav{background:rgba(8,8,8,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
-        .lk-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .2s}
-        .lk-back:hover{color:#fff}
-        .lk-btns{display:flex;align-items:center;gap:8px}
-        .lk-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap;cursor:pointer}
-        .lk-btn:hover{background:rgba(255,255,255,.13);color:#fff}
-        @media(max-width:480px){.nav{padding:0 16px!important}.lk-btn{padding:6px 11px;font-size:12px}}
+        .menu-btn { display: none !important; }
+        .menu-overlay, .slide-menu { display: none !important; }
+        .nav-logo { display: none !important; }
+        .nav { display: flex !important; justify-content: space-between !important; align-items: center !important; padding: 0 20px !important; }
+        .nav-back-custom {
+            display: flex; align-items: center; gap: 6px;
+            font-size: 13px; font-weight: 600;
+            color: rgba(255,255,255,0.5);
+            text-decoration: none; transition: color 0.2s; white-space: nowrap;
+        }
+        .nav-back-custom:hover { color: #fff; }
+        .nav-btn-custom {
+            display: inline-flex; align-items: center; gap: 5px;
+            padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.6); text-decoration: none; transition: all 0.2s; white-space: nowrap;
+            cursor: pointer;
+        }
+        .nav-btn-custom:hover { color: #fff; background: rgba(255,255,255,0.12); }
+        @media (max-width: 480px) {
+            .nav { padding: 0 14px !important; }
+            .nav-back-custom { font-size: 12px; gap: 4px; }
+            .nav-btn-custom { padding: 6px 10px; font-size: 12px; gap: 3px; }
+            .nav-btn-custom svg { width: 14px; height: 14px; }
+        }
+        html, body { background-color: #080808 !important; color: #fff; min-height: 100vh; }
+        .nav { background: rgba(8, 8, 8, 0.98) !important; border-bottom: 1px solid rgba(255,255,255,0.06) !important; position: sticky !important; top: 0 !important; z-index: 500 !important; min-height: 60px !important; }
+        .panel, .panel-overlay { z-index: 9999 !important; }
     </style>
 </head>
 <body>
 
 <!-- ── NAV ───────────────────────────────────────────────── -->
 <nav class="nav">
-    <a href="../../apps.html" class="lk-back">
+    <a href="../../apps.html" class="nav-back-custom">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
         Our Apps
     </a>
-    <div class="lk-btns">
-        <button class="lk-btn" data-panel="compare">Plans</button>
-        <a href="privacy.html" class="lk-btn">Privacy</a>
+    <div style="display:flex;gap:8px;align-items:center;">
+        <button class="nav-btn-custom" data-panel="compare" style="border:none;cursor:pointer;">⭐ Plans</button>
+        <a href="privacy.html" class="nav-btn-custom">🔒 Privacy</a>
     </div>
+    <a href="index.html" class="nav-logo" style="display:none">Lens Kit Pro</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" style="display:none"><span></span><span></span><span></span></button>
 </nav>
 
 <!-- ── SLIDE MENU ─────────────────────────────────────────── -->
@@ -52,7 +73,7 @@
         Pro vs Free
     </button>
     <a class="menu-item" href="privacy.html">
-        <span class="menu-item-icon red"></span>
+        <span class="menu-item-icon red">🔒</span>
         Privacy Policy
     </a>
     <button class="menu-item" data-panel="support">
