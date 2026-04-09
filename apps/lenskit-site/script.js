@@ -4,16 +4,16 @@ const menuOverlay = document.getElementById('menuOverlay');
 const slideMenu = document.getElementById('slideMenu');
 
 function openMenu() {
-    menuBtn.classList.add('active');
-    menuOverlay.classList.add('open');
-    slideMenu.classList.add('open');
+    menuBtn?.classList.add('active');
+    menuOverlay?.classList.add('open');
+    slideMenu?.classList.add('open');
     document.body.classList.add('no-scroll');
 }
 
 function closeMenu() {
-    menuBtn.classList.remove('active');
-    menuOverlay.classList.remove('open');
-    slideMenu.classList.remove('open');
+    menuBtn?.classList.remove('active');
+    menuOverlay?.classList.remove('open');
+    slideMenu?.classList.remove('open');
     document.body.classList.remove('no-scroll');
 }
 
