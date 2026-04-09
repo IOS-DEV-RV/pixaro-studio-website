@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Support — Tellio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a class="nav-logo" href="index.html">Tellio</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <aside class="slide-menu" id="slideMenu">
+    <button class="menu-close" id="menuClose" aria-label="Close menu">✕</button>
+    <nav class="slide-nav">
+      <a href="privacy.html" class="slide-link">
+        <span class="slide-icon">🔒</span> Privacy Policy
+      </a>
+      <a href="support.html" class="slide-link">
+        <span class="slide-icon">✉️</span> Support
+      </a>
+    </nav>
+    <p class="slide-footer">© 2026 Tellio</p>
+  </aside>
+
+  <section class="support-section">
+    <div class="support-inner">
+      <a href="index.html" class="back-link">← Back</a>
+      <h1 class="doc-title">Support</h1>
+      <p class="doc-meta">We usually respond within 24 hours</p>
+
+      <div class="support-card">
+        <form class="support-form" id="supportForm">
+          <div class="form-group">
+            <label for="email">Your email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What is your question about?" />
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Describe your issue or question in detail…" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <span class="btn-submit-text">Send Message</span>
+            <span class="btn-submit-icon">→</span>
+          </button>
+        </form>
+
+        <div class="support-success" id="supportSuccess">
+          <div class="success-icon">✓</div>
+          <h3>Message sent!</h3>
+          <p>Thank you for reaching out. We'll get back to you at the email you provided as soon as possible.</p>
+          <a href="index.html" class="btn-appstore" style="margin-top:24px;display:inline-flex;">Back to home</a>
+        </div>
+      </div>
+
+      <div class="support-alt">
+        <p>Or write to us directly at <a href="mailto:admin@terasms.ru">admin@terasms.ru</a></p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-logo">Tellio</span>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+      </div>
+      <span class="footer-copy">© 2026 Tellio. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

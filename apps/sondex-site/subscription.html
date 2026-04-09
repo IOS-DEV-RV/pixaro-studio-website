@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscription Plans — Sondex</title>
+  <link rel="icon" href="images/icon.jpg" type="image/jpeg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .plan-highlight-tag {
+      display: inline-block;
+      background: var(--amber);
+      color: #1A0600;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      border-radius: 10px;
+      padding: 3px 9px;
+      margin-top: 6px;
+    }
+    .plans-header-cell.std-col { border-left: 1px solid var(--sep); }
+    .plans-last .plans-cell { border-bottom: none; }
+
+    @media (max-width: 768px) {
+      .plan-highlight-tag {
+        font-size: 8px;
+        padding: 2px 5px;
+        letter-spacing: 0.5px;
+      }
+    }
+  </style>
+  <style>
+    .nav-menu-btn,.menu-overlay,.menu-drawer{display:none!important}
+    body{background:#1A0600}
+    .nav{background:rgba(26,6,0,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
+    .sx-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#FDF6E3;text-decoration:none}
+    .sx-back-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(253,246,227,.13);background:rgba(253,246,227,.07);color:rgba(253,246,227,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
+    .sx-back-btn:hover{background:rgba(253,246,227,.13);color:#FDF6E3}
+    @media(max-width:480px){.nav{padding:0 16px!important}.sx-back-btn{padding:6px 11px;font-size:12px}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="javascript:history.back()" class="sx-logo">
+    <img src="images/icon.jpg" alt="Sondex" style="width:26px;height:26px;border-radius:7px;object-fit:cover;flex-shrink:0;">
+    Sondex
+  </a>
+  <a href="javascript:history.back()" class="sx-back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back
+  </a>
+</nav>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose">✕</button>
+  <nav class="menu-links">
+    <a class="menu-link" href="subscription.html">
+      <span class="menu-link-left"><span class="menu-link-icon">⭐</span>Subscription Plans</span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+    <a class="menu-link" href="privacy.html">
+      <span class="menu-link-left"><span class="menu-link-icon">🔒</span>Privacy Policy</span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+    <a class="menu-link" href="contact.html">
+      <span class="menu-link-left"><span class="menu-link-icon">✉</span>Support</span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+  </nav>
+  <div class="menu-footer">© 2026 Sondex. All rights reserved.</div>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <p class="section-label">Plans</p>
+    <h1 class="page-title">Choose Your Level</h1>
+    <p class="page-subtitle">Start for free, unlock more when you need it. Every feature, clearly listed.</p>
+  </div>
+</div>
+
+<section class="plans-section">
+  <div class="container">
+    <div class="plans-table-scroll">
+    <div class="plans-grid">
+
+      <!-- ── HEADER ── -->
+      <div class="plans-header-cell">
+        <div class="plan-name" style="color:var(--cream-55);">Feature</div>
+      </div>
+      <div class="plans-header-cell">
+        <div class="plan-name">Free</div>
+        <div class="plan-sub">No subscription</div>
+      </div>
+      <div class="plans-header-cell std-col">
+        <div class="plan-name">Standard</div>
+        <div class="plan-sub">Monthly / Yearly</div>
+      </div>
+      <div class="plans-header-cell pro-col">
+        <div class="plan-name">Pro</div>
+        <div class="plan-highlight-tag">Most Popular</div>
+      </div>
+
+      <!-- ── CORE MEASUREMENT ── -->
+      <div class="plans-category">Core Measurement</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Real-time dB level</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Dose · Min · Avg · Max dials</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">NIOSH &amp; OSHA measurement profiles</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Noise reference scale (breathing → rocket)</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── OCTAVE ANALYZER ── -->
+      <div class="plans-category">Real-Time Octave Analyzer</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">1 band per octave (31.5 Hz – 16 kHz)</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">2, 3, 6, 12 bands per octave</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Decay speed — Medium (0.500 s)</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Decay speed — Fast (0.250 s) &amp; Slow (1.000 s)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── MICROPHONE ── -->
+      <div class="plans-category">Audio Source &amp; Microphone</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Built-in bottom microphone</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Mic calibration</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Switch between microphones</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="value">Built-in mics</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Full + External</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">External mic &amp; Bluetooth audio sources</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── SESSION RECORDING ── -->
+      <div class="plans-category">Session Recording &amp; Playback</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Recording &amp; waveform playback</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Maximum recording duration</div>
+        <div class="plans-cell"><span class="value">30 sec</span></div>
+        <div class="plans-cell"><span class="value">2 min</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Unlimited</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Background recording (app closed)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Source timeline (which mic was recording &amp; when)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Location tagging &amp; notes</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── RECORDING DATA ── -->
+      <div class="plans-category">Recording Analysis Data</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Human health impact — risk level, hearing, sleep, focus</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Noise violations statistics per location</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Sound levels — Peak (LCpeak), Max (LASmax), Avg, LAeq</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Exposure data — Dose, Projected Dose, TWA (LASavg)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Per-mic info (sample rate, channels, calibration)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Mic performance — SNR, noise floor, dynamic range</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Frequency response analysis (deviation from ref)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Stereo analysis — L/R balance &amp; channel data</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Personalized recommendations</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── ALERTS ── -->
+      <div class="plans-category">Alerts &amp; Monitoring</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Noise threshold alerts &amp; notifications</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Per-location alert rules</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── REPORTS ── -->
+      <div class="plans-category">PDF Reports</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Acoustic Analysis Report</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="value">Available</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Extended ★</span></div>
+      </div>
+      <div class="plans-row plans-last">
+        <div class="plans-cell">Telemetry, frequency &amp; stereo in report</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+    </div>
+    </div><!-- /plans-table-scroll -->
+
+    <p class="plans-note">
+      Subscriptions are processed by Apple via the App Store.<br />
+      Payments are secure — we never access your card details.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.jpg" alt="Sondex" />Sondex
+      </div>
+      <div class="footer-links">
+        <a href="subscription.html" class="footer-link">Subscription Plans</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="contact.html" class="footer-link">Support</a>
+      </div>
+      <p class="footer-copy">© 2026 Sondex. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

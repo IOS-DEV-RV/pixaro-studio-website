@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lens Kit Pro — Professional Camera App</title>
+    <meta name="description" content="Full manual camera control. Shoot RAW, record ProRes 4K video, apply cinematic presets, and create your own look. Professional photography at your fingertips." />
+    <meta name="theme-color" content="#080808" />
+    <link rel="icon" type="image/png" href="assets/icon.png" />
+    <link rel="apple-touch-icon" href="assets/icon.png" />
+    <meta property="og:title" content="Lens Kit Pro — Professional Camera App" />
+    <meta property="og:description" content="Full manual camera control for iOS. RAW capture, ProRes 4K, cinematic presets, and more." />
+    <meta property="og:image" content="assets/icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+        .menu-btn,.menu-overlay,.slide-menu{display:none!important}
+        body{background:#080808}
+        .nav{background:rgba(8,8,8,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
+        .lk-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .2s}
+        .lk-back:hover{color:#fff}
+        .lk-btns{display:flex;align-items:center;gap:8px}
+        .lk-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap;cursor:pointer}
+        .lk-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+        @media(max-width:480px){.nav{padding:0 16px!important}.lk-btn{padding:6px 11px;font-size:12px}}
+    </style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────────────── -->
+<nav class="nav">
+    <a href="../../apps.html" class="lk-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Our Apps
+    </a>
+    <div class="lk-btns">
+        <button class="lk-btn" data-panel="compare">⭐ Plans</button>
+        <a href="privacy.html" class="lk-btn">🔒 Privacy</a>
+    </div>
+</nav>
+
+<!-- ── SLIDE MENU ─────────────────────────────────────────── -->
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<aside class="slide-menu" id="slideMenu" aria-label="Navigation menu">
+    <div class="slide-menu-header">
+        <p class="slide-menu-title">Navigation</p>
+    </div>
+
+    <button class="menu-item" data-panel="compare">
+        <span class="menu-item-icon purple">✦</span>
+        Pro vs Free
+    </button>
+    <a class="menu-item" href="privacy.html">
+        <span class="menu-item-icon red">🔒</span>
+        Privacy Policy
+    </a>
+    <button class="menu-item" data-panel="support">
+        <span class="menu-item-icon blue">💬</span>
+        Support
+    </button>
+</aside>
+
+<!-- ── SUPPORT PANEL ──────────────────────────────────────── -->
+<div class="panel-overlay" id="supportOverlay"></div>
+<div class="panel" id="supportPanel" role="dialog" aria-label="Support">
+    <div class="panel-head">
+        <h2>Contact Support</h2>
+        <button class="close-btn" data-close="support" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body">
+        <p style="color:var(--gray-2);font-size:14px;margin-bottom:28px;line-height:1.6;">
+            Have a question or found a bug? Fill in the form below and we'll get back to you as soon as possible.
+        </p>
+
+        <form id="supportForm" novalidate>
+            <div class="form-group">
+                <label class="form-label" for="supportEmail">Your email address</label>
+                <input class="form-input" type="email" id="supportEmail" placeholder="you@example.com" required />
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="supportMessage">Message</label>
+                <textarea class="form-textarea" id="supportMessage" placeholder="Describe your issue or question..." required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                Send Message
+            </button>
+        </form>
+
+        <div id="formSuccess" class="form-success">
+            <div class="form-success-icon">✉️</div>
+            <h3>Message sent!</h3>
+            <p>Your mail app should open with a pre-filled message. We'll respond shortly.</p>
+        </div>
+    </div>
+</div>
+
+<!-- ── COMPARE PANEL ──────────────────────────────────────── -->
+<div class="panel-overlay" id="compareOverlay"></div>
+<div class="panel" id="comparePanel" role="dialog" aria-label="Pro vs Free comparison">
+    <div class="panel-head">
+        <h2>Pro vs Free</h2>
+        <button class="close-btn" data-close="compare" aria-label="Close">✕</button>
+    </div>
+    <div class="panel-body">
+        <div class="compare-intro">
+            <p>Everything you get in Lens Kit Pro compared to the free version.</p>
+        </div>
+        <table class="compare-table" role="table">
+            <thead>
+                <tr>
+                    <th style="text-align:left;">Feature</th>
+                    <th>Free</th>
+                    <th class="col-pro">Pro</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="compare-section-header"><td colspan="3">Camera</td></tr>
+                <tr>
+                    <td>Basic photo capture</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>RAW photo capture (48 MP)</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Manual ISO control</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Manual shutter speed</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Manual white balance</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>EV exposure control</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Grid overlay</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Zoom lens switching</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+
+                <tr class="compare-section-header"><td colspan="3">Video</td></tr>
+                <tr>
+                    <td>Standard video recording</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>4K video</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>ProRes recording</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Audio level monitoring</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Manual video controls</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+
+                <tr class="compare-section-header"><td colspan="3">Presets & Editing</td></tr>
+                <tr>
+                    <td>Built-in presets</td>
+                    <td><span class="check-partial">3 presets</span></td>
+                    <td><span class="check-yes">All 6+</span></td>
+                </tr>
+                <tr>
+                    <td>Custom preset creation</td>
+                    <td><span class="check-partial">1 preset</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Tone curve editor</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Brightness / Contrast</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Highlights / Shadows</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Vibrance / Color tuning</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+
+                <tr class="compare-section-header"><td colspan="3">Media Library</td></tr>
+                <tr>
+                    <td>Photo viewer</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Crop & share</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Apply presets to existing photos</td>
+                    <td><span class="check-no">—</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+                <tr>
+                    <td>Export to gallery</td>
+                    <td><span class="check-yes">✓</span></td>
+                    <td><span class="check-yes">✓</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section class="hero">
+    <div class="hero-noise"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-badge">Available on iOS</div>
+
+    <img src="assets/icon.png" alt="Lens Kit Pro" class="hero-app-icon" />
+
+    <h1 class="hero-title">
+        Lens Kit<br /><span class="accent">Pro</span>
+    </h1>
+
+    <p class="hero-sub">
+        Full manual camera control for iPhone. Shoot RAW, record ProRes 4K,
+        apply cinematic presets — professional photography, always with you.
+    </p>
+
+    <div class="hero-cta-wrap">
+        <a href="#" class="cta-btn cta-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on App Store
+        </a>
+        <a href="#features" class="cta-btn cta-secondary">
+            See Features
+        </a>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+        <span>Scroll</span>
+        <div class="scroll-arrow"></div>
+    </div>
+</section>
+
+<!-- ── FEATURES ───────────────────────────────────────────── -->
+<section class="features" id="features">
+    <div class="features-header fade-up">
+        <p class="section-label">What's inside</p>
+        <h2 class="section-title">Built for photographers.<br />Loved by everyone.</h2>
+        <p class="section-sub">Every tool a professional needs, designed for the iPhone you already have.</p>
+    </div>
+
+    <!-- Feature 1: Manual Controls -->
+    <div class="feature-block">
+        <div class="feature-img-wrap">
+            <div class="feature-img-glow"></div>
+            <img src="assets/manual.png" alt="Manual camera controls" class="feature-phone-img" loading="lazy" />
+        </div>
+        <div class="feature-info">
+            <span class="feature-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="10"/></svg>
+                Camera
+            </span>
+            <h3 class="feature-h">Full Manual Control</h3>
+            <p class="feature-p">
+                Take charge of every shot. Dial in the exact ISO, shutter speed, white balance
+                and exposure compensation — just like a professional DSLR, right on your iPhone.
+            </p>
+            <div class="feature-pills">
+                <span class="pill">ISO 50 – 3200</span>
+                <span class="pill">Shutter 1/2000s</span>
+                <span class="pill">WB 2000 – 10000K</span>
+                <span class="pill">EV ±3.0</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature 2: RAW capture -->
+    <div class="feature-block reverse">
+        <div class="feature-img-wrap">
+            <div class="feature-img-glow"></div>
+            <img src="assets/raw.png" alt="RAW and ProRes capture" class="feature-phone-img" loading="lazy" />
+        </div>
+        <div class="feature-info">
+            <span class="feature-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="10"/></svg>
+                Pro Quality
+            </span>
+            <h3 class="feature-h">RAW & ProRes<br />Capture</h3>
+            <p class="feature-p">
+                Unlock the full sensor potential of your iPhone. Capture 48 MP RAW photos
+                with maximum dynamic range and detail — ready for serious post-processing.
+            </p>
+            <div class="feature-pills">
+                <span class="pill">48 MP RAW</span>
+                <span class="pill">ProRes 4K</span>
+                <span class="pill">Max detail</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature 3: Video -->
+    <div class="feature-block">
+        <div class="feature-img-wrap">
+            <div class="feature-img-glow"></div>
+            <img src="assets/video.png" alt="Pro video recording" class="feature-phone-img" loading="lazy" />
+        </div>
+        <div class="feature-info">
+            <span class="feature-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="10"/></svg>
+                Video
+            </span>
+            <h3 class="feature-h">Pro Video<br />Recording</h3>
+            <p class="feature-p">
+                Record cinema-grade footage directly on iPhone. Real-time audio level meters,
+                manual exposure in video mode, and ProRes encoding for maximum post-production flexibility.
+            </p>
+            <div class="feature-pills">
+                <span class="pill">4K Resolution</span>
+                <span class="pill">ProRes H.264</span>
+                <span class="pill">Audio Monitoring</span>
+                <span class="pill">FHD Backup</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature 4: Presets -->
+    <div class="feature-block reverse">
+        <div class="feature-img-wrap">
+            <div class="feature-img-glow"></div>
+            <img src="assets/presets.png" alt="Cinematic presets" class="feature-phone-img" loading="lazy" />
+        </div>
+        <div class="feature-info">
+            <span class="feature-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="10"/></svg>
+                Presets
+            </span>
+            <h3 class="feature-h">Cinematic<br />Presets</h3>
+            <p class="feature-p">
+                Choose from handcrafted presets inspired by the finest film stocks and
+                digital looks. Apply them instantly — or fine-tune every parameter to make it your own.
+            </p>
+            <div class="feature-pills">
+                <span class="pill">B&W</span>
+                <span class="pill">Warm Film</span>
+                <span class="pill">Teal & Orange</span>
+                <span class="pill">Amber Sunset</span>
+                <span class="pill">Matte Fade</span>
+                <span class="pill">Vivid</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature 5: Preset Editor -->
+    <div class="feature-block">
+        <div class="feature-img-wrap">
+            <div class="feature-img-glow"></div>
+            <img src="assets/editor.png" alt="Preset editor with tone curves" class="feature-phone-img" loading="lazy" />
+        </div>
+        <div class="feature-info">
+            <span class="feature-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="10"/></svg>
+                Editor
+            </span>
+            <h3 class="feature-h">Create Your<br />Own Look</h3>
+            <p class="feature-p">
+                Go beyond pre-made filters. Adjust brightness, contrast, highlights, shadows,
+                and vibrance. Draw your own tone curve for complete creative control.
+            </p>
+            <div class="feature-pills">
+                <span class="pill">Tone Curve</span>
+                <span class="pill">Light</span>
+                <span class="pill">Color</span>
+                <span class="pill">Details</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature 6: Library -->
+    <div class="feature-block reverse">
+        <div class="feature-img-wrap">
+            <div class="feature-img-glow"></div>
+            <img src="assets/library.png" alt="Media library" class="feature-phone-img" loading="lazy" />
+        </div>
+        <div class="feature-info">
+            <span class="feature-tag">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--red)"><circle cx="12" cy="12" r="10"/></svg>
+                Library
+            </span>
+            <h3 class="feature-h">Your Work,<br />All in One Place</h3>
+            <p class="feature-p">
+                Browse, edit, crop and share everything you've shot — without leaving the app.
+                Apply presets to existing photos and export your favorites instantly.
+            </p>
+            <div class="feature-pills">
+                <span class="pill">Browse</span>
+                <span class="pill">Crop & Edit</span>
+                <span class="pill">Apply Presets</span>
+                <span class="pill">Share</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── ABOUT / DESCRIPTION ────────────────────────────────── -->
+<section class="about">
+    <div class="about-inner">
+        <div class="about-glow-top"></div>
+
+        <div class="about-content">
+            <div class="about-text fade-up">
+                <h2>The camera<br />app you <em>deserve</em></h2>
+                <p>
+                    Lens Kit Pro was built for people who care about their craft.
+                    Whether you're a seasoned photographer demanding RAW quality,
+                    a filmmaker who needs ProRes, or a creative who just wants
+                    their images to look exactly right — this is your tool.
+                </p>
+                <p>
+                    Every setting is exposed. Every parameter is yours to control.
+                    No compromises, no automation you didn't ask for.
+                    Just you, your lens, and total creative freedom.
+                </p>
+            </div>
+            <div class="about-stats fade-up">
+                <div class="stat-card">
+                    <div class="stat-num">48<span class="unit">MP</span></div>
+                    <div class="stat-label">RAW resolution</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">4<span class="unit">K</span></div>
+                    <div class="stat-label">ProRes video</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">6<span class="unit">+</span></div>
+                    <div class="stat-label">Cinematic presets</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-num">∞</div>
+                    <div class="stat-label">Creative control</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="about-footer">
+            <p class="about-footer-text">Available for iPhone · iOS 16 and later · Free to download</p>
+            <a href="#" class="store-badge">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#000"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download on the App Store
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ── APP DESCRIPTION ───────────────────────────────────── -->
+<section class="app-desc-section">
+    <div class="app-desc-inner">
+        <div class="app-desc-head fade-up">
+            <p class="section-label">App Store Description</p>
+            <h2 class="app-desc-title">Lens Kit Pro — Professional Manual Camera<br class="br-desk" /> with RAW &amp; ProRes</h2>
+            <p class="app-desc-sub">Take full control of your iPhone's camera. Shoot in RAW for photos and ProRes for video. Adjust every setting manually and create your own presets for any lighting situation.</p>
+        </div>
+
+        <div class="app-desc-grid fade-up">
+            <div class="app-desc-card">
+                <div class="app-desc-card-icon">⚙️</div>
+                <h3>Total manual control</h3>
+                <ul>
+                    <li>ISO, Shutter Speed, White Balance, Exposure</li>
+                    <li>Real-time parameter adjustment</li>
+                    <li>Focus peaking and zebras</li>
+                    <li>Professional histogram</li>
+                </ul>
+            </div>
+            <div class="app-desc-card">
+                <div class="app-desc-card-icon">🎬</div>
+                <h3>Professional video mode</h3>
+                <ul>
+                    <li>Record in Apple ProRes up to 4K</li>
+                    <li>Cinema-quality footage straight out of camera</li>
+                </ul>
+            </div>
+            <div class="app-desc-card">
+                <div class="app-desc-card-icon">🎨</div>
+                <h3>Create &amp; apply custom presets</h3>
+                <ul>
+                    <li>Save your favorite settings as presets</li>
+                    <li>Apply filters and LUTs in real time</li>
+                </ul>
+            </div>
+            <div class="app-desc-card">
+                <div class="app-desc-card-icon">📐</div>
+                <h3>Perfect composition every time</h3>
+                <ul>
+                    <li>Customizable grids: Rule of thirds, golden ratio</li>
+                    <li>Crop and reframe photos without quality loss</li>
+                    <li>Level gauge for horizon control</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="app-desc-why fade-up">
+            <div class="app-desc-why-line"></div>
+            <p class="app-desc-why-label">Why Lens Kit Pro?</p>
+            <p class="app-desc-why-text">Your iPhone already has a great camera. We give you the keys to unlock its full potential. No more guessing — just pure creative control.</p>
+        </div>
+    </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────────────── -->
+<footer>
+    <div class="site-footer">
+        <p class="footer-copy">© 2025 Lens Kit Pro. All rights reserved.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+            <a href="privacy.html" style="color:var(--gray-2);font-size:13px;text-decoration:none;">Privacy Policy</a>
+            <button onclick="openPanel('support')" style="background:none;border:none;cursor:pointer;color:var(--gray-2);font-size:13px;font-family:var(--font);">Support</button>
+            <button onclick="openPanel('compare')" style="background:none;border:none;cursor:pointer;color:var(--gray-2);font-size:13px;font-family:var(--font);">Pro vs Free</button>
+        </nav>
+    </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

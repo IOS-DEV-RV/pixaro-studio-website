@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ScanSeek Privacy Policy — How we handle your data and protect your privacy.">
+    <meta name="theme-color" content="#0a1628">
+    <title>Privacy Policy — ScanSeek</title>
+    <link rel="icon" type="image/png" href="images/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .menu-toggle,.menu-overlay,.side-panel,.support-overlay{display:none!important}
+        body{background:#030914}
+        .navbar{background:rgba(9,18,40,.96)!important;position:sticky!important;top:0!important;z-index:999!important}
+        .nav-inner{display:flex!important;justify-content:space-between!important;align-items:center!important;max-width:100%!important;margin:0!important;padding:0 20px!important;box-sizing:border-box!important}
+        .ss-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .2s}
+        .ss-back:hover{color:#fff}
+        .ss-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
+        .ss-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+        @media(max-width:480px){.nav-inner{padding:0 16px!important}.ss-btn{padding:6px 11px;font-size:12px}}
+    </style>
+</head>
+<body class="privacy-page">
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-inner">
+            <a href="javascript:history.back()" class="ss-back">
+                <img src="images/icon.png" alt="ScanSeek" style="width:26px;height:26px;border-radius:7px;object-fit:cover;flex-shrink:0;">
+                ScanSeek
+            </a>
+            <a href="javascript:history.back()" class="ss-btn">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+                Back
+            </a>
+        </div>
+    </nav>
+
+    <!-- OVERLAY -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- SIDE PANEL -->
+    <aside class="side-panel" id="sidePanel">
+        <div class="side-panel-top">
+            <div class="side-panel-logo">
+                <img src="images/icon.png" alt="ScanSeek">
+                <span>ScanSeek</span>
+            </div>
+            <button class="side-panel-close" id="closePanel" aria-label="Close menu">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <path d="M13 1L1 13M1 1l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="side-panel-nav">
+            <a href="privacy.html" class="side-nav-item">
+                <span class="side-nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span>Privacy Policy</span>
+                <span class="side-nav-arrow">›</span>
+            </a>
+            <a href="#" class="side-nav-item" id="supportTrigger">
+                <span class="side-nav-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </span>
+                <span>Support</span>
+                <span class="side-nav-arrow">›</span>
+            </a>
+        </nav>
+        <div class="side-panel-footer">
+            <p>© 2026 ScanSeek. All rights reserved.</p>
+        </div>
+    </aside>
+
+    <!-- SUPPORT OVERLAY -->
+    <div class="support-overlay" id="supportOverlay">
+        <div class="support-modal" id="supportModal">
+            <div class="support-modal-header">
+                <h3>Contact Support</h3>
+                <button class="support-close" id="supportClose" aria-label="Close">
+                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                        <path d="M13 1L1 13M1 1l12 12" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+            <p class="support-modal-sub">We'll get back to you as soon as possible</p>
+            <form class="support-form" id="supportForm" novalidate>
+                <div class="form-field">
+                    <label class="form-label" for="emailInput">Your Email</label>
+                    <input type="email" class="form-input" id="emailInput" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                <div class="form-field">
+                    <label class="form-label" for="messageInput">Message</label>
+                    <textarea class="form-textarea" id="messageInput" placeholder="Describe your issue or question..." required rows="5"></textarea>
+                </div>
+                <button type="submit" class="form-submit-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- HERO -->
+    <div class="privacy-hero">
+        <span class="privacy-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            Legal
+        </span>
+        <h1>Privacy Policy</h1>
+        <p>Effective Date: March 16, 2026 &nbsp;·&nbsp; ScanSeek</p>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="privacy-content">
+
+        <div class="privacy-section">
+            <h2><span class="section-num">1</span> General Provisions</h2>
+            <p>This Privacy Policy applies to all information collected or processed in the ScanSeek mobile application (hereinafter referred to as the "Application"), available on iPhone, iPad, and other platforms, as well as on related websites.</p>
+            <p>By using the Application, you agree to the terms of this Privacy Policy.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">2</span> Processing of Images and Documents</h2>
+            <p>The Application is designed for scanning documents, converting images to PDF, and text search.</p>
+            <p><strong>Local Processing:</strong></p>
+            <ul>
+                <li>All images are processed locally on the user's device</li>
+                <li>We do not upload photos or documents to our servers</li>
+                <li>We do not have access to the content of your documents</li>
+                <li>Images are used solely to perform the Application's functions</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">3</span> Data Collection</h2>
+            <p><strong>3.1 Data Necessary for Functionality</strong></p>
+            <p>The Application may use:</p>
+            <ul>
+                <li>The device's camera for scanning documents</li>
+                <li>Photos from the user's gallery</li>
+                <li>Files selected by the user</li>
+            </ul>
+            <p>This data is processed only on the user's device and is not transmitted to us.</p>
+            <p><strong>3.2 User-Provided Information</strong></p>
+            <p>You may voluntarily provide information, including:</p>
+            <ul>
+                <li>Data related to purchases and subscriptions</li>
+                <li>Messages to support service</li>
+                <li>Feedback</li>
+            </ul>
+            <p><strong>3.3 Automatically Collected Information</strong></p>
+            <p>The Application may automatically collect limited technical information:</p>
+            <ul>
+                <li>Device type and operating system</li>
+                <li>Unique device identifiers</li>
+                <li>IP address</li>
+                <li>Usage statistics and crash data</li>
+            </ul>
+            <p>This information is used exclusively to ensure the Application's operation and improvement.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">4</span> Use of Analytics Services</h2>
+            <p>We may use third-party analytics services for:</p>
+            <ul>
+                <li>Analyzing Application usage</li>
+                <li>Improving features and enhancing stability</li>
+                <li>Error diagnostics</li>
+            </ul>
+            <p>Such services receive anonymized data only.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">5</span> Use of Information</h2>
+            <p>We use information for:</p>
+            <ul>
+                <li>Providing the Application's features</li>
+                <li>User support and improving quality of work</li>
+                <li>Ensuring security</li>
+                <li>Fulfilling legal obligations</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">6</span> Data Transfer and Disclosure</h2>
+            <p>We do not sell or transfer your personal data to third parties. Transfer is possible only to:</p>
+            <ul>
+                <li>Service providers (e.g., analytics)</li>
+                <li>Comply with legal requirements</li>
+                <li>Protect rights, safety, and property</li>
+            </ul>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">7</span> Data Storage</h2>
+            <p>We do not store on our servers:</p>
+            <ul>
+                <li>Scanned images</li>
+                <li>User documents</li>
+                <li>Text extracted from documents</li>
+            </ul>
+            <p>If the user saves files, they are stored only on their device or in a cloud service of their choice.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">8</span> Location Information</h2>
+            <p>The Application does not collect precise real-time location data. We may approximately determine the user's region based on IP address, device settings, or App Store region. This is necessary for the proper functioning of the Application.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">9</span> Security</h2>
+            <p>We apply reasonable technical and organizational measures to protect information. Since images are processed locally and are not stored on servers, the risk of unauthorized access is significantly reduced.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">10</span> Children</h2>
+            <p>The Application is not intended for children under the age of 13 (or other age as established by the laws of the user's country of residence). We do not knowingly collect personal data from children.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">11</span> User Rights (GDPR, CCPA, and other laws)</h2>
+            <p>Depending on the legislation of your country, you may have the right to:</p>
+            <ul>
+                <li>Request access to your data</li>
+                <li>Correct or delete your data</li>
+                <li>Restrict or object to processing</li>
+                <li>Receive a copy of your data</li>
+            </ul>
+            <p>To exercise these rights, please contact us using the information below.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">12</span> Subscriptions and Payments</h2>
+            <p>The Application may offer paid features via subscription.</p>
+            <p><strong>Payment Processing:</strong> All payments are processed by Apple via the App Store. We do not have access to your bank card data, do not store payment information, and only receive anonymized purchase details.</p>
+            <p><strong>Automatic Renewal:</strong> Subscriptions automatically renew unless canceled at least 24 hours before the end of the current period. Payment will be charged to your Apple ID account.</p>
+            <p><strong>Managing Your Subscription:</strong> Go to Settings → Apple ID → Subscriptions. Deleting the Application does not cancel the subscription.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">13</span> Changes to the Policy</h2>
+            <p>We may update this Privacy Policy periodically. The updated version will be published in the Application or on the website.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">14</span> Your Consent</h2>
+            <p>By using the Application, you confirm your consent to this Privacy Policy.</p>
+        </div>
+
+        <div class="privacy-section">
+            <h2><span class="section-num">15</span> Contacts</h2>
+            <p>If you have questions or requests, you can contact us at:</p>
+            <a href="mailto:admin@terasms.ru" class="contact-highlight">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M22 6l-10 7L2 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                admin@terasms.ru
+            </a>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <img src="images/icon.png" alt="ScanSeek" class="footer-logo">
+                <span>ScanSeek</span>
+            </div>
+            <nav class="footer-nav">
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="#" id="footerSupportLink">Support</a>
+            </nav>
+            <p class="footer-copy">© 2026 ScanSeek. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>

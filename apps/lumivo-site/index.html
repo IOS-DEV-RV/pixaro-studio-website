@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumivo — Turn Videos Into Live Photos</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .nav__menu-btn,.overlay,.side-menu{display:none!important}
+    body{background:#060918}
+    .nav{background:rgba(6,9,24,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
+    .lv-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(255,255,255,.55);text-decoration:none;white-space:nowrap;transition:color .2s}
+    .lv-back:hover{color:#fff}
+    .lv-btns{display:flex;align-items:center;gap:8px}
+    .lv-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
+    .lv-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+    @media(max-width:480px){.nav{padding:0 16px!important}.lv-btn{padding:6px 11px;font-size:12px}}
+  </style>
+</head>
+<body>
+
+  <!-- ─── NAV ─────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <a href="../../apps.html" class="lv-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Our Apps
+    </a>
+    <div class="lv-btns">
+      <a href="privacy.html" class="lv-btn">🔒 Privacy</a>
+    </div>
+  </nav>
+
+  <!-- ─── SIDE MENU ─────────────────────────────────────────── -->
+  <div class="overlay" id="overlay"></div>
+  <aside class="side-menu" id="sideMenu">
+    <button class="side-menu__close" id="closeMenu" aria-label="Close menu">✕</button>
+    <div class="side-menu__content">
+      <p class="side-menu__app">Lumivo</p>
+      <nav class="side-menu__nav">
+        <a href="privacy.html" class="side-menu__link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Privacy Policy
+        </a>
+        <a href="#support" class="side-menu__link" id="supportLink">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Support
+        </a>
+      </nav>
+      <div class="side-menu__badge">
+        <span>Available on</span>
+        <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" class="side-menu__appstore" />
+      </div>
+    </div>
+  </aside>
+
+  <!-- ─── HERO ──────────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero__glow hero__glow--left"></div>
+    <div class="hero__glow hero__glow--right"></div>
+    <div class="hero__content reveal">
+      <div class="hero__badge">iOS App</div>
+      <h1 class="hero__title">Turn Any Video Into<br /><span class="gradient-text">a Live Photo</span></h1>
+      <p class="hero__subtitle">Lumivo gives your memories motion. Pick a clip, find the perfect frame, and create stunning Live Photos in seconds.</p>
+      <div class="hero__actions">
+        <a href="#" class="btn btn--primary">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download for iPhone
+        </a>
+        <a href="#features" class="btn btn--ghost">See Features ↓</a>
+      </div>
+    </div>
+    <div class="hero__mockup reveal reveal--delay">
+      <img src="assets/library.png" alt="Lumivo App" class="hero__img" />
+    </div>
+  </section>
+
+  <!-- ─── FEATURES ──────────────────────────────────────────── -->
+  <section class="features" id="features">
+    <div class="features__intro reveal">
+      <p class="section-label">What Lumivo Can Do</p>
+      <h2 class="section-title">Powerful Tools.<br />Beautiful Results.</h2>
+    </div>
+
+    <!-- Feature 1 -->
+    <div class="feature feature--right">
+      <div class="feature__text reveal">
+        <p class="feature__num">01</p>
+        <h3 class="feature__title">Find the Perfect Frame, Every Time</h3>
+        <p class="feature__desc">AI-powered Magic Auto-Trim analyzes your video and highlights the most dynamic moment automatically. Or take full control — drag the filmstrip handles to pick the exact clip you want. Up to 3 seconds of pure magic.</p>
+        <ul class="feature__list">
+          <li>AI finds your best moment instantly</li>
+          <li>Precise manual trim with filmstrip slider</li>
+          <li>HD quality export option</li>
+        </ul>
+      </div>
+      <div class="feature__shot reveal reveal--delay">
+        <div class="feature__shot-wrap">
+          <img src="assets/trim.png" alt="Trim Video screen" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2 -->
+    <div class="feature feature--left">
+      <div class="feature__shot reveal">
+        <div class="feature__shot-wrap">
+          <img src="assets/timelapse.png" alt="Timelapse screen" />
+        </div>
+      </div>
+      <div class="feature__text reveal reveal--delay">
+        <p class="feature__num">02</p>
+        <h3 class="feature__title">Turn Hours Into Seconds</h3>
+        <p class="feature__desc">Combine up to 20 clips into one smooth timelapse. Choose your playback speed from 2× to 8×, preview the result in real time, and export a cinematic timelapse that makes time itself look beautiful.</p>
+        <ul class="feature__list">
+          <li>Merge up to 20 videos into one</li>
+          <li>Adjustable speed from 2× to 8×</li>
+          <li>Live preview before export</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Feature 3 -->
+    <div class="feature feature--right">
+      <div class="feature__text reveal">
+        <p class="feature__num">03</p>
+        <h3 class="feature__title">Give Your Videos a Voice</h3>
+        <p class="feature__desc">Choose from a curated library of quotes across categories like Motivation, Love, Wisdom, and Humor — or write your own. Overlay beautiful serif typography directly onto your video and export it as a shareable clip.</p>
+        <ul class="feature__list">
+          <li>Handpicked quotes by category</li>
+          <li>Custom text — write anything you want</li>
+          <li>Position text exactly where you need</li>
+        </ul>
+      </div>
+      <div class="feature__shot reveal reveal--delay">
+        <div class="feature__shot-wrap">
+          <img src="assets/addtext.png" alt="Add Text screen" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4 -->
+    <div class="feature feature--left">
+      <div class="feature__shot reveal">
+        <div class="feature__shot-wrap">
+          <img src="assets/result.png" alt="Live Photo Ready screen" />
+        </div>
+      </div>
+      <div class="feature__text reveal reveal--delay">
+        <p class="feature__num">04</p>
+        <h3 class="feature__title">One Tap. Saved Forever.</h3>
+        <p class="feature__desc">Your Live Photo is ready. Preview it, save it directly to your Photos library with one tap, or export it as an animated GIF to share anywhere — Instagram, Messages, anywhere.</p>
+        <ul class="feature__list">
+          <li>Save Live Photo to camera roll instantly</li>
+          <li>Open directly in Apple Photos app</li>
+          <li>Export as animated GIF for sharing</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ABOUT ──────────────────────────────────────────────── -->
+  <section class="about">
+    <div class="about__card reveal">
+      <div class="about__glow"></div>
+      <div class="about__icon">✦</div>
+      <h2 class="about__title">Your moments deserve to move.</h2>
+      <p class="about__text">Lumivo is the simplest way to bring your photos to life. We built it for people who want their camera roll to feel alive — not just a flat grid of frozen stills. Whether it's a wave crashing, a laugh caught mid-breath, or a skyline at golden hour — with Lumivo, it moves.</p>
+      <div class="about__stats">
+        <div class="about__stat">
+          <span class="about__stat-num">20+</span>
+          <span class="about__stat-label">Videos per timelapse</span>
+        </div>
+        <div class="about__stat">
+          <span class="about__stat-num">4</span>
+          <span class="about__stat-label">Quote categories</span>
+        </div>
+        <div class="about__stat">
+          <span class="about__stat-num">∞</span>
+          <span class="about__stat-label">Memories to create</span>
+        </div>
+      </div>
+      <a href="#" class="btn btn--primary about__cta">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Get Lumivo Free
+      </a>
+    </div>
+  </section>
+
+  <!-- ─── APP STORE DESCRIPTION ───────────────────────────────── -->
+  <section class="appdesc">
+    <div class="appdesc__head reveal">
+      <p class="section-label">Complete Feature List</p>
+      <h2 class="section-title">Everything in one place.<br /><span class="gradient-text">On your iPhone.</span></h2>
+      <p class="appdesc__lead">Create stunning Live Photos from any video — completely on your iPhone. No internet, no account, no uploads — everything stays on your device.</p>
+    </div>
+
+    <div class="appdesc__grid">
+      <div class="appdesc__card reveal">
+        <div class="appdesc__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="12" r="3"/><path d="M3 9h2M3 15h2M19 9h2M19 15h2M9 3v2M15 3v2M9 19v2M15 19v2"/></svg>
+        </div>
+        <h3 class="appdesc__card-title">Live Photo Creator</h3>
+        <p class="appdesc__card-text">Select any video from your library, highlight the perfect moment, choose your key frame, and export a real Apple Live Photo saved directly to your camera roll.</p>
+      </div>
+      <div class="appdesc__card reveal reveal--delay">
+        <div class="appdesc__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <h3 class="appdesc__card-title">Intelligent Crop Editor</h3>
+        <p class="appdesc__card-text">Precise filmstrip slider to select exactly the clip you want. Magic Auto-Trim automatically detects the most dynamic segment — one tap and the perfect result.</p>
+      </div>
+      <div class="appdesc__card reveal">
+        <div class="appdesc__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3 class="appdesc__card-title">Video with Quotes</h3>
+        <p class="appdesc__card-text">Add beautiful text overlays to any video. Choose from curated categories — Motivation, Love, Wisdom, Humor — or write your own. Export as a video or animated GIF.</p>
+      </div>
+      <div class="appdesc__card reveal reveal--delay">
+        <div class="appdesc__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <h3 class="appdesc__card-title">Timelapse Creator</h3>
+        <p class="appdesc__card-text">Select several clips and combine them into a cinematic timelapse at 2×–8× speed. Perfect for travel, nature, and everyday stories condensed into seconds.</p>
+      </div>
+      <div class="appdesc__card reveal">
+        <div class="appdesc__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3 class="appdesc__card-title">Keepsake Calendar</h3>
+        <p class="appdesc__card-text">All your created Live Photos and timelapses saved in a beautiful gallery organized by date. Tap any entry to edit or export it again — your best moments, always close.</p>
+      </div>
+      <div class="appdesc__card reveal reveal--delay">
+        <div class="appdesc__icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3 class="appdesc__card-title">100% Offline &amp; Private</h3>
+        <p class="appdesc__card-text">Everything is processed locally on your iPhone. No cloud, no account, no data sharing. Your content belongs only to you — always.</p>
+      </div>
+    </div>
+
+    <div class="appdesc__premium reveal">
+      <div class="appdesc__premium-badge">Premium</div>
+      <h3 class="appdesc__premium-title">Unlock everything</h3>
+      <div class="appdesc__premium-grid">
+        <div class="appdesc__feat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Unlimited live photo conversions
+        </div>
+        <div class="appdesc__feat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          HD and 4K quality export
+        </div>
+        <div class="appdesc__feat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Magic Auto-Trim AI feature
+        </div>
+        <div class="appdesc__feat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Full quote library + custom text
+        </div>
+        <div class="appdesc__feat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Timelapse creation + GIF export
+        </div>
+        <div class="appdesc__feat">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Full Memories calendar access
+        </div>
+      </div>
+      <p class="appdesc__free">Free plan includes 3 Live Photo conversions to get you started.</p>
+    </div>
+  </section>
+
+  <!-- ─── SUPPORT ────────────────────────────────────────────── -->
+  <section class="support" id="support">
+    <div class="support__inner reveal">
+      <p class="section-label">We're Here for You</p>
+      <h2 class="section-title">Contact Support</h2>
+      <p class="support__sub">Have a question or found a bug? Send us a message and we'll get back to you as soon as possible.</p>
+      <form class="support__form" id="supportForm">
+        <div class="form__group">
+          <label class="form__label" for="userEmail">Your Email</label>
+          <input class="form__input" type="email" id="userEmail" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="userMessage">Message</label>
+          <textarea class="form__input form__textarea" id="userMessage" name="message" placeholder="Describe your issue or question..." required rows="5"></textarea>
+        </div>
+        <button class="btn btn--primary form__submit" type="submit">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+        <div class="form__success" id="formSuccess">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+          Message sent! We'll reply to your inbox shortly.
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="footer__logo">✦ Lumivo</span>
+        <span class="footer__copy">© 2026 Lumivo. All rights reserved.</span>
+      </div>
+      <div class="footer__links">
+        <a href="privacy.html" class="footer__link">Privacy Policy</a>
+        <a href="#support" class="footer__link">Support</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

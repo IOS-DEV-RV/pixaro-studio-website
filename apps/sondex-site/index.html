@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sondex — Noise Level Meter</title>
+  <meta name="description" content="Sondex is a professional noise measurement app for iPhone. Real-time dB levels, frequency analysis, noise alerts, and PDF reports." />
+  <link rel="icon" href="images/icon.jpg" type="image/jpeg" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .nav-menu-btn,.menu-overlay,.menu-drawer{display:none!important}
+    body{background:#1A0600}
+    .nav{background:rgba(26,6,0,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important}
+    .sx-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(253,246,227,.5);text-decoration:none;white-space:nowrap;transition:color .2s}
+    .sx-back:hover{color:#FDF6E3}
+    .sx-btns{display:flex;align-items:center;gap:8px}
+    .sx-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(253,246,227,.13);background:rgba(253,246,227,.07);color:rgba(253,246,227,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
+    .sx-btn:hover{background:rgba(253,246,227,.13);color:#FDF6E3}
+    @media(max-width:480px){.nav{padding:0 16px!important}.sx-btn{padding:6px 11px;font-size:12px}}
+  </style>
+</head>
+<body>
+
+<!-- ── NAVIGATION ── -->
+<nav class="nav">
+  <a href="../../apps.html" class="sx-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Our Apps
+  </a>
+  <div class="sx-btns">
+    <a href="subscription.html" class="sx-btn">⭐ Plans</a>
+    <a href="privacy.html" class="sx-btn">🔒 Privacy</a>
+  </div>
+</nav>
+
+<!-- ── MENU DRAWER ── -->
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose">✕</button>
+  <nav class="menu-links">
+    <a class="menu-link" href="subscription.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">⭐</span>
+        Subscription Plans
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+    <a class="menu-link" href="privacy.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">🔒</span>
+        Privacy Policy
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+    <a class="menu-link" href="contact.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">✉</span>
+        Contact Us
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+  </nav>
+  <div class="menu-footer">© 2026 Sondex. All rights reserved.</div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-content">
+    <img src="images/icon.jpg" alt="Sondex App Icon" class="hero-icon" />
+    <div class="hero-badge">Available on iPhone</div>
+    <h1 class="hero-title">Sondex</h1>
+    <p class="hero-desc">
+      Professional noise measurement in your pocket. Real-time dB levels, frequency analysis, session recording, and acoustic reports — based on WHO and NIOSH standards.
+    </p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="#features" class="btn-secondary">
+        Explore Features
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features">
+  <div class="container">
+
+    <!-- Feature 1: Real-time measurement -->
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="images/hero.png" alt="Real-time noise measurement" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">01</div>
+        <h2 class="feature-title">Measure in Real Time</h2>
+        <p class="feature-desc">
+          Sondex turns your iPhone into a precision noise meter. See your current dB level the moment sound happens — along with Dose, Min, Avg, and Max metrics on one screen.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Projected Dose %</span>
+          <span class="feature-pill">Avg · Max · Min</span>
+          <span class="feature-pill">WHO & NIOSH</span>
+          <span class="feature-pill accent">Free</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 2: Frequency Analyzer -->
+    <div class="feature-row reverse">
+      <div class="feature-image">
+        <img src="images/feature_analyzer.png" alt="Octave frequency analyzer" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">02</div>
+        <h2 class="feature-title">Real-Time Frequency Analyzer</h2>
+        <p class="feature-desc">
+          Choose from 1, 2, 3, 6, or 12 octave bands and see exactly which frequencies dominate your environment — live, color-coded bars covering 31.5 Hz to 16 kHz.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">1 · 2 · 3 · 6 · 12 bands</span>
+          <span class="feature-pill">31.5 Hz – 16 kHz</span>
+          <span class="feature-pill accent">PRO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 3: Noise Alerts -->
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="images/feature_alerts.png" alt="Noise alerts notification" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">03</div>
+        <h2 class="feature-title">Noise Alerts</h2>
+        <p class="feature-desc">
+          Set a custom dB threshold and Sondex will alert you the moment noise exceeds your limit — even while the app runs in the background. Location-based filtering lets you create different rules per place.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Custom threshold</span>
+          <span class="feature-pill">Background monitoring</span>
+          <span class="feature-pill">Per-location rules</span>
+          <span class="feature-pill accent">Standard</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 4: Recording & Waveform -->
+    <div class="feature-row reverse">
+      <div class="feature-image">
+        <img src="images/feature_recording.png" alt="Session recording waveform" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">04</div>
+        <h2 class="feature-title">Record &amp; Analyze Sessions</h2>
+        <p class="feature-desc">
+          Save noise sessions and replay them as interactive audio waveforms — available on every plan. With Standard and Pro you unlock detailed sound level data; Pro adds source timeline, device diagnostics, and full telemetry for each recording.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Recording & playback</span>
+          <span class="feature-pill">Sound data — Standard</span>
+          <span class="feature-pill accent">Source telemetry — PRO</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature 5: PDF Report -->
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="images/feature_report.png" alt="Acoustic Analysis PDF Report" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">05</div>
+        <h2 class="feature-title">Acoustic Analysis Report</h2>
+        <p class="feature-desc">
+          Export a detailed PDF report for every session — including sound levels, exposure data, human health impact, source telemetry, frequency response, and personalized recommendations.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Exposure & Dose data</span>
+          <span class="feature-pill">Health impact</span>
+          <span class="feature-pill">Mic diagnostics</span>
+          <span class="feature-pill accent">PRO — Full Report</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── ABOUT SECTION ── -->
+<section class="about-section reveal">
+  <div class="container">
+
+    <div class="about-intro">
+      <p class="section-label">About</p>
+      <h2 class="about-title">Sondex measures the noise level around you and shows exactly how it affects your well-being.</h2>
+      <p class="about-lead">We sit in noisy cafes, work in open-plan offices, walk along busy streets — and rarely think about how all this affects us. Constant background noise drains your energy, reduces concentration, and over time imperceptibly affects your well-being.</p>
+      <p class="about-lead">Sondex helps you understand the sound environment around you so you can make better informed decisions about where to spend your time.</p>
+      <div class="about-badge">FOR EVERYONE — simple and instant. Open Sondex anywhere and see in real time how loud it is around you.</div>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <p class="about-pro-label">Full-featured acoustic measurement tool</p>
+    <div class="about-features-grid">
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📊</div>
+        <h3 class="about-feat-title">Exposure Dose &amp; TWA</h3>
+        <p class="about-feat-desc">Monitors total noise exposure during the session. Calculates time-weighted average and predicts an 8-hour workday impact based on NIOSH &amp; OSHA standards.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🎚️</div>
+        <h3 class="about-feat-title">Octave Band Analyzer</h3>
+        <p class="about-feat-desc">Real-time frequency breakdown across 10 octave ranges. Identify low-frequency hum, high-frequency whistling, or midrange conversation noise.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📈</div>
+        <h3 class="about-feat-title">Session Recording &amp; Waveform</h3>
+        <p class="about-feat-desc">Record any situation and analyze it later. Scroll the full audio signal, zoom into individual moments, see exactly when noise peaks occurred.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🎙️</div>
+        <h3 class="about-feat-title">Source Timeline</h3>
+        <p class="about-feat-desc">Switch between built-in, Bluetooth, or external microphones mid-session. Sondex records which source was active at each moment as an interactive timeline.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📄</div>
+        <h3 class="about-feat-title">PDF Reports</h3>
+        <p class="about-feat-desc">Export each session as a detailed PDF — all measured parameters, location data, device info, time breakdown, and automatic recommendations.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🎛️</div>
+        <h3 class="about-feat-title">Microphone Calibration</h3>
+        <p class="about-feat-desc">Manual or automatic offset correction. When measurement accuracy is important, you have full control over your microphone input.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🔬</div>
+        <h3 class="about-feat-title">Microphone Performance</h3>
+        <p class="about-feat-desc">Sondex analyzes your microphone during each session — detecting interference, wind noise, self-noise levels, and frequency anomalies. Every session gets a health score from 0 to 100.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.jpg" alt="Sondex" />
+        Sondex
+      </div>
+      <div class="footer-links">
+        <a href="subscription.html" class="footer-link">Subscription Plans</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Sondex. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

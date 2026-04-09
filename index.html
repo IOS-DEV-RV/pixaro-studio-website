@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixaro Studio — Apps Built for Real Life</title>
+  <meta name="description" content="Pixaro Studio builds iOS apps and games designed to disappear into your daily life — simple, focused, and built with care." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .site-nav.scrolled { background: rgba(6,2,0,0.85); }
+
+    /* Hero counter animation */
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid var(--sep);
+      flex-wrap: wrap;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num {
+      font-size: 2rem; font-weight: 800; letter-spacing: -1px;
+      color: var(--amber); line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 12px; color: var(--cream-40); margin-top: 4px;
+      font-weight: 500; letter-spacing: 0.3px;
+    }
+
+    /* Marquee */
+    .marquee-section {
+      padding: 40px 0;
+      overflow: hidden;
+      border-top: 1px solid var(--sep);
+      border-bottom: 1px solid var(--sep);
+      margin-bottom: 0;
+    }
+    .marquee-track {
+      display: flex;
+      gap: 48px;
+      animation: marqueeScroll 20s linear infinite;
+      width: max-content;
+    }
+    .marquee-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; font-weight: 500; color: var(--cream-40);
+      white-space: nowrap;
+    }
+    .marquee-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--amber); opacity: 0.5; }
+    @keyframes marqueeScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* App cards on mobile — horizontal scroll */
+    @media (max-width: 900px) {
+      .apps-cards-track {
+        display: flex;
+        overflow-x: auto;
+        gap: 16px;
+        padding-bottom: 16px;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+      .apps-cards-track::-webkit-scrollbar { display: none; }
+      .app-card { min-width: 280px; scroll-snap-align: start; }
+    }
+
+    /* Separator accent line */
+    .accent-line {
+      height: 2px;
+      width: 60px;
+      background: linear-gradient(to right, var(--amber), transparent);
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-logo-wrap">
+    <img src="images/company-logo.png" class="nav-logo-mark" alt="Pixaro Studio" />
+    Pixaro Studio
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="apps.html" class="nav-link">Our Apps</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <button class="nav-drawer-close" id="navDrawerClose">✕</button>
+  <div class="nav-drawer-links">
+    <a href="index.html" class="nav-drawer-link">Home</a>
+    <a href="apps.html" class="nav-drawer-link">Our Apps</a>
+    <a href="about.html" class="nav-drawer-link">About</a>
+    <a href="careers.html" class="nav-drawer-link">Careers</a>
+  </div>
+  <a href="contact.html" class="nav-drawer-cta">Contact Us</a>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-glow hero-glow-1"></div>
+  <div class="hero-glow hero-glow-2"></div>
+  <div class="hero-glow hero-glow-3"></div>
+  <div class="hero-grid"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge reveal">
+      <span class="hero-badge-dot"></span>
+      iOS App Studio
+    </div>
+    <h1 class="hero-title reveal reveal-delay-1">
+      Apps that<br /><span class="hero-title-accent">get out of your way</span>
+    </h1>
+    <p class="hero-sub reveal reveal-delay-2">
+      We build iOS tools and games designed to disappear into your daily life — so you spend less time figuring out the app, and more time actually doing things.
+    </p>
+    <div class="hero-actions reveal reveal-delay-3">
+      <a href="apps.html" class="btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        Our Apps
+      </a>
+      <a href="about.html" class="btn-ghost">
+        About Us →
+      </a>
+    </div>
+    <div class="hero-stats reveal reveal-delay-4">
+      <div class="hero-stat">
+        <div class="hero-stat-num">5+</div>
+        <div class="hero-stat-label">iOS Apps</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">10+</div>
+        <div class="hero-stat-label">Languages</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">iOS 16</div>
+        <div class="hero-stat-label">Minimum Target</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">∞</div>
+        <div class="hero-stat-label">Niches</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- ── MARQUEE ── -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item"><span class="marquee-dot"></span>Document Scanning</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Camera Tools</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Photo & Video</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Audio Measurement</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Family Games</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Built for iPhone</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>iOS 16+</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Minimal by Design</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Document Scanning</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Camera Tools</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Photo & Video</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Audio Measurement</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Family Games</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Built for iPhone</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>iOS 16+</span>
+    <span class="marquee-item"><span class="marquee-dot"></span>Minimal by Design</span>
+  </div>
+</div>
+
+<!-- ── FEATURED APPS ── -->
+<section class="apps-preview">
+  <div class="container">
+    <div class="apps-preview-head">
+      <div class="apps-preview-head-text">
+        <p class="section-label reveal">Our Applications</p>
+        <h2 class="section-title reveal reveal-delay-1">Tools for every<br />part of your day</h2>
+      </div>
+      <a href="apps.html" class="view-all-btn reveal reveal-delay-2">
+        View all apps →
+      </a>
+    </div>
+
+    <div class="apps-cards-track">
+
+      <!-- ScanSeek -->
+      <a href="apps/scansseek-site/index.html" class="app-card reveal reveal-delay-1">
+        <div class="app-card-glow" style="background:#007AFF;"></div>
+        <img src="apps/scansseek-site/images/icon.png" alt="ScanSeek" class="app-card-icon" />
+        <div class="app-card-icon-placeholder" style="background:rgba(0,122,255,0.15);display:none;">📄</div>
+        <p class="app-card-category" style="color:#007AFF;">Productivity</p>
+        <h3 class="app-card-name">ScanSeek</h3>
+        <p class="app-card-desc">Smart PDF scanner with instant text search. Turn your iPhone into a powerful document manager.</p>
+        <span class="app-card-arrow" style="color:#007AFF;">Explore app →</span>
+      </a>
+
+      <!-- Lens Kit Pro -->
+      <a href="apps/lenskit-site/index.html" class="app-card reveal reveal-delay-2">
+        <div class="app-card-glow" style="background:#FF3B30;"></div>
+        <img src="apps/lenskit-site/assets/icon.png" alt="Lens Kit Pro" class="app-card-icon" />
+        <div class="app-card-icon-placeholder" style="background:rgba(255,59,48,0.15);display:none;">📷</div>
+        <p class="app-card-category" style="color:#FF3B30;">Photography</p>
+        <h3 class="app-card-name">Lens Kit Pro</h3>
+        <p class="app-card-desc">Full manual camera control for iPhone. Shoot RAW, record ProRes 4K, apply cinematic presets.</p>
+        <span class="app-card-arrow" style="color:#FF3B30;">Explore app →</span>
+      </a>
+
+      <!-- Lumivo -->
+      <a href="apps/lumivo-site/index.html" class="app-card reveal reveal-delay-3">
+        <div class="app-card-glow" style="background:#BF5AF2;"></div>
+        <img src="images/lumivo-icon.png" alt="Lumivo" class="app-card-icon" />
+        <p class="app-card-category" style="color:#BF5AF2;">Creative</p>
+        <h3 class="app-card-name">Lumivo</h3>
+        <p class="app-card-desc">Turn any video into a stunning Live Photo. AI-powered trim, timelapse, quote overlay — your memories, alive.</p>
+        <span class="app-card-arrow" style="color:#BF5AF2;">Explore app →</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── ABOUT TEASER ── -->
+<div class="about-divider"></div>
+
+<section class="about-teaser">
+  <div class="container">
+    <div class="about-teaser-inner">
+      <div>
+        <p class="section-label reveal">Who We Are</p>
+        <h2 class="about-teaser-quote reveal reveal-delay-1">
+          Built simple.<br /><em>Works perfectly.</em>
+        </h2>
+        <div class="accent-line reveal reveal-delay-2"></div>
+      </div>
+      <div class="about-teaser-right reveal reveal-delay-2">
+        <p class="about-teaser-body">
+          We're a small independent studio focused on one idea: <strong>great software should feel effortless.</strong> Not minimal for the sake of it — but minimal because every extra step is a small theft of your time.
+        </p>
+        <p class="about-teaser-body">
+          We build iOS apps and games across different niches, always asking the same question: <em>what's the simplest way this could work?</em>
+        </p>
+        <a href="about.html" class="about-teaser-link">
+          Read our full story →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS ── -->
+<div class="about-divider"></div>
+
+<section class="stats-bar">
+  <div class="container">
+    <div class="stats-bar-inner">
+      <div class="stat-item reveal">
+        <div class="stat-num">5+</div>
+        <div class="stat-label">Apps in development</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-1">
+        <div class="stat-num">10+</div>
+        <div class="stat-label">Supported languages</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-2">
+        <div class="stat-num">2</div>
+        <div class="stat-label">Categories: tools & games</div>
+      </div>
+      <div class="stat-item reveal reveal-delay-3">
+        <div class="stat-num">0</div>
+        <div class="stat-label">Unnecessary taps</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">✦</div>
+        Pixaro Studio
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="apps.html" class="footer-link">Apps</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="careers.html" class="footer-link">Careers</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Pixaro Studio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

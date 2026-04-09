@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us — Pixaro Studio</title>
+  <meta name="description" content="Pixaro Studio is a small independent iOS studio building apps and games that simplify everyday life." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .site-nav.scrolled { background: rgba(6,2,0,0.85); }
+
+    .mission-block {
+      max-width: 740px;
+      margin: 0 auto 80px;
+    }
+    .mission-heading {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.15;
+      color: var(--cream);
+      margin-bottom: 32px;
+    }
+    .mission-heading em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--amber-light), var(--amber));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .about-story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-bottom: 80px;
+    }
+    .about-story-left {}
+    .about-story-heading {
+      font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px;
+      color: var(--cream); margin-bottom: 20px;
+    }
+    .about-story-text {
+      font-size: 1rem; color: var(--cream-70); line-height: 1.9; margin-bottom: 16px;
+    }
+    .about-story-text strong { color: var(--cream); font-weight: 600; }
+
+    .timeline {
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 8px; bottom: 8px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px; top: 6px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 10px rgba(255,149,0,0.5);
+    }
+    .timeline-date {
+      font-size: 12px; font-weight: 600; letter-spacing: 1px;
+      color: var(--amber); text-transform: uppercase; margin-bottom: 4px;
+    }
+    .timeline-title {
+      font-size: 15px; font-weight: 700; color: var(--cream); margin-bottom: 4px;
+    }
+    .timeline-desc {
+      font-size: 13px; color: var(--cream-40); line-height: 1.6;
+    }
+
+    .philosophy-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 80px;
+    }
+    .philosophy-card {
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--sep);
+      border-radius: var(--radius);
+      padding: 32px 28px;
+      position: relative; overflow: hidden;
+    }
+    .philosophy-card::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, var(--amber), transparent);
+    }
+    .philosophy-num {
+      font-size: 3rem; font-weight: 800; letter-spacing: -2px;
+      color: rgba(255,149,0,0.1); line-height: 1; margin-bottom: 16px;
+    }
+    .philosophy-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--cream); margin-bottom: 10px;
+    }
+    .philosophy-desc {
+      font-size: 14px; color: var(--cream-40); line-height: 1.7;
+    }
+
+    @media (max-width: 768px) {
+      .about-story-grid { grid-template-columns: 1fr; gap: 40px; }
+      .philosophy-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-logo-wrap">
+    <img src="images/company-logo.png" class="nav-logo-mark" alt="Pixaro Studio" style="width:32px;height:32px;border-radius:9px;object-fit:cover;background:none;" />
+    Pixaro Studio
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="apps.html" class="nav-link">Our Apps</a>
+    <a href="about.html" class="nav-link active">About</a>
+    <a href="careers.html" class="nav-link">Careers</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <button class="nav-drawer-close" id="navDrawerClose">✕</button>
+  <div class="nav-drawer-links">
+    <a href="index.html" class="nav-drawer-link">Home</a>
+    <a href="apps.html" class="nav-drawer-link">Our Apps</a>
+    <a href="about.html" class="nav-drawer-link active">About</a>
+    <a href="careers.html" class="nav-drawer-link">Careers</a>
+  </div>
+  <a href="contact.html" class="nav-drawer-cta">Contact Us</a>
+</div>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero">
+  <div class="container">
+    <p class="section-label reveal">About Us</p>
+    <h1 class="page-hero-title reveal reveal-delay-1">
+      We build apps<br />
+      <span style="background:linear-gradient(135deg,#FFB830,#FF9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">people actually use</span>
+    </h1>
+    <p class="page-hero-sub reveal reveal-delay-2">
+      Small team. Big ideas. One obsession — making software feel natural.
+    </p>
+  </div>
+</section>
+
+<!-- ── ABOUT SECTION ── -->
+<section class="about-section">
+  <div class="container">
+
+    <!-- Mission statement -->
+    <div class="mission-block reveal">
+      <h2 class="mission-heading">
+        Great software should feel <em>effortless.</em><br />
+        Not minimal for the sake of it —
+      </h2>
+      <p class="about-manifesto-text">
+        — but minimal because <strong>every extra step, every extra tap, every extra second of confusion is a small theft of your time.</strong>
+      </p>
+      <p class="about-manifesto-text">
+        We're a small independent studio building iOS apps and games across different niches — document scanning, photography, audio measurement, video creation, and interactive family experiences — always asking the same question: <strong>what's the simplest way this could work?</strong>
+      </p>
+      <p class="about-manifesto-text">
+        Whether it's a tool that gets a job done quietly in the background or a game that pulls you in for five minutes, we build it the same way: with care, with purpose, and without the noise.
+      </p>
+      <p class="about-manifesto-text">
+        No bloat. No clutter. Just apps built for real people.
+      </p>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <!-- Story + Timeline -->
+    <div class="about-story-grid" style="margin-top: 80px;">
+      <div class="about-story-left reveal">
+        <h3 class="about-story-heading">How it started</h3>
+        <p class="about-story-text">
+          Pixaro Studio began with a simple frustration: too many apps that do too much, while doing nothing well. Complex interfaces, unnecessary features, bloated onboarding — software that demands your attention instead of earning it.
+        </p>
+        <p class="about-story-text">
+          We started building the apps we wanted to use ourselves. Small, focused tools that solve one problem — and solve it perfectly. The first app shipped. Then another. Then a game. Each one a little better, a little cleaner.
+        </p>
+        <p class="about-story-text">
+          Today we're a growing portfolio of iOS applications covering different areas of daily life, all built on the same foundation: <strong>less friction, more doing.</strong>
+        </p>
+      </div>
+
+      <div class="reveal reveal-delay-1">
+        <h3 class="about-story-heading">Our journey</h3>
+        <div class="timeline">
+          <div class="timeline-item">
+            <p class="timeline-date">Jan 2025</p>
+            <p class="timeline-title">Studio founded</p>
+            <p class="timeline-desc">Started building the first app in a single focused sprint.</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">Mar 2025</p>
+            <p class="timeline-title">ScanSeek launched</p>
+            <p class="timeline-desc">Our first app — a smart PDF scanner with instant text search.</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">Mar 2025</p>
+            <p class="timeline-title">Lens Kit Pro & Lumivo</p>
+            <p class="timeline-desc">Expanded into photography and creative video tools.</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">Mar 2025</p>
+            <p class="timeline-title">Tellio — first game</p>
+            <p class="timeline-desc">Entered the games category with a family dice storytelling game.</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">Apr 2025</p>
+            <p class="timeline-title">Sondex launched</p>
+            <p class="timeline-desc">Professional noise measurement for iPhone — audio tools category.</p>
+          </div>
+          <div class="timeline-item">
+            <p class="timeline-date">2026 →</p>
+            <p class="timeline-title">Growing the portfolio</p>
+            <p class="timeline-desc">New apps across new niches. Same philosophy, new problems solved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <!-- Philosophy -->
+    <div style="margin-top: 80px;">
+      <p class="section-label reveal">Our Philosophy</p>
+      <h2 class="section-title reveal reveal-delay-1" style="margin-bottom: 40px;">Four principles<br />we never compromise on</h2>
+
+      <div class="philosophy-grid">
+        <div class="philosophy-card reveal">
+          <div class="philosophy-num">01</div>
+          <h3 class="philosophy-title">One thing, done right</h3>
+          <p class="philosophy-desc">Each app solves one core problem. We don't add features to justify the price — we remove everything that isn't essential and make what remains excellent.</p>
+        </div>
+        <div class="philosophy-card reveal reveal-delay-1">
+          <div class="philosophy-num">02</div>
+          <h3 class="philosophy-title">Invisible is the goal</h3>
+          <p class="philosophy-desc">The best interface is one you stop noticing. We obsess over flows, transitions, and defaults so the app disappears and only the result remains.</p>
+        </div>
+        <div class="philosophy-card reveal reveal-delay-2">
+          <div class="philosophy-num">03</div>
+          <h3 class="philosophy-title">Built for every screen</h3>
+          <p class="philosophy-desc">From iPhone SE to Pro Max, every layout, every text, every button is tested and optimized. Nobody gets a broken experience because of their device size.</p>
+        </div>
+        <div class="philosophy-card reveal reveal-delay-3">
+          <div class="philosophy-num">04</div>
+          <h3 class="philosophy-title">Ship, then improve</h3>
+          <p class="philosophy-desc">We believe in putting real tools in people's hands, listening carefully, and iterating fast. A good app today beats a perfect app never.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Values -->
+    <div style="margin-top: 80px;">
+      <p class="section-label reveal">What Drives Us</p>
+      <div class="about-values" style="margin-top: 32px;">
+        <div class="value-card reveal">
+          <div class="value-icon">⚡</div>
+          <h3 class="value-title">Speed</h3>
+          <p class="value-desc">Every tap should feel instant. We optimize for perceived performance because your time is the resource we're protecting.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-1">
+          <div class="value-icon">🎯</div>
+          <h3 class="value-title">Focus</h3>
+          <p class="value-desc">We say no to features more often than yes. Focus is a feature — and it's the hardest one to build.</p>
+        </div>
+        <div class="value-card reveal reveal-delay-2">
+          <div class="value-icon">✦</div>
+          <h3 class="value-title">Craft</h3>
+          <p class="value-desc">We care about the details nobody sees — until they're missing. Good craft is the difference between an app you use and one you love.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">✦</div>
+        Pixaro Studio
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="apps.html" class="footer-link">Apps</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="careers.html" class="footer-link">Careers</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Pixaro Studio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

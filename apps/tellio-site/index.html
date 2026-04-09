@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tellio — Roll. See. Tell Your Story.</title>
+  <meta name="description" content="A creative family dice game where rolled dice show images — and you bring them to life your way. 9 unique themes, custom sets, player tracking." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .menu-btn,.fullmenu,.menu-overlay{display:none!important}
+    body{background:#07040F}
+    .navbar{background:rgba(26,16,64,.97)!important;position:sticky!important;top:0!important;z-index:999!important}
+    .nav-inner{display:flex!important;grid-template-columns:unset!important;justify-content:space-between!important;align-items:center!important;max-width:100%!important;margin:0!important;padding:0 20px!important;box-sizing:border-box!important}
+    .tl-back{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:rgba(240,235,227,.5);text-decoration:none;white-space:nowrap;transition:color .2s}
+    .tl-back:hover{color:#F0EBE3}
+    .tl-btns{display:flex;align-items:center;gap:8px}
+    .tl-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:rgba(255,255,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
+    .tl-btn:hover{background:rgba(255,255,255,.13);color:#fff}
+    @media(max-width:480px){.nav-inner{padding:0 16px!important}.tl-btn{padding:6px 11px;font-size:12px}}
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-inner">
+      <a href="../../apps.html" class="tl-back">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Our Apps
+      </a>
+      <div class="tl-btns">
+        <a href="privacy.html" class="tl-btn">🔒 Privacy</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FULL-SCREEN MENU -->
+  <div class="fullmenu" id="slideMenu">
+    <button class="fullmenu__close" id="menuClose" aria-label="Close menu">✕</button>
+    <div class="fullmenu__dice">🎲</div>
+    <nav class="fullmenu__nav">
+      <a href="privacy.html" class="fullmenu__link">
+        <span class="fullmenu__num">01</span>
+        Privacy Policy
+      </a>
+      <a href="support.html" class="fullmenu__link">
+        <span class="fullmenu__num">02</span>
+        Support
+      </a>
+    </nav>
+    <p class="fullmenu__copy">© 2026 Tellio · Roll. See. Tell.</p>
+  </div>
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-glow hero-glow-1"></div>
+    <div class="hero-glow hero-glow-2"></div>
+    <div class="hero-glow hero-glow-3"></div>
+
+    <div class="hero-center">
+      <div class="hero-badge reveal">Creative Family Game · Age 3+</div>
+      <h1 class="hero-title reveal">Roll the dice.<br />See the pictures.<br /><em>Tell your story.</em></h1>
+      <p class="hero-subtitle reveal">
+        A creative family game where rolled dice show images — and you bring them to life your way.
+        Describe them as a story, sing them as a song, act them out in silence, or go completely Hidden.
+      </p>
+      <div class="hero-actions reveal">
+        <a href="#" class="btn-appstore">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on App Store
+        </a>
+        <div class="hero-scroll-hint reveal">
+          <span>Scroll to explore</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-image-wrap reveal">
+      <img src="screenshots/hero.png" alt="Tellio dice game in action" class="hero-img" />
+    </div>
+  </section>
+
+  <!-- TAGLINE STRIP -->
+  <div class="tagline-strip">
+    <div class="tagline-inner">
+      <span>Every round is different</span>
+      <span class="dot">·</span>
+      <span>Every player surprises you</span>
+      <span class="dot">·</span>
+      <span>No reading required</span>
+      <span class="dot">·</span>
+      <span>Age 3+</span>
+      <span class="dot">·</span>
+      <span>Every round is different</span>
+      <span class="dot">·</span>
+      <span>Every player surprises you</span>
+      <span class="dot">·</span>
+      <span>No reading required</span>
+      <span class="dot">·</span>
+      <span>Age 3+</span>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="features-header">
+      <div class="section-label reveal">How it works</div>
+      <h2 class="section-title reveal">One phone.<br /><em>Endless stories.</em></h2>
+    </div>
+
+    <div class="bento">
+
+      <!-- Bento 1: large left card -->
+      <div class="bento-card bento-card--wide reveal">
+        <div class="bento-card__text">
+          <div class="feature-num">01</div>
+          <h3 class="feature-title">Track scores,<br />crown the winner</h3>
+          <p class="feature-desc">After every turn, players rate the storyteller 1–5 stars. Stars add up — a full results screen shows who shone brightest.</p>
+          <ul class="feature-points">
+            <li>1–5 star rating after each turn</li>
+            <li>Leaderboard: gold, silver, bronze</li>
+            <li>Full game history saved forever</li>
+          </ul>
+        </div>
+        <div class="bento-card__phone">
+          <img src="screenshots/screen1.png" alt="Results screen" class="feature-screenshot" />
+        </div>
+      </div>
+
+      <!-- Bento 2: top-right -->
+      <div class="bento-card reveal">
+        <div class="bento-card__phone bento-card__phone--top">
+          <img src="screenshots/screen2.png" alt="Custom sets screen" class="feature-screenshot" />
+        </div>
+        <div class="bento-card__text">
+          <div class="feature-num">02</div>
+          <h3 class="feature-title">Your own<br />image sets</h3>
+          <p class="feature-desc">7 curated sets included — or create your own from your camera roll. The game becomes personal.</p>
+        </div>
+      </div>
+
+      <!-- Bento 3: bottom-right top -->
+      <div class="bento-card reveal">
+        <div class="bento-card__phone bento-card__phone--top">
+          <img src="screenshots/screen3.png" alt="Themes screen" class="feature-screenshot" />
+        </div>
+        <div class="bento-card__text">
+          <div class="feature-num">03</div>
+          <h3 class="feature-title">9 unique<br />themes</h3>
+          <p class="feature-desc">Story, Song, Silent, Hidden — every round brings a new creative challenge. No two games feel the same.</p>
+        </div>
+      </div>
+
+      <!-- Bento 4: full-width bottom -->
+      <div class="bento-card bento-card--wide bento-card--flip reveal">
+        <div class="bento-card__text">
+          <div class="feature-num">04</div>
+          <h3 class="feature-title">Simple rules,<br />deep gameplay</h3>
+          <p class="feature-desc">Shake to roll — dice tumble and land on random images. Describe them following the active theme. Others listen, then rate you. Simple to learn, impossible to put down.</p>
+          <ul class="feature-points">
+            <li>Shake to roll with real physics</li>
+            <li>3 to 6 dice per round</li>
+            <li>In-app rules always at hand</li>
+          </ul>
+        </div>
+        <div class="bento-card__phone">
+          <img src="screenshots/screen4.png" alt="Game rules screen" class="feature-screenshot" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- THEMES GRID -->
+  <section class="themes-section">
+    <div class="themes-inner">
+      <div class="section-label reveal" style="text-align:center">9 Creative Themes</div>
+      <h2 class="section-title reveal" style="text-align:center;margin-bottom:48px">A different challenge<br /><em>every single round</em></h2>
+      <div class="themes-grid">
+        <div class="theme-card reveal"><span class="theme-icon">💬</span><h4>Association</h4><p>What feelings or images does it spark in you?</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">📖</span><h4>Story</h4><p>Weave all the dice images into one tale.</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">👁</span><h4>Describe</h4><p>Explain the action or scene as precisely as possible.</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">4️⃣</span><h4>In 4 Words</h4><p>Say it all in exactly four words. No more, no less.</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">🎬</span><h4>As a Movie</h4><p>Connect all images to a famous film or series.</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">🎤</span><h4>As a Song</h4><p>Sing your explanation. Any melody, any style.</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">🤫</span><h4>No Words</h4><p>Gestures and sounds only — no speaking allowed.</p></div>
+        <div class="theme-card reveal"><span class="theme-icon">✨</span><h4>Freestyle</h4><p>Explain however you like. Your rules.</p></div>
+        <div class="theme-card theme-card-hidden reveal"><span class="theme-icon">🎭</span><h4>Hidden Mode</h4><p>A secret challenge — others must guess which images you chose.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about-inner">
+      <div class="about-tag reveal">Perfect for</div>
+      <h2 class="about-title reveal">For anyone who loves<br /><em>a good story</em></h2>
+
+      <div class="about-grid">
+        <div class="about-card reveal">
+          <div class="about-card-icon">🏠</div>
+          <h4>Family game nights</h4>
+          <p>Suitable for ages 3+. No reading required for young players. Fun for the whole table.</p>
+        </div>
+        <div class="about-card reveal">
+          <div class="about-card-icon">🚗</div>
+          <h4>Road trips & waiting</h4>
+          <p>One iPhone for the whole table. No cards, no board, no setup — just open and play.</p>
+        </div>
+        <div class="about-card reveal">
+          <div class="about-card-icon">🎉</div>
+          <h4>Parties & birthdays</h4>
+          <p>9 modes keep every group laughing. Hidden mode is the twist that steals the evening.</p>
+        </div>
+        <div class="about-card reveal">
+          <div class="about-card-icon">🌙</div>
+          <h4>Bedtime storytelling</h4>
+          <p>Use the Kids set for calm, imaginative bedtime stories with younger children.</p>
+        </div>
+      </div>
+
+      <div class="about-description reveal">
+        <blockquote class="about-quote">
+          "Roll. Imagine. Tell your story."
+        </blockquote>
+        <p>
+          Tellio is a creative family dice game where rolled dice show images — and you bring them to life your way.
+          With 9 unique themes and 7 curated image sets, no two games are ever the same.
+          Add players, track stars, discover who earns the most across all rounds.
+          Create custom sets from your own photos and make the game entirely personal.
+          A full results history shows every game ever played.
+        </p>
+        <p>
+          Fair &amp; fun rating: after each turn, players rate the storyteller 1–5 stars for artistry, creativity, and wit.
+          In Hidden mode, stars are calculated automatically based on how well others guessed.
+        </p>
+      </div>
+
+      <div class="about-cta reveal">
+        <a href="#" class="btn-appstore btn-appstore-lg">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          Download on the App Store
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-logo">Tellio</span>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a>
+        <a href="support.html">Support</a>
+      </div>
+      <span class="footer-copy">© 2026 Tellio. All rights reserved.</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

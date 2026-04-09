@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Careers — Pixaro Studio</title>
+  <meta name="description" content="Join Pixaro Studio. We're always looking for people who care deeply about craft." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .site-nav.scrolled { background: rgba(6,2,0,0.85); }
+    .careers-hero-glow {
+      position: absolute;
+      width: 500px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,149,0,0.08), transparent 70%);
+      filter: blur(60px);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .careers-card {
+      max-width: 600px;
+      margin: 0 auto;
+      background: rgba(255,255,255,0.025);
+      border: 1px solid var(--sep);
+      border-radius: 28px;
+      padding: 56px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .careers-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(to right, transparent, var(--amber), transparent);
+    }
+    .careers-notify-form {
+      display: flex; gap: 10px; margin-top: 32px; flex-wrap: wrap;
+    }
+    .careers-notify-input {
+      flex: 1; min-width: 200px;
+      background: var(--cream-08); border: 1px solid var(--sep);
+      border-radius: 12px; padding: 12px 16px;
+      font-family: var(--font); font-size: 15px; color: var(--cream);
+      outline: none;
+    }
+    .careers-notify-input:focus { border-color: rgba(255,149,0,0.4); }
+    .careers-notify-input::placeholder { color: var(--cream-40); }
+    .careers-notify-btn {
+      padding: 12px 24px; border-radius: 12px;
+      font-size: 14px; font-weight: 600; color: #1A0600;
+      background: var(--amber); border: none;
+      cursor: pointer; transition: background 0.2s;
+      white-space: nowrap;
+    }
+    .careers-notify-btn:hover { background: var(--amber-light); }
+    .careers-values-row {
+      display: flex; gap: 24px; justify-content: center;
+      margin-top: 60px; flex-wrap: wrap;
+    }
+    .careers-value-chip {
+      display: flex; align-items: center; gap: 8px;
+      padding: 10px 18px; border-radius: 30px;
+      font-size: 13px; font-weight: 500; color: var(--cream-70);
+      background: var(--cream-08); border: 1px solid var(--sep);
+    }
+
+    @media (max-width: 600px) {
+      .careers-card { padding: 36px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="site-nav" id="siteNav">
+  <a href="index.html" class="nav-logo-wrap">
+    <img src="images/company-logo.png" class="nav-logo-mark" alt="Pixaro Studio" style="width:32px;height:32px;border-radius:9px;object-fit:cover;background:none;" />
+    Pixaro Studio
+  </a>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="apps.html" class="nav-link">Our Apps</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="careers.html" class="nav-link active">Careers</a>
+    <a href="contact.html" class="nav-cta">Contact</a>
+  </div>
+  <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-drawer-overlay" id="navDrawerOverlay"></div>
+<div class="nav-drawer" id="navDrawer">
+  <button class="nav-drawer-close" id="navDrawerClose">✕</button>
+  <div class="nav-drawer-links">
+    <a href="index.html" class="nav-drawer-link">Home</a>
+    <a href="apps.html" class="nav-drawer-link">Our Apps</a>
+    <a href="about.html" class="nav-drawer-link">About</a>
+    <a href="careers.html" class="nav-drawer-link active">Careers</a>
+  </div>
+  <a href="contact.html" class="nav-drawer-cta">Contact Us</a>
+</div>
+
+<!-- ── PAGE HERO ── -->
+<section class="page-hero" style="position:relative;">
+  <div class="careers-hero-glow"></div>
+  <div class="container" style="position:relative;z-index:2;">
+    <p class="section-label reveal">Join the Team</p>
+    <h1 class="page-hero-title reveal reveal-delay-1">
+      <span style="background:linear-gradient(135deg,#FFB830,#FF9500);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">Careers</span>
+    </h1>
+    <p class="page-hero-sub reveal reveal-delay-2">
+      We're building something worth being part of. When the time is right, we want people who care about craft.
+    </p>
+  </div>
+</section>
+
+<!-- ── EMPTY STATE ── -->
+<section class="careers-empty">
+  <div class="container">
+
+    <div class="careers-card reveal">
+      <div class="careers-empty-icon">🔭</div>
+      <h2 class="careers-empty-title">No open positions right now</h2>
+      <p class="careers-empty-desc">
+        We're a small focused team and we grow slowly and deliberately. No open roles at the moment — but that changes.
+      </p>
+      <p style="font-size:14px;color:var(--cream-40);line-height:1.7;margin-bottom:4px;">
+        Leave your email and we'll reach out when something comes up that might be a fit.
+      </p>
+      <form class="careers-notify-form" id="notifyForm">
+        <input type="email" class="careers-notify-input" id="notifyEmail" placeholder="your@email.com" required />
+        <button type="submit" class="careers-notify-btn">Notify me</button>
+      </form>
+      <p id="notifySuccess" style="display:none;margin-top:16px;font-size:14px;color:var(--amber);font-weight:600;">
+        ✓ We'll be in touch when something opens up.
+      </p>
+    </div>
+
+    <div class="careers-values-row reveal reveal-delay-2">
+      <div class="careers-value-chip">⚡ Remote-first</div>
+      <div class="careers-value-chip">🎯 Small team</div>
+      <div class="careers-value-chip">✦ Craft-focused</div>
+      <div class="careers-value-chip">📱 iOS natives</div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <div class="footer-logo-mark">✦</div>
+        Pixaro Studio
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">Home</a>
+        <a href="apps.html" class="footer-link">Apps</a>
+        <a href="about.html" class="footer-link">About</a>
+        <a href="careers.html" class="footer-link">Careers</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Pixaro Studio. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.getElementById('notifyForm')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = document.getElementById('notifyEmail')?.value;
+    if (email) {
+      window.location.href = `mailto:admin@terasms.ru?subject=Career%20Notification%20Request&body=Please%20notify%20me%20about%20career%20opportunities%20at%20Pixaro%20Studio.%0A%0AEmail%3A%20${encodeURIComponent(email)}`;
+      document.getElementById('notifySuccess').style.display = 'block';
+      document.getElementById('notifyForm').style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
