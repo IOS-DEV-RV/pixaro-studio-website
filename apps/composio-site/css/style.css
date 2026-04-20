@@ -463,6 +463,64 @@ ul  { list-style: none; }
   .storedesc__tagline p { font-size: 18px; }
 }
 
+/* ─── WHERE IT HELPS — categories ───────────────────────────────── */
+.usecases {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin: 36px 0 52px;
+}
+.usecase {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 18px; padding: 22px 18px;
+  transition: transform 0.3s, border-color 0.3s;
+}
+.usecase:hover { transform: translateY(-3px); border-color: rgba(122,255,200,0.35); }
+.usecase__icon {
+  width: 40px; height: 40px; border-radius: 12px;
+  background: rgba(91,174,255,0.15);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); margin-bottom: 12px;
+}
+.usecase__title { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.usecase__text  { font-size: 12.5px; color: var(--text-dim); line-height: 1.55; }
+
+@media (max-width: 900px) { .usecases { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .usecases { grid-template-columns: 1fr; } }
+
+/* ─── HOW IT WORKS — steps ──────────────────────────────────────── */
+.howto {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 16px; margin: 36px 0 52px;
+}
+.howto__step {
+  background: linear-gradient(160deg, rgba(91,174,255,0.10) 0%, rgba(43,197,168,0.05) 100%);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 28px 22px;
+  position: relative;
+}
+.howto__num {
+  position: absolute; top: 18px; right: 22px;
+  font-size: 38px; font-weight: 800; line-height: 1;
+  color: rgba(122,255,200,0.18);
+}
+.howto__title { font-size: 16px; font-weight: 700; margin-bottom: 8px; padding-right: 36px; }
+.howto__text  { font-size: 13.5px; color: var(--text-dim); line-height: 1.6; }
+
+@media (max-width: 768px) { .howto { grid-template-columns: 1fr; } }
+
+/* ─── AUDIENCE — pills row ──────────────────────────────────────── */
+.audience {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  justify-content: center; margin: 28px auto 0;
+  max-width: 720px;
+}
+.audience__pill {
+  padding: 8px 16px; border-radius: 30px;
+  font-size: 13px; font-weight: 500;
+  background: rgba(91,174,255,0.10);
+  border: 1px solid rgba(91,174,255,0.22);
+  color: var(--text-dim);
+}
+
 /* ─── SUPPORT ───────────────────────────────────────────────────── */
 .support { padding: 0 24px 80px; }
 .support__inner {
