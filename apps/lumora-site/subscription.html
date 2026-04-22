@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Subscription Plans — Lumora</title>
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .nav-menu-btn,.menu-overlay,.menu-drawer{display:none!important}
+    body{background:#050B16}
+    .nav{background:rgba(5,11,22,.97)!important;position:sticky!important;top:0!important;z-index:999!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding:0 20px!important;box-sizing:border-box!important;border-bottom:1px solid rgba(232,244,255,.08)!important}
+    .lx-logo{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;color:#E8F4FF;text-decoration:none}
+    .lx-back-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid rgba(232,244,255,.13);background:rgba(232,244,255,.07);color:rgba(232,244,255,.7);text-decoration:none;transition:all .2s;white-space:nowrap}
+    .lx-back-btn:hover{background:rgba(232,244,255,.13);color:#fff}
+    @media(max-width:480px){.nav{padding:0 16px!important}.lx-back-btn{padding:6px 11px;font-size:12px}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="lx-logo">
+    <img src="images/icon.png" alt="Lumora" style="width:26px;height:26px;border-radius:7px;object-fit:cover;flex-shrink:0;">
+    Lumora
+  </a>
+  <a href="javascript:history.back()" class="lx-back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back
+  </a>
+</nav>
+
+<div class="page-header">
+  <div class="container">
+    <p class="section-label">Plans</p>
+    <h1 class="page-title">Choose Your Level</h1>
+    <p class="page-subtitle">Start for free, unlock the full optical toolkit when you need it. Every feature, clearly listed.</p>
+  </div>
+</div>
+
+<section class="plans-section">
+  <div class="container">
+    <div class="plans-table-scroll">
+    <div class="plans-grid">
+
+      <!-- ── HEADER ── -->
+      <div class="plans-header-cell">
+        <div class="plan-name" style="color:var(--ice-55);">Feature</div>
+      </div>
+      <div class="plans-header-cell">
+        <div class="plan-name">Free</div>
+        <div class="plan-sub">No subscription</div>
+      </div>
+      <div class="plans-header-cell pro-col">
+        <div class="plan-name">Pro</div>
+        <div class="plan-highlight-tag">Most Popular</div>
+      </div>
+
+      <!-- ── CORE MEASUREMENT ── -->
+      <div class="plans-category">Core Measurement</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Real-time lux meter</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Live color temperature (Kelvin)</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Min · Avg · Peak illumination</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Measurement units</div>
+        <div class="plans-cell"><span class="value">Lux only</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Lux &amp; Foot-candles</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Manual sensor calibration</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── COLOR & SPECTRUM ── -->
+      <div class="plans-category">Color &amp; Spectrum</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Color sampler — point &amp; read</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">RGB · HEX · HSL values</div>
+        <div class="plans-cell"><span class="value">View only</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Copy &amp; Save</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Color sample library</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Visible-light spectrum analyzer</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Blue-light exposure tracking</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── PROFILES & ALERTS ── -->
+      <div class="plans-category">Comfort Profiles &amp; Alerts</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Lighting profile</div>
+        <div class="plans-cell"><span class="value">Home Ambient</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">All 5 profiles</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Custom comfort thresholds</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Lighting comfort notifications</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Silent / background alerts</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── SESSIONS ── -->
+      <div class="plans-category">Lighting Sessions &amp; Recording</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Session history with location</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Session timeline &amp; lux chart</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Color temperature curve over time</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Spectrum &amp; advanced metrics in detail</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Maximum recording duration</div>
+        <div class="plans-cell"><span class="value">30 sec</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Unlimited</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Capture quality score</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── CAMERA ── -->
+      <div class="plans-category">Camera &amp; Capture Source</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">Front, wide &amp; telephoto cameras</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Switch camera during recording</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Source timeline (which lens &amp; when)</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Video recording with lux/Kelvin overlay</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+      <!-- ── REPORTS ── -->
+      <div class="plans-category">PDF Lighting Reports</div>
+
+      <div class="plans-row">
+        <div class="plans-cell">PDF report export</div>
+        <div class="plans-cell"><span class="value">Up to 2 sessions</span></div>
+        <div class="plans-cell pro-col"><span class="value-pro">Unlimited</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Illumination &amp; Kelvin charts in report</div>
+        <div class="plans-cell"><span class="check">✓</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row">
+        <div class="plans-cell">Spectrum, blue-light &amp; map sections</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+      <div class="plans-row plans-last">
+        <div class="plans-cell">Personalized recommendations</div>
+        <div class="plans-cell"><span class="cross">—</span></div>
+        <div class="plans-cell pro-col"><span class="check">✓</span></div>
+      </div>
+
+    </div>
+    </div><!-- /plans-table-scroll -->
+
+    <p class="plans-note">
+      Monthly and annual access options are available.<br />
+      Subscriptions are processed by Apple via the App Store. Payments are secure — we never access your card details.
+    </p>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Lumora" />Lumora
+      </div>
+      <div class="footer-links">
+        <a href="subscription.html" class="footer-link">Subscription Plans</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      <p class="footer-copy">© 2026 Lumora. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

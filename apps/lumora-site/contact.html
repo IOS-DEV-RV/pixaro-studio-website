@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Lumora</title>
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .nav { padding: 0 20px !important; }
+    html, body { background-color: #050B16 !important; color: #E8F4FF; min-height: 100vh; }
+    .nav { background: rgba(5, 11, 22, 0.97) !important; border-bottom: 1px solid rgba(232,244,255,0.08) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; display: flex !important; align-items: center !important; }
+    @media (max-width: 480px) { .nav { padding: 0 14px !important; } }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/icon.png" alt="Lumora" />
+    Lumora
+  </a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose">✕</button>
+  <nav class="menu-links">
+    <a class="menu-link" href="subscription.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">⭐</span>Subscription Plans
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+    <a class="menu-link" href="privacy.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">🔒</span>Privacy Policy
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+    <a class="menu-link" href="contact.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">✉</span>Support
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+  </nav>
+  <div class="menu-footer">© 2026 Lumora. All rights reserved.</div>
+</div>
+
+<div class="page-header">
+  <div class="container">
+    <p class="section-label">Support</p>
+    <h1 class="page-title">Support</h1>
+    <p class="page-subtitle">Have a question or feedback? We'd love to hear from you.</p>
+  </div>
+</div>
+
+<section class="contact-section">
+  <div class="container">
+    <div class="contact-card">
+
+      <div id="formFields">
+        <form id="contactForm" novalidate>
+
+          <div class="form-group">
+            <label class="form-label" for="senderEmail">Your Email</label>
+            <input
+              class="form-input"
+              type="email"
+              id="senderEmail"
+              placeholder="you@example.com"
+              required
+              autocomplete="email"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="subject">Subject</label>
+            <input
+              class="form-input"
+              type="text"
+              id="subject"
+              placeholder="e.g. Feature request, Bug report…"
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="message">Message</label>
+            <textarea
+              class="form-textarea"
+              id="message"
+              placeholder="Write your message here…"
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send Message</button>
+
+        </form>
+
+        <div class="contact-info">
+          <span>Or write directly to</span>
+          <a href="mailto:admin@terasms.ru">admin@terasms.ru</a>
+        </div>
+      </div>
+
+      <div class="form-success" id="formSuccess">
+        <div class="form-success-icon">✉️</div>
+        <h3>Message sent!</h3>
+        <p>Your email client will open with the message ready to send.<br />We'll get back to you as soon as possible.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Lumora" />
+        Lumora
+      </div>
+      <div class="footer-links">
+        <a href="subscription.html" class="footer-link">Subscription Plans</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+        <a href="contact.html" class="footer-link">Support</a>
+      </div>
+      <p class="footer-copy">© 2026 Lumora. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
