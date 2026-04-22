@@ -36,6 +36,24 @@
     html, body { background-color: #050B16 !important; color: #E8F4FF; min-height: 100vh; }
     .feature-image img { border: none !important; }
     .nav { background: rgba(5, 11, 22, 0.97) !important; border-bottom: 1px solid rgba(232,244,255,0.08) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; align-items: center !important; }
+
+    /* ── Hero banner illustration ── */
+    .hero { padding-top: 100px !important; }
+    .hero-content { max-width: 760px !important; }
+    .hero-banner {
+      display: block;
+      width: 100%;
+      max-width: 720px;
+      margin: 0 auto 32px;
+      border-radius: 28px;
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.06),
+        0 30px 80px rgba(0,0,0,0.55),
+        0 0 60px rgba(91, 200, 250, 0.12);
+    }
+    @media (max-width: 600px) {
+      .hero-banner { border-radius: 22px; margin-bottom: 24px; }
+    }
   </style>
 </head>
 <body>
@@ -86,7 +104,7 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-content">
-    <img src="images/icon.png" alt="Lumora App Icon" class="hero-icon" />
+    <img src="images/hero_banner.png" alt="Lumora — Lux, Kelvin, Color Picker, Spectrum, Profiles, Reports" class="hero-banner" />
     <div class="hero-badge">Available on iPhone</div>
     <h1 class="hero-title">Lumora</h1>
     <p class="hero-desc">
