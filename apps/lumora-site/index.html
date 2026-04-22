@@ -46,30 +46,26 @@
       width: 100%;
       max-width: 720px;
       margin: 0 auto 32px;
-      padding: 56px 36px;
-      background: linear-gradient(180deg, #F4F7FB 0%, #E8EEF6 100%);
-      border-radius: 28px;
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.06),
-        0 30px 80px rgba(0,0,0,0.55),
-        0 0 60px rgba(91, 200, 250, 0.12);
-      overflow: hidden;
+      padding: 36px 18px;
+      background: transparent;
+      overflow: visible;
     }
 
-    /* Радиальное цветное пятно по центру */
+    /* Радиальное цветное пятно по центру (без карточки, прямо на фоне страницы) */
     .lhc-blob {
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
-      width: 78%;
-      height: 90%;
+      width: 90%;
+      height: 110%;
       pointer-events: none;
       background:
-        radial-gradient(45% 55% at 32% 45%, rgba(91,200,250,0.65), transparent 72%),
-        radial-gradient(45% 55% at 68% 50%, rgba(196,156,255,0.55), transparent 72%),
-        radial-gradient(40% 45% at 50% 75%, rgba(255,168,206,0.42), transparent 72%),
-        radial-gradient(35% 35% at 55% 30%, rgba(180,232,255,0.55), transparent 72%);
-      filter: blur(14px);
+        radial-gradient(42% 52% at 32% 45%, rgba(91,200,250,0.95), transparent 72%),
+        radial-gradient(42% 52% at 68% 50%, rgba(196,156,255,0.85), transparent 72%),
+        radial-gradient(38% 45% at 50% 75%, rgba(255,168,206,0.65), transparent 72%),
+        radial-gradient(34% 36% at 55% 28%, rgba(180,232,255,0.85), transparent 72%);
+      filter: blur(24px);
+      mix-blend-mode: screen;
     }
 
     .lhc-grid {
