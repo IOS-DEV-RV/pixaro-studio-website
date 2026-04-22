@@ -37,22 +37,108 @@
     .feature-image img { border: none !important; }
     .nav { background: rgba(5, 11, 22, 0.97) !important; border-bottom: 1px solid rgba(232,244,255,0.08) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; align-items: center !important; }
 
-    /* ── Hero banner illustration ── */
+    /* ── Hero banner (CSS-built illustration) ── */
     .hero { padding-top: 100px !important; }
-    .hero-content { max-width: 760px !important; }
-    .hero-banner {
-      display: block;
+    .hero-content { max-width: 780px !important; }
+
+    .lhc-card {
+      position: relative;
       width: 100%;
       max-width: 720px;
       margin: 0 auto 32px;
+      padding: 56px 36px;
+      background: linear-gradient(180deg, #F4F7FB 0%, #E8EEF6 100%);
       border-radius: 28px;
       box-shadow:
         0 0 0 1px rgba(255,255,255,0.06),
         0 30px 80px rgba(0,0,0,0.55),
         0 0 60px rgba(91, 200, 250, 0.12);
+      overflow: hidden;
     }
-    @media (max-width: 600px) {
-      .hero-banner { border-radius: 22px; margin-bottom: 24px; }
+
+    /* Радиальное цветное пятно по центру */
+    .lhc-blob {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 78%;
+      height: 90%;
+      pointer-events: none;
+      background:
+        radial-gradient(45% 55% at 32% 45%, rgba(91,200,250,0.65), transparent 72%),
+        radial-gradient(45% 55% at 68% 50%, rgba(196,156,255,0.55), transparent 72%),
+        radial-gradient(40% 45% at 50% 75%, rgba(255,168,206,0.42), transparent 72%),
+        radial-gradient(35% 35% at 55% 30%, rgba(180,232,255,0.55), transparent 72%);
+      filter: blur(14px);
+    }
+
+    .lhc-grid {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 18px 28px;
+    }
+
+    .lhc-pills {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .lhc-pills-left  { align-items: flex-start; }
+    .lhc-pills-right { align-items: flex-end; }
+
+    .lhc-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #FFFFFF;
+      color: #0F1722;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 6px 16px rgba(15, 23, 34, 0.08),
+        0 1px 2px rgba(15, 23, 34, 0.06);
+      white-space: nowrap;
+    }
+    .lhc-pill svg { flex-shrink: 0; display: block; }
+
+    /* Стаггер — центральные пилюли немного длиннее, как в дизайне */
+    .lhc-pills-left  .lhc-pill:nth-child(1) { margin-left: 18px; }
+    .lhc-pills-right .lhc-pill:nth-child(1) { margin-right: 18px; }
+    .lhc-pills-left  .lhc-pill:nth-child(3) { margin-left: 8px; }
+    .lhc-pills-right .lhc-pill:nth-child(3) { margin-right: 8px; }
+
+    .lhc-glyph {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 180px;
+      height: 180px;
+    }
+
+    @media (max-width: 720px) {
+      .lhc-card { padding: 40px 18px; max-width: 540px; }
+      .lhc-grid { gap: 12px 14px; }
+      .lhc-pill { padding: 8px 13px; font-size: 12.5px; gap: 6px; }
+      .lhc-pill svg { width: 14px; height: 14px; }
+      .lhc-glyph { width: 130px; height: 130px; }
+      .lhc-pills { gap: 12px; }
+      .lhc-pills-left  .lhc-pill:nth-child(1),
+      .lhc-pills-right .lhc-pill:nth-child(1),
+      .lhc-pills-left  .lhc-pill:nth-child(3),
+      .lhc-pills-right .lhc-pill:nth-child(3) { margin: 0; }
+    }
+    @media (max-width: 420px) {
+      .lhc-card { padding: 32px 12px; }
+      .lhc-grid { gap: 8px 8px; }
+      .lhc-pill { padding: 7px 11px; font-size: 11.5px; }
+      .lhc-glyph { width: 100px; height: 100px; }
     }
   </style>
 </head>
@@ -104,7 +190,87 @@
 <!-- ── HERO ── -->
 <section class="hero">
   <div class="hero-content">
-    <img src="images/hero_banner.png" alt="Lumora — Lux, Kelvin, Color Picker, Spectrum, Profiles, Reports" class="hero-banner" />
+
+    <!-- Сверстанный hero-баннер: радиальное цветное пятно + glyph + pill-чипы -->
+    <div class="lhc-card" aria-hidden="true">
+      <div class="lhc-blob"></div>
+      <div class="lhc-grid">
+
+        <div class="lhc-pills lhc-pills-left">
+          <span class="lhc-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M9 21h6v.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 21.5zm3-19a7 7 0 0 0-4.2 12.6c.5.4.7.9.7 1.5V18a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-1.9c0-.6.2-1.1.7-1.5A7 7 0 0 0 12 2"/></svg>
+            Lux
+          </span>
+          <span class="lhc-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M19.07 4.93a3 3 0 0 0-4.24 0l-2.45 2.45-1.06-1.06-1.42 1.41 1.06 1.06-7.07 7.08a3 3 0 0 0 0 4.24L4.5 21l1.41-1.41 1.42 1.41a3 3 0 0 0 4.24 0l7.07-7.07 1.06 1.06 1.42-1.42-1.06-1.06 2.45-2.45a3 3 0 0 0 0-4.24z"/></svg>
+            Color Picker
+          </span>
+          <span class="lhc-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="6" y="7" width="15" height="13" rx="3"/><rect x="3" y="4" width="15" height="13" rx="3" fill-opacity="0.45"/></svg>
+            Profiles
+          </span>
+        </div>
+
+        <div class="lhc-glyph">
+          <svg viewBox="0 0 220 200" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="lhc-glow" x="-40%" y="-40%" width="180%" height="180%">
+                <feGaussianBlur stdDeviation="3.4" result="b"/>
+                <feMerge>
+                  <feMergeNode in="b"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+              <linearGradient id="lhc-arc" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%"  stop-color="#7FE0FF"/>
+                <stop offset="60%" stop-color="#EFFAFF"/>
+                <stop offset="100%" stop-color="#FFFFFF"/>
+              </linearGradient>
+            </defs>
+            <g filter="url(#lhc-glow)" opacity="0.96">
+              <!-- Открытая дуга (отверстие снизу), скруглённые концы -->
+              <path d="M 60 150 A 55 55 0 1 1 160 150"
+                    stroke="url(#lhc-arc)" stroke-width="14"
+                    stroke-linecap="round" fill="none"/>
+              <!-- Центр солнца -->
+              <circle cx="110" cy="100" r="13" fill="#FFFFFF"/>
+              <!-- 12 лучей -->
+              <g stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round">
+                <line x1="110" y1="74" x2="110" y2="84"/>
+                <line x1="110" y1="116" x2="110" y2="126"/>
+                <line x1="84"  y1="100" x2="94"  y2="100"/>
+                <line x1="126" y1="100" x2="136" y2="100"/>
+                <line x1="92"  y1="82"  x2="99"  y2="89"/>
+                <line x1="121" y1="111" x2="128" y2="118"/>
+                <line x1="92"  y1="118" x2="99"  y2="111"/>
+                <line x1="121" y1="89"  x2="128" y2="82"/>
+                <line x1="100" y1="78"  x2="103" y2="86"/>
+                <line x1="117" y1="86"  x2="120" y2="78"/>
+                <line x1="100" y1="122" x2="103" y2="114"/>
+                <line x1="117" y1="114" x2="120" y2="122"/>
+              </g>
+            </g>
+          </svg>
+        </div>
+
+        <div class="lhc-pills lhc-pills-right">
+          <span class="lhc-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14 4a3 3 0 0 0-6 0v9.55a4.5 4.5 0 1 0 6 0zm-3 16a2.5 2.5 0 0 1-1.05-4.78V4a1 1 0 1 1 2.1 0v11.22A2.5 2.5 0 0 1 11 20"/></svg>
+            Kelvin
+          </span>
+          <span class="lhc-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><rect x="3" y="13" width="4" height="8" rx="1.2"/><rect x="10" y="9" width="4" height="12" rx="1.2"/><rect x="17" y="5" width="4" height="16" rx="1.2"/></svg>
+            Spectrum
+          </span>
+          <span class="lhc-pill">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zM8 12h8v2H8zm0 4h6v2H8zM13 9V3.5L18.5 9z"/></svg>
+            Reports
+          </span>
+        </div>
+
+      </div>
+    </div>
+
     <div class="hero-badge">Available on iPhone</div>
     <h1 class="hero-title">Lumora</h1>
     <p class="hero-desc">
