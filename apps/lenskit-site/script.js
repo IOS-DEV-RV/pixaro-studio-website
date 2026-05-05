@@ -72,7 +72,7 @@ supportForm?.addEventListener('submit', function (e) {
 
     if (!email || !body) return;
 
-    window.location.href = `mailto:support@lenskitpro.app?subject=${subject}&body=${body}%0A%0AFrom: ${encodeURIComponent(email)}`;
+    window.location.href = `mailto:luminityapple@gmail.com?subject=${subject}&body=${body}%0A%0AFrom: ${encodeURIComponent(email)}`;
 
     supportForm.style.display = 'none';
     formSuccess.style.display = 'block';

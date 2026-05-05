@@ -51,7 +51,7 @@ if (contactForm) {
     const email = document.getElementById('cEmail')?.value || '';
     const subject = document.getElementById('cSubject')?.value || 'Message from Pixaro Studio site';
     const message = document.getElementById('cMessage')?.value || '';
-    const mailto = `mailto:admin@terasms.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    const mailto = `mailto:luminityapple@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
     window.location.href = mailto;
     const successMsg = document.getElementById('formSuccessMsg');
     if (successMsg) { successMsg.style.display = 'block'; }

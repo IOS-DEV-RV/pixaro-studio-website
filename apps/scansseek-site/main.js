@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const subject = encodeURIComponent(`Support Request from ${email}`);
         const body    = encodeURIComponent(message);
-        window.location.href = `mailto:admin@terasms.ru?subject=${subject}&body=${body}`;
+        window.location.href = `mailto:luminityapple@gmail.com?subject=${subject}&body=${body}`;
 
         showFormSuccess();
     });

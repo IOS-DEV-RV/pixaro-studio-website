@@ -70,7 +70,7 @@ if (contactForm) {
     if (!emailVal || !messageVal) return;
 
     const body = `From: ${emailVal}\n\n${messageVal}`;
-    const mailto = `mailto:admin@terasms.ru?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:luminityapple@gmail.com?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailto;
 
