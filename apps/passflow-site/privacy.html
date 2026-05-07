@@ -19,97 +19,31 @@
     }
     @media (max-width: 480px) { .nav { padding: 0 14px !important; } }
 
-    .privacy-hero-banner {
-      padding: 92px 20px 8px;
-      text-align: center;
+    .passflowPrivacyLeadSection {
+      padding-top: 84px;
     }
-    .privacy-lhc {
-      position: relative;
-      width: 100%;
-      max-width: 640px;
-      aspect-ratio: 640 / 360;
-      margin: 0 auto 8px;
+    @media (max-width: 480px) {
+      .passflowPrivacyLeadSection { padding-top: 76px; }
     }
-    .privacy-lhc-blob {
-      position: absolute;
-      inset: 0;
-      margin: auto;
-      width: 108%;
-      height: 118%;
-      pointer-events: none;
-      background:
-        radial-gradient(50% 58% at 28% 40%, rgba(95,228,184,0.9), transparent 72%),
-        radial-gradient(48% 55% at 72% 48%, rgba(167,139,250,0.82), transparent 72%),
-        radial-gradient(42% 48% at 52% 78%, rgba(90,210,238,0.35), transparent 70%);
-      filter: blur(32px);
-      mix-blend-mode: screen;
-    }
-    .privacy-lhc-icon {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      width: clamp(72px, 14%, 112px);
-      border-radius: 22%;
-      box-shadow: 0 14px 44px rgba(95,228,184,0.38), 0 6px 20px rgba(0,0,0,0.45);
-      z-index: 3;
-    }
-    .privacy-lhc-device {
-      position: absolute;
-      left: 50%; bottom: 7%;
-      transform: translateX(-50%);
-      width: min(40%, 280px);
-      max-height: 72%;
-      object-fit: contain;
-      border-radius: 26px;
-      z-index: 2;
-      filter: drop-shadow(0 20px 34px rgba(0,0,0,0.42));
-    }
-    .privacy-lhc-device.is-hidden { display: none !important; }
-    .privacy-lhc-slot {
-      position: absolute;
-      left: 50%; bottom: 5%;
-      transform: translateX(-50%);
-      width: min(42%, 260px);
-      height: min(68%, 300px);
-      z-index: 2;
-      border-radius: 28px;
-      border: 2px dashed rgba(240,228,252,0.22);
-      background: rgba(14, 8, 20, 0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      font-weight: 600;
-      color: rgba(240,228,252,0.4);
-      text-align: center;
-      padding: 10px;
-    }
-    .privacy-lhc-slot.is-hidden { display: none !important; }
-    .privacy-pill {
-      position: absolute;
-      z-index: 4;
-      background: #fff;
-      color: #1A1224;
-      padding: 7px 14px;
-      border-radius: 999px;
-      font-size: clamp(10px, 1.55vw, 13px);
-      font-weight: 600;
-      white-space: nowrap;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
-    }
-    .pp1 { top: 16%; left: 22%; }
-    .pp2 { top: 16%; left: 78%; }
-    .pp3 { top: 50%; left: 10%; }
-    .pp4 { top: 50%; left: 90%; }
-    .pp5 { top: 84%; left: 38%; }
-    .pp6 { top: 84%; left: 62%; }
 
-    .page-title {
-      background: linear-gradient(180deg, #FFFFFF 40%, #5FE4B8 100%);
+    .privacy-card .passflowPrivacyDocTitle {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      line-height: 1.15;
+      margin: 0 0 10px;
+      background: linear-gradient(180deg, #FFFFFF 24%, #C4B8F5 48%, #52F0C0 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+    }
+    .privacy-card .passflowPrivacyDocMeta {
+      font-size: 15px;
+      color: var(--ice-55);
+      line-height: 1.5;
+      margin: 0 0 28px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--sep);
     }
   </style>
 </head>
@@ -126,34 +60,12 @@
   </a>
 </nav>
 
-<section class="privacy-hero-banner" aria-hidden="true">
-  <div class="privacy-lhc">
-    <div class="privacy-lhc-blob"></div>
-    <img src="images/hero-device-preview.png" alt="" class="privacy-lhc-device" loading="lazy"
-         onerror="this.classList.add('is-hidden'); document.getElementById('privacyHeroSlot').classList.remove('is-hidden');" />
-    <div class="privacy-lhc-slot is-hidden" id="privacyHeroSlot">Screenshot slot<br />hero-device-preview.png</div>
-    <img src="images/app-icon.png" class="privacy-lhc-icon" alt=""
-         onerror="this.onerror=null; this.src='images/app-icon.svg';" />
-    <span class="privacy-pill pp1">Vault</span>
-    <span class="privacy-pill pp2">AES-256</span>
-    <span class="privacy-pill pp3">Biometrics</span>
-    <span class="privacy-pill pp4">AutoFill</span>
-    <span class="privacy-pill pp5">Toolkit</span>
-    <span class="privacy-pill pp6">Local first</span>
-  </div>
-</section>
-
-<div class="page-header" style="padding-top: 24px;">
-  <div class="container">
-    <p class="section-label">Legal</p>
-    <h1 class="page-title">Privacy Policy</h1>
-    <p class="page-subtitle">Passflow &nbsp;·&nbsp; Effective date: May 6, 2026</p>
-  </div>
-</div>
-
-<section class="privacy-section">
+<section class="privacy-section passflowPrivacyLeadSection">
   <div class="container">
     <div class="privacy-card">
+
+      <h1 class="passflowPrivacyDocTitle">Privacy Policy</h1>
+      <p class="passflowPrivacyDocMeta">Passflow &nbsp;·&nbsp; Effective date: May 6, 2026</p>
 
       <h2>1. General provisions</h2>
       <p>This Privacy Policy describes how Passflow (“the Application”) treats information when you use the iPhone client published by Pixaro Studio. By using the Application, you agree to this Policy.</p>
