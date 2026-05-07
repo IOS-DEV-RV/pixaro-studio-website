@@ -37,28 +37,101 @@
     .nav { background: rgba(14, 8, 20, 0.97) !important; border-bottom: 1px solid rgba(240,228,252,0.09) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; align-items: center !important; }
 
     .hero { padding-top: 100px !important; min-height: auto !important; }
-    .hero-content { max-width: 920px !important; }
+    .hero-content { max-width: 780px !important; }
 
-    .passflowHeroKeyVisualWrap {
+    /* Hero в духе Lumora: светлая карточка, мягкое пятно, PNG-лого по центру, чипы по дуге */
+    .pfxPassflowHeroOrbitRibbon {
+      position: relative;
       width: 100%;
-      max-width: min(920px, 100%);
+      max-width: 760px;
+      aspect-ratio: 760 / 440;
       margin: 0 auto 36px;
-      border-radius: clamp(18px, 3vw, 28px);
+      border-radius: clamp(22px, 4vw, 36px);
       overflow: hidden;
       background: #ffffff;
       box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.1) inset,
-        0 28px 80px rgba(0, 0, 0, 0.42),
-        0 0 0 1px rgba(240, 228, 252, 0.06);
-      line-height: 0;
+        0 28px 80px rgba(120, 90, 200, 0.35),
+        0 12px 40px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(240, 228, 252, 0.12);
     }
-    .passflowHeroKeyVisualWrap__img {
-      width: 100%;
+
+    .pfxPassflowHeroOrbitRibbon__glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 92%;
+      height: 118%;
+      pointer-events: none;
+      z-index: 1;
+      background:
+        radial-gradient(50% 52% at 50% 45%, rgba(95,228,184,0.55), transparent 68%),
+        radial-gradient(48% 50% at 32% 55%, rgba(180,162,248,0.75), transparent 72%),
+        radial-gradient(48% 48% at 72% 48%, rgba(167,139,250,0.65), transparent 72%);
+      filter: blur(28px);
+      mix-blend-mode: multiply;
+      opacity: 0.92;
+    }
+
+    .pfxPassflowHeroOrbitRibbon__crest {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(92px, 17%, 148px);
       height: auto;
-      display: block;
+      border-radius: 22%;
+      box-shadow:
+        0 12px 40px rgba(95, 228, 184, 0.35),
+        0 8px 28px rgba(0, 0, 0, 0.2);
+      z-index: 3;
     }
-    @media (max-width: 480px) {
-      .passflowHeroKeyVisualWrap { margin-bottom: 28px; border-radius: 16px; }
+
+    .pfxPassflowHeroOrbitRibbon__chip {
+      position: absolute;
+      z-index: 4;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffffff;
+      color: #16141f;
+      padding: 10px 18px;
+      border-radius: 999px;
+      font-size: clamp(11px, 1.7vw, 15px);
+      font-weight: 600;
+      letter-spacing: -0.1px;
+      white-space: nowrap;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.95) inset,
+        0 8px 22px rgba(0, 0, 0, 0.22),
+        0 2px 6px rgba(0, 0, 0, 0.14);
+      border: 1px solid rgba(20,10,36,0.06);
+      transform: translate(-50%, -50%);
+    }
+    .pfxPassflowHeroOrbitRibbon__chip svg { flex-shrink: 0; display: block; color: #121018; }
+
+    .pfxChipNotifyPassflow    { top: 18%; left: 26%; }
+    .pfxChipSessionsPassflow  { top: 18%; left: 74%; }
+    .pfxChipGenPassflow       { top: 50%; left: 9%; }
+    .pfxChipHistoryPassflow   { top: 50%; left: 91%; }
+    .pfxChipSafetyPassflow    { top: 82%; left: 26%; }
+    .pfxChipSentinelPassflow  { top: 82%; left: 74%; }
+
+    @media (max-width: 720px) {
+      .pfxPassflowHeroOrbitRibbon { aspect-ratio: 720 / 460; }
+      .pfxPassflowHeroOrbitRibbon__chip { padding: 8px 13px; gap: 6px; }
+      .pfxPassflowHeroOrbitRibbon__chip svg { width: 14px; height: 14px; }
+      .pfxPassflowHeroOrbitRibbon__crest { width: clamp(82px, 19%, 120px); }
+    }
+    @media (max-width: 460px) {
+      .pfxPassflowHeroOrbitRibbon { aspect-ratio: 360 / 320; }
+      .pfxPassflowHeroOrbitRibbon__chip { padding: 6px 10px; gap: 5px; font-size: 10px; }
+      .pfxPassflowHeroOrbitRibbon__chip svg { width: 12px; height: 12px; }
+      .pfxPassflowHeroOrbitRibbon__crest { width: clamp(68px, 22%, 100px); }
+      .pfxChipGenPassflow     { left: 14%; }
+      .pfxChipHistoryPassflow { left: 86%; }
+      .pfxChipNotifyPassflow  { left: 28%; }
+      .pfxChipSessionsPassflow { left: 72%; }
+      .pfxChipSafetyPassflow { left: 28%; }
+      .pfxChipSentinelPassflow { left: 72%; }
     }
 
     .feature-placeholder {
@@ -96,17 +169,43 @@
 <section class="hero">
   <div class="hero-content">
 
-    <div class="passflowHeroKeyVisualWrap">
+    <div class="pfxPassflowHeroOrbitRibbon" aria-hidden="true">
+      <div class="pfxPassflowHeroOrbitRibbon__glow"></div>
       <img
-        class="passflowHeroKeyVisualWrap__img"
-        src="images/hero-panel-passflow.png"
-        alt="Passflow — vault mark with sessions, history, notifications, generator, safety, and protection highlights"
-        width="1024"
-        height="747"
+        src="images/vault-lock-crest-hero-passflow.png"
+        class="pfxPassflowHeroOrbitRibbon__crest"
+        alt=""
         decoding="async"
         fetchpriority="high"
         loading="eager"
+        width="817"
+        height="817"
+        onerror="this.onerror=null; this.src='images/app-icon.png';"
       />
+      <span class="pfxPassflowHeroOrbitRibbon__chip pfxChipNotifyPassflow">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M18 16v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2zm-6 6c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2z"/></svg>
+        Notifications
+      </span>
+      <span class="pfxPassflowHeroOrbitRibbon__chip pfxChipSessionsPassflow">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 10a2 2 0 110-4 2 2 0 010 4zm-6 7a2 2 0 110-4 2 2 0 010 4zm12 1a2 2 0 110-4 2 2 0 010 4zM7.86 13.94l-.81 1.4a8.02 8.02 0 003.94 3.93l1.41-.81-a1 1 0 00-.36-1.83l-.7-.26a10.02 10.02 0 01-5.58-6.56l-.26-.7a1 1 0 00-1.83-.37l-.8 1.41a10.06 10.06 0 006.61 6.61z"/><path d="M16.94 16.94l-.26-.71a10.06 10.06 0 01-8.96-8.94l-.7-.26a2 2 0 112.23 2.24l-.26-.7a10.06 10.06 0 019.95 10.92z" opacity=".45"/></svg>
+        Sessions
+      </span>
+      <span class="pfxPassflowHeroOrbitRibbon__chip pfxChipGenPassflow">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M19 9l1.25-2.77L23 5l-2.77-1.24L19 1l-1.24 2.77L15 5l2.77 1.24L19 9zM19 15l-1.24 2.77L15 19l2.77 1.24L19 23l1.24-2.76L23 19l-2.77-1.24L19 15zM11.5 9.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5z"/></svg>
+        Generator
+      </span>
+      <span class="pfxPassflowHeroOrbitRibbon__chip pfxChipHistoryPassflow">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M13 3a9 9 0 00-9 9H1l3.89 3.89.07.06L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.67-.79-4.93-2.06l-1.42 1.42A8.95 8.95 0 0013 22a9 9 0 000-18zm2 10V7h-4v6l5.06 4.43L17 17.12l-3.93-5.62H15z"/></svg>
+        History
+      </span>
+      <span class="pfxPassflowHeroOrbitRibbon__chip pfxChipSafetyPassflow">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9.91c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm3.1-9.91H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        Safety
+      </span>
+      <span class="pfxPassflowHeroOrbitRibbon__chip pfxChipSentinelPassflow">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 11 5.16-.26 9-5.45 9-11V5l-9-4z"/></svg>
+        Sentinel
+      </span>
     </div>
 
     <div class="hero-badge">Available on iPhone · iOS 16+</div>
