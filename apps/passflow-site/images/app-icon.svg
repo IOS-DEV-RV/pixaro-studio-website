@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Passflow">
+  <defs>
+    <linearGradient id="pfBg" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#261B36"/>
+      <stop offset="100%" stop-color="#4A3A5C"/>
+    </linearGradient>
+    <linearGradient id="pfJade" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5FE4B8"/>
+      <stop offset="100%" stop-color="#2EB87A"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#pfBg)"/>
+  <path fill="url(#pfJade)" d="M376 224V180c0-66.3-53.7-120-120-120S136 113.7 136 180v44h-28c-22 0-40 18-40 40v168c0 22 18 40 40 40h240c22 0 40-18 40-40V264c0-22-18-40-40-40h-12zm-196-44c0-44.2 35.8-80 80-80s80 35.8 80 80v44H180v-44z"/>
+  <circle cx="256" cy="328" r="28" fill="#0E0814" opacity="0.35"/>
+</svg>

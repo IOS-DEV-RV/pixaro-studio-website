@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Passflow</title>
+  <link rel="icon" href="images/app-icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .nav { padding: 0 20px !important; }
+    .nav-menu-btn { display: none !important; }
+    .menu-overlay, .menu-drawer { display: none !important; }
+    html, body { background-color: #0E0814 !important; color: #F0E4FC; min-height: 100vh; }
+    .nav {
+      background: rgba(14, 8, 20, 0.97) !important;
+      border-bottom: 1px solid rgba(240,228,252,0.09) !important;
+      position: sticky !important; top: 0 !important; z-index: 999 !important;
+      min-height: 60px !important; display: flex !important; align-items: center !important;
+    }
+    @media (max-width: 480px) { .nav { padding: 0 14px !important; } }
+
+    .privacy-hero-banner {
+      padding: 92px 20px 8px;
+      text-align: center;
+    }
+    .privacy-lhc {
+      position: relative;
+      width: 100%;
+      max-width: 640px;
+      aspect-ratio: 640 / 360;
+      margin: 0 auto 8px;
+    }
+    .privacy-lhc-blob {
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      width: 108%;
+      height: 118%;
+      pointer-events: none;
+      background:
+        radial-gradient(50% 58% at 28% 40%, rgba(95,228,184,0.9), transparent 72%),
+        radial-gradient(48% 55% at 72% 48%, rgba(167,139,250,0.82), transparent 72%),
+        radial-gradient(42% 48% at 52% 78%, rgba(90,210,238,0.35), transparent 70%);
+      filter: blur(32px);
+      mix-blend-mode: screen;
+    }
+    .privacy-lhc-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(72px, 14%, 112px);
+      border-radius: 22%;
+      box-shadow: 0 14px 44px rgba(95,228,184,0.38), 0 6px 20px rgba(0,0,0,0.45);
+      z-index: 3;
+    }
+    .privacy-lhc-device {
+      position: absolute;
+      left: 50%; bottom: 7%;
+      transform: translateX(-50%);
+      width: min(40%, 280px);
+      max-height: 72%;
+      object-fit: contain;
+      border-radius: 26px;
+      z-index: 2;
+      filter: drop-shadow(0 20px 34px rgba(0,0,0,0.42));
+    }
+    .privacy-lhc-device.is-hidden { display: none !important; }
+    .privacy-lhc-slot {
+      position: absolute;
+      left: 50%; bottom: 5%;
+      transform: translateX(-50%);
+      width: min(42%, 260px);
+      height: min(68%, 300px);
+      z-index: 2;
+      border-radius: 28px;
+      border: 2px dashed rgba(240,228,252,0.22);
+      background: rgba(14, 8, 20, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(240,228,252,0.4);
+      text-align: center;
+      padding: 10px;
+    }
+    .privacy-lhc-slot.is-hidden { display: none !important; }
+    .privacy-pill {
+      position: absolute;
+      z-index: 4;
+      background: #fff;
+      color: #1A1224;
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-size: clamp(10px, 1.55vw, 13px);
+      font-weight: 600;
+      white-space: nowrap;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.22);
+    }
+    .pp1 { top: 16%; left: 22%; }
+    .pp2 { top: 16%; left: 78%; }
+    .pp3 { top: 50%; left: 10%; }
+    .pp4 { top: 50%; left: 90%; }
+    .pp5 { top: 84%; left: 38%; }
+    .pp6 { top: 84%; left: 62%; }
+
+    .page-title {
+      background: linear-gradient(180deg, #FFFFFF 40%, #5FE4B8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo" style="display:flex !important">
+    <img src="images/app-icon.png" alt="Passflow" onerror="this.onerror=null;this.src='images/app-icon.svg';" />
+    Passflow
+  </a>
+  <a href="javascript:history.back()" style="display:flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:rgba(240,228,252,0.5);text-decoration:none;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Back
+  </a>
+</nav>
+
+<section class="privacy-hero-banner" aria-hidden="true">
+  <div class="privacy-lhc">
+    <div class="privacy-lhc-blob"></div>
+    <img src="images/hero-device-preview.png" alt="" class="privacy-lhc-device" loading="lazy"
+         onerror="this.classList.add('is-hidden'); document.getElementById('privacyHeroSlot').classList.remove('is-hidden');" />
+    <div class="privacy-lhc-slot is-hidden" id="privacyHeroSlot">Screenshot slot<br />hero-device-preview.png</div>
+    <img src="images/app-icon.png" class="privacy-lhc-icon" alt=""
+         onerror="this.onerror=null; this.src='images/app-icon.svg';" />
+    <span class="privacy-pill pp1">Vault</span>
+    <span class="privacy-pill pp2">AES-256</span>
+    <span class="privacy-pill pp3">Biometrics</span>
+    <span class="privacy-pill pp4">AutoFill</span>
+    <span class="privacy-pill pp5">Toolkit</span>
+    <span class="privacy-pill pp6">Local first</span>
+  </div>
+</section>
+
+<div class="page-header" style="padding-top: 24px;">
+  <div class="container">
+    <p class="section-label">Legal</p>
+    <h1 class="page-title">Privacy Policy</h1>
+    <p class="page-subtitle">Passflow &nbsp;·&nbsp; Effective date: May 6, 2026</p>
+  </div>
+</div>
+
+<section class="privacy-section">
+  <div class="container">
+    <div class="privacy-card">
+
+      <h2>1. General provisions</h2>
+      <p>This Privacy Policy describes how Passflow (“the Application”) treats information when you use the iPhone client published by Pixaro Studio. By using the Application, you agree to this Policy.</p>
+
+      <h2>2. What Passflow is</h2>
+      <p>Passflow Key Vault is a private space for passwords, recovery codes, sensitive notes, mnemonics, and related credential material you choose to save. Sensitive content is encrypted on your device before it is stored; decryption is gated behind explicit unlock (your vault secret and, if you enable it, device biometrics).</p>
+
+      <h2>3. Data collection</h2>
+
+      <h2 style="font-size:16px;color:var(--ice-80);margin-top:16px;">3.1 Permissions the Application may request</h2>
+      <p>Access layers are invoked only via the standard iOS permission prompts and only when needed for optional features:</p>
+      <ul>
+        <li><strong>Face ID / Touch ID</strong> — optional shortcuts to authorize unlock or sensitive reveals; templates are validated by the Secure Enclave/local authentication stack. Secrets are never uploaded for this purpose.</li>
+        <li><strong>Notifications</strong> — optional reminders tied to toolkit features where you explicitly enable alerts.</li>
+        <li><strong>Contacts</strong> — if you initiate contact-picker flows while composing credential metadata, structured fields you select may be prefilled locally. No contact database upload is performed by us.</li>
+        <li><strong>Photos / Camera / Microphone</strong> — mnemonic attachments, document capture, entropy sampling for localized generators, or media you explicitly choose to analyze. Outputs stay on-device unless you yourself export data.</li>
+        <li><strong>Network path / Wi‑Fi tooling</strong> — high-level telemetry or probes you voluntarily run stays on device for history you keep; optional analytics do not ingest raw vault payloads (see Analytics).</li>
+        <li><strong>Associated domains / Credential Provider APIs</strong> — used strictly to interoperate with iOS Password AutoFill and related platform surfaces; credentials never leave encrypted storage unlocked without your gesture.</li>
+      </ul>
+      <p>You can revoke permissions anytime in Settings → Privacy & Security.</p>
+
+      <h2 style="font-size:16px;color:var(--ice-80);margin-top:16px;">3.2 Information you voluntarily provide</h2>
+      <ul>
+        <li>Titles, URLs, mnemonic phrases, supplementary notes (plain or concealed), sketches, thumbnails, toolkit session labels</li>
+        <li>In-app preference toggles such as biometric opt-in</li>
+        <li>Support requests you choose to send to our team via email — those messages reside in your inbox thread and whichever mail provider you elect to use</li>
+      </ul>
+
+      <h2 style="font-size:16px;color:var(--ice-80);margin-top:16px;">3.3 Automatically collected telemetry</h2>
+      <ul>
+        <li>Technical diagnostics surfaced through integrations below (crash-free sessions, aggregated feature usage counters)</li>
+        <li>Region-locale proxies that mobile SDKs derive for entitlement checks — never substituted for vault payloads</li>
+      </ul>
+
+      <h2>4. Local storage &amp; encryption</h2>
+      <p>Structured records are persisted with Core Data and sealed using AES‑256 keyed material derived locally from your onboarding secret.</p>
+      <ul>
+        <li>Ciphertext blobs, mnemonic assets, supplementary notes, toolkit logs you retain</li>
+        <li>Autofill-associated indices required for Credential Provider lookups</li>
+        <li>Biometric shortcut envelopes guarded by Secure Enclave access controls when opted in</li>
+      </ul>
+      <p>We operate without a centralized “vault backend” belonging to Pixaro Studio; there is nowhere for us to read your ciphertext.</p>
+
+      <h2>5. Analytics (Mixpanel)</h2>
+      <p>We use Mixpanel to understand aggregated navigation and stability. Events are pseudonymous IDs without vault strings, mnemonic media, keystrokes, or clipboard exports. Refer to Mixpanel’s terms at <a href="https://mixpanel.com/legal/privacy-policy" target="_blank" rel="noopener">mixpanel.com/legal/privacy-policy</a>.</p>
+
+      <h2>6. Paywall orchestration (Superwall)</h2>
+      <p>Subscription presentation flows may call Superwall. Superwall observes payment surface analytics (shown paywall identifiers, SKU identifiers) necessary to unlock premium modules. Vault contents never traverse Superwall payloads. Privacy details: <a href="https://superwall.com/privacy" target="_blank" rel="noopener">superwall.com/privacy</a>.</p>
+
+      <h2>7. How we use information</h2>
+      <ul>
+        <li>Deliver encryption, syncing between app extensions on the same device, and biometric-gated UX</li>
+        <li>Improve reliability via anonymized telemetry</li>
+        <li>Respond to lawful user support tickets</li>
+        <li>Detect abuse of commercial entitlements via App Store receipts</li>
+      </ul>
+
+      <h2>8. Data sharing</h2>
+      <p>We do not sell personal data. Limited processors include Apple (payments, Push &amp; biometric plumbing), Mixpanel (analytics), and Superwall (paywall instrumentation). Disclosure may additionally occur where law compels disclosure.</p>
+
+      <h2>9. International users</h2>
+      <p>Because vault material remains on device, there is minimal cross-border transfer attributable to Pixaro Studio. Telemetry vendors may operate globally — consult their notices for routing detail.</p>
+
+      <h2>10. Security practices</h2>
+      <p>We prioritize on-device cryptography, hardened keychain envelopes, Principle of Least Privilege for extensions, and regular dependency review. No remote database stores your ciphertext.</p>
+
+      <h2>11. Children</h2>
+      <p>Passflow is not directed at individuals under 13. We do not knowingly collect minors’ personal data beyond incidental App Store demographics.</p>
+
+      <h2>12. Your rights</h2>
+      <p>Depending on jurisdiction, you may exercise access, rectification, erasure, restriction, portability, or objection.</p>
+      <ul>
+        <li>Most substantive data can be erased by uninstalling and destroying local backups yourself.</li>
+        <li>Where analytics vendors retain pseudonymous histories, submit requests through the contact route below alongside device identifiers exported from in-app diagnostics (if requested).</li>
+      </ul>
+
+      <h2>13. Subscriptions &amp; payments</h2>
+      <p>Transactions run through Apple In‑App Purchase. We never handle card PANs. Renewal, cancellation, and receipt validation follow Apple policies.</p>
+
+      <h2>14. Changes</h2>
+      <p>We may revise this Policy. Continued use after notices within the Application constitutes acknowledgement unless applicable law mandates express consent.</p>
+
+      <h2>15. Contact</h2>
+      <p>Questions about privacy or exercising rights?<br />
+        <a href="mailto:luminityapple@gmail.com">luminityapple@gmail.com</a>
+      </p>
+
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/app-icon.svg" alt="Passflow" width="26" height="26" />
+        Passflow
+      </div>
+      <div class="footer-links">
+        <a href="index.html" class="footer-link">App page</a>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <p class="footer-copy">© 2026 Passflow · Pixaro Studio</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
