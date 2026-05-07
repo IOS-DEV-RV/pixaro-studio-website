@@ -27,11 +27,10 @@ body {
   font-family: var(--font);
   color: var(--ice);
   background: linear-gradient(180deg,
-    #6B5678 0%,
-    #4A3A5C 22%,
-    #352842 45%,
-    #1E1528 72%,
-    #0E0814 100%
+    #2e1f36 0%,
+    #3a2944 28%,
+    #2c182f 62%,
+    #120913 100%
   );
   background-attachment: fixed;
   min-height: 100vh;
@@ -242,7 +241,7 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: -2px;
   line-height: 1.05;
   margin-bottom: 20px;
-  background: linear-gradient(180deg, #FFFFFF 24%, #C4B8F5 48%, #52F0C0 100%);
+  background: linear-gradient(132deg, #a0ecff 0%, #eef0ff 38%, #c084fc 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
