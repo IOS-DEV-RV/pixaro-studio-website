@@ -57,7 +57,7 @@ body {
 /* SVG-сонар живёт внутри .hero и скроллится со страницей */
 .sonar-center {
   position: absolute;
-  top: 38%;
+  top: 30%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
