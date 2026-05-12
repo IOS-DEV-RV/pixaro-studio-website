@@ -131,18 +131,9 @@
   <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu" style="display:none"><span></span><span></span><span></span></button>
 </nav>
 
-<!-- ── SONAR BACKGROUND ── -->
+<!-- ── SONAR BACKGROUND (grid only, fixed) ── -->
 <div class="sonar-bg">
   <div class="sonar-grid"></div>
-  <div class="sonar-origin">
-    <div class="sonar-ring"></div>
-    <div class="sonar-ring"></div>
-    <div class="sonar-ring"></div>
-    <div class="sonar-ring"></div>
-    <div class="sonar-ring"></div>
-    <div class="sonar-sweep"></div>
-    <div class="sonar-dot"></div>
-  </div>
 </div>
 
 <div class="menu-overlay" id="menuOverlay"></div>
@@ -162,6 +153,18 @@
 
 <!-- ── HERO ── -->
 <section class="hero">
+
+  <!-- Sonar rings — скроллятся вместе с hero -->
+  <div class="sonar-center" aria-hidden="true">
+    <div class="sonar-ring"></div>
+    <div class="sonar-ring"></div>
+    <div class="sonar-ring"></div>
+    <div class="sonar-ring"></div>
+    <div class="sonar-ring"></div>
+    <div class="sonar-sweep"></div>
+    <div class="sonar-dot"></div>
+  </div>
+
   <div class="hero-content">
 
     <div class="dhc-card" aria-hidden="true">

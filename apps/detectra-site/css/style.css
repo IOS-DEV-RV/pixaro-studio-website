@@ -20,7 +20,7 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; background-color: #1C2255; overscroll-behavior-y: none; }
+html { scroll-behavior: smooth; }
 
 body {
   font-family: var(--font);
@@ -48,17 +48,21 @@ body {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(98,114,234,0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(98,114,234,0.06) 1px, transparent 1px);
+    linear-gradient(rgba(98,114,234,0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(98,114,234,0.055) 1px, transparent 1px);
   background-size: 100px 100px;
+  pointer-events: none;
 }
 
-.sonar-origin {
-  position: fixed;
+/* Sonar живёт внутри .hero и скроллится вместе с ним */
+.sonar-center {
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 0; height: 0;
+  pointer-events: none;
+  z-index: 0;
 }
 
 .sonar-ring {
@@ -66,41 +70,43 @@ body {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
-  border: 1px solid rgba(98,114,234,0.6);
+  border: 1px solid rgba(98,114,234,0.65);
   animation: sonarPulse 5s ease-out infinite;
 }
-.sonar-ring:nth-child(1) { width: 240px;  height: 240px;  animation-delay: 0s;   }
-.sonar-ring:nth-child(2) { width: 500px;  height: 500px;  animation-delay: 0.8s; border-color: rgba(98,114,234,0.42); }
-.sonar-ring:nth-child(3) { width: 800px;  height: 800px;  animation-delay: 1.6s; border-color: rgba(98,114,234,0.28); }
-.sonar-ring:nth-child(4) { width: 1160px; height: 1160px; animation-delay: 2.4s; border-color: rgba(98,114,234,0.16); }
-.sonar-ring:nth-child(5) { width: 1600px; height: 1600px; animation-delay: 3.2s; border-color: rgba(98,114,234,0.07); }
+.sonar-ring:nth-child(1) { width: 200px;  height: 200px;  animation-delay: 0s;   }
+.sonar-ring:nth-child(2) { width: 420px;  height: 420px;  animation-delay: 0.8s; border-color: rgba(98,114,234,0.45); }
+.sonar-ring:nth-child(3) { width: 680px;  height: 680px;  animation-delay: 1.6s; border-color: rgba(98,114,234,0.3); }
+.sonar-ring:nth-child(4) { width: 980px;  height: 980px;  animation-delay: 2.4s; border-color: rgba(98,114,234,0.18); }
+.sonar-ring:nth-child(5) { width: 1340px; height: 1340px; animation-delay: 3.2s; border-color: rgba(98,114,234,0.08); }
 
 @keyframes sonarPulse {
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
   100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
 }
 
+/* Основной круг сонара — почти на весь экран */
 .sonar-sweep {
   position: absolute;
   top: 50%; left: 50%;
-  width: 800px; height: 800px;
-  margin: -400px 0 0 -400px;
+  width: clamp(700px, 92vmin, 960px);
+  height: clamp(700px, 92vmin, 960px);
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  border: 1px solid rgba(98,114,234,0.14);
+  border: 1px solid rgba(98,114,234,0.2);
   overflow: hidden;
 }
 
 .sonar-sweep::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  inset: 0;
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    transparent 290deg,
-    rgba(98,114,234,0.12) 320deg,
-    rgba(98,114,234,0.35) 350deg,
-    rgba(154,174,255,0.08) 360deg
+    transparent 285deg,
+    rgba(98,114,234,0.1) 315deg,
+    rgba(98,114,234,0.38) 350deg,
+    rgba(154,174,255,0.07) 360deg
   );
   border-radius: 50%;
   animation: sonarSweep 5s linear infinite;
@@ -115,11 +121,11 @@ body {
 .sonar-dot {
   position: absolute;
   top: 50%; left: 50%;
-  width: 8px; height: 8px;
-  margin: -4px 0 0 -4px;
+  width: 10px; height: 10px;
+  transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: rgba(154,174,255,0.8);
-  box-shadow: 0 0 18px 6px rgba(98,114,234,0.55), 0 0 4px 2px rgba(154,174,255,0.6);
+  background: rgba(154,174,255,0.85);
+  box-shadow: 0 0 20px 8px rgba(98,114,234,0.6), 0 0 5px 2px rgba(154,174,255,0.7);
 }
 
 /* Все контентные секции поверх фона */
@@ -297,7 +303,7 @@ a { text-decoration: none; color: inherit; }
   position: relative;
 }
 
-.hero-content { max-width: 640px; }
+.hero-content { max-width: 640px; position: relative; z-index: 1; }
 
 .hero-badge {
   display: inline-flex;
