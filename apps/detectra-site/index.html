@@ -487,12 +487,12 @@
   /* ── Генерация плавного трейла (20 сегментов по 5°) ── */
   var sweepG = document.getElementById('sweepGroup');
   if (sweepG) {
-    var SLICES    = 20;
-    var TRAIL_DEG = 100;
+    var SLICES    = 60;
+    var TRAIL_DEG = 110;
     var STEP      = TRAIL_DEG / SLICES;
     for (var i = SLICES - 1; i >= 0; i--) {
       var t  = i / SLICES;
-      var op = 0.72 * Math.pow(1 - t, 1.6);
+      var op = 0.68 * Math.pow(1 - t, 1.4);
       var a1 = (-90 - i * STEP)       * Math.PI / 180;
       var a2 = (-90 - (i + 1) * STEP) * Math.PI / 180;
       var px1 = (cx + r * Math.cos(a1)).toFixed(2);
