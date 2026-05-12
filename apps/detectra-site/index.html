@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detectra – Hidden Lens Finder</title>
+  <meta name="description" content="Detectra scans your environment for hidden cameras, electromagnetic anomalies, and suspicious acoustic signals using three powerful detection modes built into your iPhone." />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .nav-menu-btn { display: none !important; }
+    .menu-overlay, .menu-drawer { display: none !important; }
+    .nav-logo { display: none !important; }
+    .nav { display: flex !important; justify-content: space-between !important; align-items: center !important; }
+    .nav-back-custom {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 13px; font-weight: 600;
+      color: rgba(228,234,255,0.55);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .nav-back-custom:hover { color: #fff; }
+    .nav { padding: 0 20px !important; }
+    .nav-btn-custom {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 600;
+      border: 1px solid rgba(228,234,255,0.13); background: rgba(228,234,255,0.06);
+      color: rgba(228,234,255,0.65); text-decoration: none; transition: all 0.2s;
+    }
+    .nav-btn-custom:hover { color: #fff; background: rgba(228,234,255,0.13); }
+    @media (max-width: 480px) {
+      .nav { padding: 0 14px !important; }
+      .nav-back-custom { font-size: 12px; gap: 4px; }
+      .nav-btn-custom { padding: 6px 10px; font-size: 11px; gap: 3px; }
+    }
+    html, body { background-color: #060A14 !important; color: #E4EAFF; min-height: 100vh; }
+    .nav { background: rgba(6, 10, 20, 0.97) !important; border-bottom: 1px solid rgba(228,234,255,0.08) !important; position: sticky !important; top: 0 !important; z-index: 999 !important; min-height: 60px !important; align-items: center !important; }
+
+    /* ── Hero banner ── */
+    .hero { padding-top: 100px !important; }
+    .hero-content { max-width: 800px !important; }
+
+    .dhc-card {
+      position: relative;
+      width: 100%;
+      max-width: 760px;
+      aspect-ratio: 760 / 440;
+      margin: 0 auto 32px;
+    }
+
+    .dhc-blob {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 115%; height: 140%;
+      pointer-events: none; z-index: 1;
+      background:
+        radial-gradient(50% 60% at 30% 45%, rgba(98,114,234,0.95), transparent 75%),
+        radial-gradient(50% 55% at 70% 50%, rgba(154,174,255,0.85), transparent 75%),
+        radial-gradient(42% 48% at 50% 80%, rgba(120,80,240,0.7), transparent 75%),
+        radial-gradient(40% 40% at 55% 20%, rgba(80,100,220,0.9), transparent 75%);
+      filter: blur(38px);
+      mix-blend-mode: screen;
+    }
+
+    .dhc-icon {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: clamp(86px, 16%, 132px);
+      height: auto;
+      border-radius: 22%;
+      box-shadow:
+        0 16px 50px rgba(98, 114, 234, 0.5),
+        0 8px 26px rgba(0, 0, 0, 0.5);
+      z-index: 3;
+    }
+
+    .dhc-pill {
+      position: absolute; z-index: 4;
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #FFFFFF; color: #080D24;
+      padding: 10px 18px; border-radius: 999px;
+      font-size: clamp(11px, 1.7vw, 15px); font-weight: 600;
+      letter-spacing: -0.1px; white-space: nowrap;
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 8px 22px rgba(0,0,0,0.28),
+        0 2px 6px rgba(0,0,0,0.20);
+      transform: translate(-50%, -50%);
+    }
+    .dhc-pill svg { flex-shrink: 0; display: block; }
+
+    .pill-lens      { top: 18%; left: 26%; }
+    .pill-emf       { top: 18%; left: 74%; }
+    .pill-acoustic  { top: 50%; left: 9%;  }
+    .pill-history   { top: 50%; left: 91%; }
+    .pill-location  { top: 82%; left: 26%; }
+    .pill-offline   { top: 82%; left: 74%; }
+
+    @media (max-width: 720px) {
+      .dhc-card { aspect-ratio: 720 / 460; }
+      .dhc-pill { padding: 8px 13px; gap: 6px; }
+      .dhc-pill svg { width: 14px; height: 14px; }
+      .dhc-icon { width: clamp(78px, 18%, 110px); }
+    }
+    @media (max-width: 460px) {
+      .dhc-card { aspect-ratio: 360 / 320; }
+      .dhc-pill { padding: 6px 10px; gap: 5px; }
+      .dhc-pill svg { width: 12px; height: 12px; }
+      .dhc-icon { width: clamp(64px, 22%, 96px); }
+      .pill-acoustic { left: 14%; }
+      .pill-history  { left: 86%; }
+      .pill-lens     { left: 28%; }
+      .pill-emf      { left: 72%; }
+      .pill-location { left: 28%; }
+      .pill-offline  { left: 72%; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../../apps.html" class="nav-back-custom">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Our Apps
+  </a>
+  <div style="display:flex;gap:8px;align-items:center;">
+    <a href="privacy.html" class="nav-btn-custom">Privacy</a>
+  </div>
+  <a href="index.html" class="nav-logo" style="display:none">Detectra</a>
+  <button class="nav-menu-btn" id="menuBtn" aria-label="Open menu" style="display:none"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="menu-overlay" id="menuOverlay"></div>
+<div class="menu-drawer" id="menuDrawer">
+  <button class="menu-close" id="menuClose">✕</button>
+  <nav class="menu-links">
+    <a class="menu-link" href="privacy.html">
+      <span class="menu-link-left">
+        <span class="menu-link-icon">🔒</span>
+        Privacy Policy
+      </span>
+      <span class="menu-link-arrow">›</span>
+    </a>
+  </nav>
+  <div class="menu-footer">© 2026 Detectra. All rights reserved.</div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-content">
+
+    <div class="dhc-card" aria-hidden="true">
+      <div class="dhc-blob"></div>
+
+      <img src="images/icon.png" class="dhc-icon" alt="Detectra" />
+
+      <span class="dhc-pill pill-lens">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        Lens Detector
+      </span>
+
+      <span class="dhc-pill pill-emf">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+        EMF Scanner
+      </span>
+
+      <span class="dhc-pill pill-acoustic">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1-9c0-.55.45-1 1-1s1 .45 1 1v6c0 .55-.45 1-1 1s-1-.45-1-1V5zm6 6c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
+        Acoustic
+      </span>
+
+      <span class="dhc-pill pill-history">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+        History
+      </span>
+
+      <span class="dhc-pill pill-location">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        GPS Records
+      </span>
+
+      <span class="dhc-pill pill-offline">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14zm-5-2c.83 0 1.5-.67 1.5-1.5S12.83 14 12 14s-1.5.67-1.5 1.5S11.17 17 12 17z"/></svg>
+        Works Offline
+      </span>
+
+    </div>
+
+    <div class="hero-badge">Available on iPhone · iOS 16+</div>
+    <h1 class="hero-title">Detectra</h1>
+    <p class="hero-desc">
+      Find Hidden Cameras &amp; Devices. Three powerful detection modes — lens scanning, EMF analysis, and acoustic monitoring — built directly into your iPhone.
+    </p>
+    <div class="hero-actions">
+      <a href="https://apps.apple.com/us/app/" class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download on App Store
+      </a>
+      <a href="#features" class="btn-secondary">
+        Explore Features
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ── -->
+<section class="features" id="features">
+  <div class="container">
+
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="images/feature_camera_scan.png" alt="Detectra lens detection scanning a hidden camera in a wall outlet" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">01</div>
+        <h2 class="feature-title">Lens Detector</h2>
+        <p class="feature-desc">
+          Point your camera around the room. Use precision color filters to visually identify reflective lens surfaces invisible to the naked eye. Different filter modes reveal different types of lenses — helping you spot hidden cameras in rental apartments, hotel rooms, changing rooms, and offices. Capture and save snapshots with the active filter applied.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Color Filters</span>
+          <span class="feature-pill">Lens Reflection</span>
+          <span class="feature-pill">Photo Snapshots</span>
+          <span class="feature-pill accent">PRO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row reverse">
+      <div class="feature-image">
+        <img src="images/feature_emf.png" alt="Detectra EMF magnetic field scanner with analog gauge" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">02</div>
+        <h2 class="feature-title">Magnetic Field Scanner</h2>
+        <p class="feature-desc">
+          Every electronic device emits a magnetic field. Detectra reads your iPhone's built-in magnetometer in real time and displays it on a precision analog gauge. When the field strength rises beyond the baseline, the signal tone accelerates — giving you instant, intuitive feedback as you sweep the room. Auto-calibration adjusts to your environment so you focus only on anomalies that matter.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Live EMF Gauge</span>
+          <span class="feature-pill">Auto Calibration</span>
+          <span class="feature-pill">Signal Tone</span>
+          <span class="feature-pill accent">PRO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature-image">
+        <img src="images/feature_acoustic.png" alt="Detectra acoustic analyzer live spectrum display" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">03</div>
+        <h2 class="feature-title">Acoustic Analyzer</h2>
+        <p class="feature-desc">
+          Detectra analyzes the acoustic spectrum through your microphone to detect unusual high-frequency signals that may indicate active wireless transmission. A live circular spectrum display shows signal intensity in real time, with peak frequency tracking and a clear status indicator showing whether a suspicious signal is present.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">Live Spectrum</span>
+          <span class="feature-pill">Peak Frequency</span>
+          <span class="feature-pill">10–18 kHz Range</span>
+          <span class="feature-pill accent">PRO</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-row reverse">
+      <div class="feature-image">
+        <img src="images/feature_history.png" alt="Detectra detection history with GPS location and map preview" loading="lazy" />
+      </div>
+      <div class="feature-text">
+        <div class="feature-number">04</div>
+        <h2 class="feature-title">Detection History</h2>
+        <p class="feature-desc">
+          Every saved detection record includes timestamp, detection type, GPS coordinates, reverse-geocoded address, and a map preview with location marker. For lens scans — the captured photo. Tap any record to view full details, copy any field, open the location in Apple Maps, or share the full record in one tap.
+        </p>
+        <div class="feature-pills">
+          <span class="feature-pill">GPS + Address</span>
+          <span class="feature-pill">Map Preview</span>
+          <span class="feature-pill">Share Record</span>
+          <span class="feature-pill accent">PRO</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── ABOUT SECTION ── -->
+<section class="about-section reveal">
+  <div class="container">
+
+    <div class="about-intro">
+      <p class="section-label">About</p>
+      <h2 class="about-title">Is someone watching you without your knowledge? Detectra gives you the tools to find out.</h2>
+      <p class="about-lead">Designed for travelers, privacy-conscious individuals, and anyone who values personal security — Detectra scans your environment using three powerful detection modes built directly into your iPhone.</p>
+      <p class="about-lead">Start and stop scanning with a single tap. Mute signal tones when discretion is needed. Works fully offline. No distractions, no complexity.</p>
+      <div class="about-badge">BUILT FOR REAL USE — compact, minimal interface, works fully offline</div>
+    </div>
+
+    <div class="about-divider"></div>
+
+    <p class="about-pro-label">Three detection modes, one app</p>
+    <div class="about-features-grid">
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📷</div>
+        <h3 class="about-feat-title">Precision Color Filters</h3>
+        <p class="about-feat-desc">Use advanced filter modes to visually identify reflective lens surfaces that are invisible to the naked eye. Different filters reveal different lens types.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🔭</div>
+        <h3 class="about-feat-title">Manual Lens Inspection</h3>
+        <p class="about-feat-desc">Manually sweep the room and spot hidden cameras in rental apartments, hotel rooms, changing rooms, and offices using live filtered camera view.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">⚡</div>
+        <h3 class="about-feat-title">EMF Anomaly Detection</h3>
+        <p class="about-feat-desc">Real-time magnetometer readings on a precision analog gauge. Accelerating tone signals anomalies — just like a Geiger counter — for instant intuitive feedback.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🎯</div>
+        <h3 class="about-feat-title">Auto Background Calibration</h3>
+        <p class="about-feat-desc">Automatic baseline calibration filters out ambient magnetic noise, so you only see anomalies that are genuinely suspicious and above the background level.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🎙️</div>
+        <h3 class="about-feat-title">High-Frequency Analysis</h3>
+        <p class="about-feat-desc">Monitors the 10–18 kHz acoustic range where many wireless transmitters operate. Live peak frequency display shows exactly what the microphone is picking up.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📡</div>
+        <h3 class="about-feat-title">Live Spectrum Display</h3>
+        <p class="about-feat-desc">Circular real-time spectrum visualization shows acoustic signal intensity across frequency bands, with clear status indicating whether a suspicious signal is detected.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📍</div>
+        <h3 class="about-feat-title">GPS Location Records</h3>
+        <p class="about-feat-desc">Every detection record is saved with GPS coordinates and reverse-geocoded street address — so you always know exactly where and when each anomaly was found.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🗺️</div>
+        <h3 class="about-feat-title">Map Preview</h3>
+        <p class="about-feat-desc">Each record includes a static map snapshot with a location marker. Tap to open in Apple Maps, or share the full record including map link in one tap.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📸</div>
+        <h3 class="about-feat-title">Photo Capture</h3>
+        <p class="about-feat-desc">Capture snapshots from the lens detector with the active color filter applied. Photos are stored alongside EMF and acoustic readings at the moment of capture.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">🔇</div>
+        <h3 class="about-feat-title">Discreet Mode</h3>
+        <p class="about-feat-desc">Mute signal tones with a single tap whenever discretion is needed. All sensors continue working silently in the background.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📶</div>
+        <h3 class="about-feat-title">Works Fully Offline</h3>
+        <p class="about-feat-desc">Detectra works entirely on-device without any internet connection. All detection, saving, and history browsing is available completely offline.</p>
+      </div>
+
+      <div class="about-feat reveal">
+        <div class="about-feat-icon">📱</div>
+        <h3 class="about-feat-title">Single Tap to Scan</h3>
+        <p class="about-feat-desc">Start and stop any detection mode with a single tap. Clean, minimal interface designed to stay out of your way while you focus on what matters.</p>
+      </div>
+
+    </div>
+
+    <p class="plans-note" style="margin-top:48px;">
+      Detectra does not claim to replace professional RF sweeping equipment. It uses the sensors built into your iPhone to help you notice what might otherwise go undetected. Your space. Your privacy. Stay aware.
+    </p>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Detectra" />
+        Detectra
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <p class="footer-copy">© 2026 Detectra. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
