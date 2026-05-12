@@ -45,17 +45,17 @@ body {
 }
 
 .sonar-grid {
-  position: absolute;
+  position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(98,114,234,0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(98,114,234,0.04) 1px, transparent 1px);
-  background-size: 60px 60px;
+    linear-gradient(rgba(98,114,234,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(98,114,234,0.06) 1px, transparent 1px);
+  background-size: 100px 100px;
 }
 
 .sonar-origin {
-  position: absolute;
-  top: 38%;
+  position: fixed;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 0; height: 0;
@@ -66,14 +66,14 @@ body {
   top: 50%; left: 50%;
   transform: translate(-50%, -50%) scale(0);
   border-radius: 50%;
-  border: 1px solid rgba(98,114,234,0.55);
-  animation: sonarPulse 4s ease-out infinite;
+  border: 1px solid rgba(98,114,234,0.6);
+  animation: sonarPulse 5s ease-out infinite;
 }
-.sonar-ring:nth-child(1) { width: 160px; height: 160px; animation-delay: 0s; }
-.sonar-ring:nth-child(2) { width: 320px; height: 320px; animation-delay: 0.6s; border-color: rgba(98,114,234,0.4); }
-.sonar-ring:nth-child(3) { width: 520px; height: 520px; animation-delay: 1.2s; border-color: rgba(98,114,234,0.28); }
-.sonar-ring:nth-child(4) { width: 760px; height: 760px; animation-delay: 1.8s; border-color: rgba(98,114,234,0.16); }
-.sonar-ring:nth-child(5) { width: 1040px; height: 1040px; animation-delay: 2.4s; border-color: rgba(98,114,234,0.08); }
+.sonar-ring:nth-child(1) { width: 240px;  height: 240px;  animation-delay: 0s;   }
+.sonar-ring:nth-child(2) { width: 500px;  height: 500px;  animation-delay: 0.8s; border-color: rgba(98,114,234,0.42); }
+.sonar-ring:nth-child(3) { width: 800px;  height: 800px;  animation-delay: 1.6s; border-color: rgba(98,114,234,0.28); }
+.sonar-ring:nth-child(4) { width: 1160px; height: 1160px; animation-delay: 2.4s; border-color: rgba(98,114,234,0.16); }
+.sonar-ring:nth-child(5) { width: 1600px; height: 1600px; animation-delay: 3.2s; border-color: rgba(98,114,234,0.07); }
 
 @keyframes sonarPulse {
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
@@ -83,11 +83,10 @@ body {
 .sonar-sweep {
   position: absolute;
   top: 50%; left: 50%;
-  width: 520px; height: 520px;
-  margin: -260px 0 0 -260px;
+  width: 800px; height: 800px;
+  margin: -400px 0 0 -400px;
   border-radius: 50%;
-  border: 1px solid rgba(98,114,234,0.18);
-  animation: none;
+  border: 1px solid rgba(98,114,234,0.14);
   overflow: hidden;
 }
 
@@ -98,13 +97,13 @@ body {
   background: conic-gradient(
     from 0deg,
     transparent 0deg,
-    transparent 300deg,
-    rgba(98,114,234,0.18) 330deg,
-    rgba(98,114,234,0.45) 355deg,
-    rgba(154,174,255,0.12) 360deg
+    transparent 290deg,
+    rgba(98,114,234,0.12) 320deg,
+    rgba(98,114,234,0.35) 350deg,
+    rgba(154,174,255,0.08) 360deg
   );
   border-radius: 50%;
-  animation: sonarSweep 4s linear infinite;
+  animation: sonarSweep 5s linear infinite;
   transform-origin: center;
 }
 
@@ -116,11 +115,11 @@ body {
 .sonar-dot {
   position: absolute;
   top: 50%; left: 50%;
-  width: 6px; height: 6px;
-  margin: -3px 0 0 -3px;
+  width: 8px; height: 8px;
+  margin: -4px 0 0 -4px;
   border-radius: 50%;
-  background: rgba(154,174,255,0.7);
-  box-shadow: 0 0 12px 4px rgba(98,114,234,0.5);
+  background: rgba(154,174,255,0.8);
+  box-shadow: 0 0 18px 6px rgba(98,114,234,0.55), 0 0 4px 2px rgba(154,174,255,0.6);
 }
 
 /* Все контентные секции поверх фона */
