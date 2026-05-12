@@ -167,8 +167,8 @@
           <stop offset="0%"   stop-color="#1A3060" stop-opacity="0.5"/>
           <stop offset="100%" stop-color="#060A18" stop-opacity="0.7"/>
         </radialGradient>
-        <filter id="lineglow">
-          <feGaussianBlur stdDeviation="1.5" result="blur"/>
+        <filter id="lineglow" x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
         <filter id="dotglow">
@@ -195,14 +195,17 @@
       <g id="sonarTicks"></g>
 
       <!-- Вращающийся луч с трейлом -->
-      <g class="sonar-sweep-group">
+      <g class="sonar-sweep-group" id="sweepGroup">
         <!-- Трейл-сектор (100° против часовой) -->
         <path d="M 200 200 L 200 11 A 189 189 0 0 0 13.9 232.8 Z"
-              fill="url(#trailGrad)" opacity="0.9"/>
-        <!-- Линия луча -->
+              fill="url(#trailGrad)" opacity="0.85"/>
+        <!-- Мягкое свечение луча -->
         <line x1="200" y1="200" x2="200" y2="11"
-              stroke="#30C8E8" stroke-width="1.5" stroke-linecap="round"
-              filter="url(#lineglow)"/>
+              stroke="#30C8E8" stroke-width="2.5" stroke-linecap="round"
+              filter="url(#lineglow)" opacity="0.9"/>
+        <!-- Чёткий острый край — белая линия поверх -->
+        <line x1="200" y1="200" x2="200" y2="11"
+              stroke="rgba(220,245,255,0.92)" stroke-width="0.9" stroke-linecap="round"/>
       </g>
 
       <!-- Центральная точка (невидимая — центр совпадает с иконкой hero) -->
@@ -465,27 +468,92 @@
 <script src="js/main.js"></script>
 <script>
 (function() {
+  /* ── Генерация рисок ── */
   var g = document.getElementById('sonarTicks');
-  if (!g) return;
-  var cx = 200, cy = 200, r = 189, ns = 'http://www.w3.org/2000/svg';
-  for (var deg = 0; deg < 360; deg += 5) {
-    var tickLen = deg % 30 === 0 ? 11 : deg % 10 === 0 ? 6 : 3;
-    var opacity = deg % 30 === 0 ? 0.65 : deg % 10 === 0 ? 0.35 : 0.18;
-    var sw = deg % 30 === 0 ? 1.2 : 0.7;
-    var rad = (deg - 90) * Math.PI / 180;
-    var x1 = cx + (r - tickLen) * Math.cos(rad);
-    var y1 = cy + (r - tickLen) * Math.sin(rad);
-    var x2 = cx + r * Math.cos(rad);
-    var y2 = cy + r * Math.sin(rad);
-    var line = document.createElementNS(ns, 'line');
-    line.setAttribute('x1', x1.toFixed(2));
-    line.setAttribute('y1', y1.toFixed(2));
-    line.setAttribute('x2', x2.toFixed(2));
-    line.setAttribute('y2', y2.toFixed(2));
-    line.setAttribute('stroke', 'rgba(48,200,232,' + opacity + ')');
-    line.setAttribute('stroke-width', sw);
-    g.appendChild(line);
+  if (g) {
+    var cx = 200, cy = 200, r = 189, ns = 'http://www.w3.org/2000/svg';
+    for (var deg = 0; deg < 360; deg += 5) {
+      var tickLen = deg % 30 === 0 ? 11 : deg % 10 === 0 ? 6 : 3;
+      var opacity = deg % 30 === 0 ? 0.65 : deg % 10 === 0 ? 0.35 : 0.18;
+      var sw      = deg % 30 === 0 ? 1.2 : 0.7;
+      var rad = (deg - 90) * Math.PI / 180;
+      var x1 = cx + (r - tickLen) * Math.cos(rad);
+      var y1 = cy + (r - tickLen) * Math.sin(rad);
+      var x2 = cx + r * Math.cos(rad);
+      var y2 = cy + r * Math.sin(rad);
+      var line = document.createElementNS(ns, 'line');
+      line.setAttribute('x1', x1.toFixed(2));
+      line.setAttribute('y1', y1.toFixed(2));
+      line.setAttribute('x2', x2.toFixed(2));
+      line.setAttribute('y2', y2.toFixed(2));
+      line.setAttribute('stroke', 'rgba(48,200,232,' + opacity + ')');
+      line.setAttribute('stroke-width', sw);
+      g.appendChild(line);
+    }
   }
+
+  /* ── Интерактивный луч ── */
+  var sweepGroup = document.getElementById('sweepGroup');
+  var sonarSvg   = document.getElementById('sonarSvg');
+  if (!sweepGroup || !sonarSvg) return;
+
+  var AUTO_SPEED = 90;   /* градусов/с → 4 с на оборот */
+  var LERP_K     = 8;    /* скорость следования за курсором */
+
+  var currentAngle  = 0;
+  var targetAngle   = 0;
+  var autoAngle     = 0;
+  var interactive   = false;
+  var lastTs        = null;
+
+  /* Убираем CSS-анимацию — управляем только через JS */
+  sweepGroup.style.animation   = 'none';
+  sweepGroup.style.transformOrigin = '200px 200px';
+
+  function norm(a) { return ((a % 360) + 360) % 360; }
+  function shortest(from, to) {
+    var d = norm(to - from);
+    return d > 180 ? d - 360 : d;
+  }
+
+  function angleFromPointer(clientX, clientY) {
+    var rect = sonarSvg.getBoundingClientRect();
+    var dx = clientX - (rect.left + rect.width  / 2);
+    var dy = clientY - (rect.top  + rect.height / 2);
+    return norm(Math.atan2(dx, -dy) * 180 / Math.PI);
+  }
+
+  function tick(ts) {
+    if (!lastTs) lastTs = ts;
+    var dt = Math.min((ts - lastTs) / 1000, 0.1);
+    lastTs = ts;
+
+    if (interactive) {
+      var diff = shortest(currentAngle, targetAngle);
+      currentAngle = norm(currentAngle + diff * Math.min(dt * LERP_K, 1));
+    } else {
+      autoAngle  = norm(autoAngle + AUTO_SPEED * dt);
+      currentAngle = autoAngle;
+    }
+
+    sweepGroup.style.transform = 'rotate(' + currentAngle.toFixed(2) + 'deg)';
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+
+  /* Мышь */
+  sonarSvg.addEventListener('mouseenter', function() { interactive = true; });
+  sonarSvg.addEventListener('mousemove',  function(e) { targetAngle = angleFromPointer(e.clientX, e.clientY); });
+  sonarSvg.addEventListener('mouseleave', function() { interactive = false; autoAngle = currentAngle; });
+
+  /* Touch */
+  sonarSvg.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 0) {
+      interactive  = true;
+      targetAngle  = angleFromPointer(e.touches[0].clientX, e.touches[0].clientY);
+    }
+  }, { passive: true });
+  sonarSvg.addEventListener('touchend', function() { interactive = false; autoAngle = currentAngle; });
 })();
 </script>
 </body>

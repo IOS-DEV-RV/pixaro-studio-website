@@ -74,12 +74,7 @@ body {
 
 .sonar-sweep-group {
   transform-origin: 200px 200px;
-  animation: radarSweep 4s linear infinite;
-}
-
-@keyframes radarSweep {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  /* анимация управляется через JS (requestAnimationFrame) */
 }
 
 /* Все контентные секции поверх фона */
