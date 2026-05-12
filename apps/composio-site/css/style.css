@@ -19,7 +19,7 @@
   --radius-sm: 12px;
 }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; background-color: #0E3A45; overscroll-behavior-y: none; }
 
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Helvetica, Arial, sans-serif;
