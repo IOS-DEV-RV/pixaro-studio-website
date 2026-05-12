@@ -175,6 +175,13 @@
           <feGaussianBlur stdDeviation="3" result="blur"/>
           <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
         </filter>
+        <filter id="iconglow">
+          <feGaussianBlur stdDeviation="6" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <clipPath id="iconClip">
+          <rect x="168" y="168" width="64" height="64" rx="14" ry="14"/>
+        </clipPath>
       </defs>
 
       <!-- Фон круга -->
@@ -205,9 +212,9 @@
               filter="url(#lineglow)"/>
       </g>
 
-      <!-- Центр -->
-      <circle cx="200" cy="200" r="10" fill="none" stroke="rgba(48,200,232,0.4)" stroke-width="0.8"/>
-      <circle cx="200" cy="200" r="4"  fill="#30C8E8" filter="url(#dotglow)"/>
+      <!-- Иконка приложения в центре -->
+      <circle cx="200" cy="200" r="36" fill="rgba(8,15,38,0.6)" stroke="rgba(48,200,232,0.35)" stroke-width="1" filter="url(#iconglow)"/>
+      <image href="images/icon.png" x="168" y="168" width="64" height="64" clip-path="url(#iconClip)" preserveAspectRatio="xMidYMid slice"/>
     </svg>
   </div>
 
