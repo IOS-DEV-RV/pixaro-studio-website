@@ -48,84 +48,37 @@ body {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(98,114,234,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(98,114,234,0.055) 1px, transparent 1px);
+    linear-gradient(rgba(98,114,234,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(98,114,234,0.04) 1px, transparent 1px);
   background-size: 100px 100px;
   pointer-events: none;
 }
 
-/* Sonar живёт внутри .hero и скроллится вместе с ним */
+/* SVG-сонар живёт внутри .hero и скроллится со страницей */
 .sonar-center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 0; height: 0;
   pointer-events: none;
   z-index: 0;
 }
 
-.sonar-ring {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  border-radius: 50%;
-  border: 1px solid rgba(98,114,234,0.65);
-  animation: sonarPulse 5s ease-out infinite;
-}
-.sonar-ring:nth-child(1) { width: 200px;  height: 200px;  animation-delay: 0s;   }
-.sonar-ring:nth-child(2) { width: 420px;  height: 420px;  animation-delay: 0.8s; border-color: rgba(98,114,234,0.45); }
-.sonar-ring:nth-child(3) { width: 680px;  height: 680px;  animation-delay: 1.6s; border-color: rgba(98,114,234,0.3); }
-.sonar-ring:nth-child(4) { width: 980px;  height: 980px;  animation-delay: 2.4s; border-color: rgba(98,114,234,0.18); }
-.sonar-ring:nth-child(5) { width: 1340px; height: 1340px; animation-delay: 3.2s; border-color: rgba(98,114,234,0.08); }
-
-@keyframes sonarPulse {
-  0%   { transform: translate(-50%, -50%) scale(0); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+.sonar-svg {
+  width: clamp(420px, 88vmin, 920px);
+  height: clamp(420px, 88vmin, 920px);
+  overflow: visible;
+  display: block;
 }
 
-/* Основной круг сонара — почти на весь экран */
-.sonar-sweep {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: clamp(700px, 92vmin, 960px);
-  height: clamp(700px, 92vmin, 960px);
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1px solid rgba(98,114,234,0.2);
-  overflow: hidden;
+.sonar-sweep-group {
+  transform-origin: 200px 200px;
+  animation: radarSweep 4s linear infinite;
 }
 
-.sonar-sweep::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg,
-    transparent 285deg,
-    rgba(98,114,234,0.1) 315deg,
-    rgba(98,114,234,0.38) 350deg,
-    rgba(154,174,255,0.07) 360deg
-  );
-  border-radius: 50%;
-  animation: sonarSweep 5s linear infinite;
-  transform-origin: center;
-}
-
-@keyframes sonarSweep {
+@keyframes radarSweep {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
-}
-
-.sonar-dot {
-  position: absolute;
-  top: 50%; left: 50%;
-  width: 10px; height: 10px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: rgba(154,174,255,0.85);
-  box-shadow: 0 0 20px 8px rgba(98,114,234,0.6), 0 0 5px 2px rgba(154,174,255,0.7);
 }
 
 /* Все контентные секции поверх фона */
