@@ -69,6 +69,7 @@ body {
   height: clamp(420px, 88vmin, 920px);
   overflow: visible;
   display: block;
+  opacity: 0.45;
 }
 
 .sonar-sweep-group {
