@@ -256,8 +256,8 @@ ul  { list-style: none; }
 
 .gallery__grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
 }
 
 .gallery__item {
@@ -270,7 +270,7 @@ ul  { list-style: none; }
 
 .gallery__image {
   width: 100%;
-  aspect-ratio: 9 / 19.5;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
 }
 
