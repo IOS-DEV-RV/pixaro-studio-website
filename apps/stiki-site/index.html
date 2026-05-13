@@ -62,30 +62,76 @@
   <section class="gallery" id="gallery">
     <div class="gallery__intro reveal">
       <p class="section-label">Visual preview</p>
-      <h2 class="section-title">Feature posters.<br /><span class="gradient-text">No repeats, just key flows.</span></h2>
+      <h2 class="section-title">Feature posters.<br /><span class="gradient-text">Tap to open full view.</span></h2>
     </div>
 
     <div class="gallery__grid">
       <div class="gallery__item reveal">
-        <img src="screenshots/art-easy-setup-v2.png" alt="Stiki easy setup feature poster" class="gallery__image" />
+        <button class="gallery__trigger" type="button" data-gallery-image="screenshots/art-easy-setup-v2.png" data-gallery-title="Easy setup flow" data-gallery-description="Shows the three-step path: create, organize, and use stickers with a clear guided sequence.">
+          <img src="screenshots/art-easy-setup-v2.png" alt="Stiki easy setup feature poster" class="gallery__image" />
+        </button>
+        <div class="gallery__meta">
+          <h3 class="gallery__title">Easy setup flow</h3>
+          <p class="gallery__text">Three clear steps for quick onboarding from first sticker to daily use.</p>
+        </div>
       </div>
       <div class="gallery__item reveal reveal--delay">
-        <img src="screenshots/art-build-packs.png" alt="Stiki build sticker packs feature poster" class="gallery__image" />
+        <button class="gallery__trigger" type="button" data-gallery-image="screenshots/art-build-packs.png" data-gallery-title="Sticker packs and organization" data-gallery-description="Highlights how users group stickers into curated packs to keep categories tidy and ready.">
+          <img src="screenshots/art-build-packs.png" alt="Stiki build sticker packs feature poster" class="gallery__image" />
+        </button>
+        <div class="gallery__meta">
+          <h3 class="gallery__title">Sticker packs and organization</h3>
+          <p class="gallery__text">Showcases album-like grouping for cleaner, faster sticker management.</p>
+        </div>
       </div>
       <div class="gallery__item reveal">
-        <img src="screenshots/art-design-style.png" alt="Stiki design style feature poster" class="gallery__image" />
+        <button class="gallery__trigger" type="button" data-gallery-image="screenshots/art-design-style.png" data-gallery-title="Creative editor tools" data-gallery-description="Presents text styling, emoji, brush accents, and visual backgrounds used for custom sticker design.">
+          <img src="screenshots/art-design-style.png" alt="Stiki design style feature poster" class="gallery__image" />
+        </button>
+        <div class="gallery__meta">
+          <h3 class="gallery__title">Creative editor tools</h3>
+          <p class="gallery__text">Text, emoji, brush, and background controls for personalized sticker style.</p>
+        </div>
       </div>
       <div class="gallery__item reveal reveal--delay">
-        <img src="screenshots/art-cutout-stickers.png" alt="Stiki cut out sticker feature poster" class="gallery__image" />
+        <button class="gallery__trigger" type="button" data-gallery-image="screenshots/art-cutout-stickers.png" data-gallery-title="Fast cutout and transparency" data-gallery-description="Focuses on background removal and clean transparent sticker export for chat-ready results.">
+          <img src="screenshots/art-cutout-stickers.png" alt="Stiki cut out sticker feature poster" class="gallery__image" />
+        </button>
+        <div class="gallery__meta">
+          <h3 class="gallery__title">Fast cutout and transparency</h3>
+          <p class="gallery__text">Background removal feature to generate sharp transparent stickers in seconds.</p>
+        </div>
       </div>
       <div class="gallery__item reveal">
-        <img src="screenshots/art-share-anywhere.png" alt="Stiki share sticker feature poster" class="gallery__image" />
+        <button class="gallery__trigger" type="button" data-gallery-image="screenshots/art-share-anywhere.png" data-gallery-title="Share to chats" data-gallery-description="Visualizes export flows to conversations so stickers move quickly from editor to messaging apps.">
+          <img src="screenshots/art-share-anywhere.png" alt="Stiki share sticker feature poster" class="gallery__image" />
+        </button>
+        <div class="gallery__meta">
+          <h3 class="gallery__title">Share to chats</h3>
+          <p class="gallery__text">Export-ready storytelling that highlights quick delivery to chat threads.</p>
+        </div>
       </div>
       <div class="gallery__item reveal reveal--delay">
-        <img src="screenshots/art-easy-setup-v1.png" alt="Stiki setup workflow feature poster alt version" class="gallery__image" />
+        <button class="gallery__trigger" type="button" data-gallery-image="screenshots/art-easy-setup-v1.png" data-gallery-title="Guided setup variant" data-gallery-description="Alternative poster framing the same setup journey with an instructional visual tone.">
+          <img src="screenshots/art-easy-setup-v1.png" alt="Stiki setup workflow feature poster alt version" class="gallery__image" />
+        </button>
+        <div class="gallery__meta">
+          <h3 class="gallery__title">Guided setup variant</h3>
+          <p class="gallery__text">Alternate visual style for the onboarding workflow and first-use clarity.</p>
+        </div>
       </div>
     </div>
   </section>
+
+  <div class="gallery-modal" id="galleryModal" aria-hidden="true">
+    <div class="gallery-modal__backdrop" data-gallery-close></div>
+    <div class="gallery-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="galleryModalTitle">
+      <button class="gallery-modal__close" type="button" aria-label="Close preview" data-gallery-close>×</button>
+      <img src="" alt="" id="galleryModalImage" class="gallery-modal__image" />
+      <h3 class="gallery-modal__title" id="galleryModalTitle"></h3>
+      <p class="gallery-modal__text" id="galleryModalText"></p>
+    </div>
+  </div>
 
   <section class="lede">
     <div class="lede__card reveal">
@@ -230,6 +276,45 @@
       entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     revealEls.forEach(function (el) { observer.observe(el); });
+
+    const galleryModal = document.getElementById('galleryModal');
+    const galleryModalImage = document.getElementById('galleryModalImage');
+    const galleryModalTitle = document.getElementById('galleryModalTitle');
+    const galleryModalText = document.getElementById('galleryModalText');
+    const galleryOpenButtons = document.querySelectorAll('.gallery__trigger');
+    const galleryCloseButtons = document.querySelectorAll('[data-gallery-close]');
+
+    function closeGalleryModal() {
+      galleryModal.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('modal-open');
+      galleryModalImage.src = '';
+      galleryModalImage.alt = '';
+    }
+
+    galleryOpenButtons.forEach(function (button) {
+      button.addEventListener('click', function () {
+        const image = button.getAttribute('data-gallery-image');
+        const title = button.getAttribute('data-gallery-title') || '';
+        const description = button.getAttribute('data-gallery-description') || '';
+
+        galleryModalImage.src = image;
+        galleryModalImage.alt = title;
+        galleryModalTitle.textContent = title;
+        galleryModalText.textContent = description;
+        galleryModal.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('modal-open');
+      });
+    });
+
+    galleryCloseButtons.forEach(function (button) {
+      button.addEventListener('click', closeGalleryModal);
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && galleryModal.getAttribute('aria-hidden') === 'false') {
+        closeGalleryModal();
+      }
+    });
 
     document.getElementById('supportForm').addEventListener('submit', function (e) {
       e.preventDefault();
