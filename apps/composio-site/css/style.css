@@ -254,6 +254,10 @@ ul  { list-style: none; }
   box-shadow: 0 28px 70px rgba(0,0,0,0.55), 0 0 0 1px rgba(91,174,255,0.18);
   background: rgba(91,174,255,0.05);
 }
+.feature__shot-wrap--wide {
+  width: min(100%, 420px);
+  border-radius: 28px;
+}
 .feature__shot-wrap img { width: 100%; display: block; }
 
 .feature__shot-placeholder {
