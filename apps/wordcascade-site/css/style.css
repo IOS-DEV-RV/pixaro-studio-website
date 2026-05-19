@@ -164,6 +164,34 @@ img {
   font-size: 15px;
 }
 
+.hero-actions {
+  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #38d3ff, #7f86ff);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  color: #081544;
+  font-size: 14px;
+  font-weight: 800;
+  box-shadow: 0 12px 28px rgba(46, 199, 255, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 32px rgba(46, 199, 255, 0.42);
+}
+
 .hero-visual {
   position: relative;
   min-height: 420px;
