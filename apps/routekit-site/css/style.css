@@ -249,28 +249,18 @@ h3 {
 
 .map-showcase {
   position: relative;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background:
-    radial-gradient(circle at 50% 38%, rgba(112, 214, 255, 0.18), transparent 42%),
-    radial-gradient(circle at 18% 78%, rgba(47, 212, 111, 0.14), transparent 34%),
-    linear-gradient(180deg, rgba(134, 153, 172, 0.34), rgba(37, 55, 73, 0.42));
-  box-shadow: var(--shadow);
-}
-.map-showcase-visual {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 420px;
-  padding: 52px 24px 108px;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 .map-showcase-globe {
-  width: min(430px, 72vw);
-  max-height: none;
+  display: block;
+  width: min(440px, 78vw);
+  margin: 0 auto;
   object-fit: contain;
+  background: transparent;
   mix-blend-mode: screen;
-  filter: drop-shadow(0 28px 48px rgba(47, 212, 111, 0.20));
+  filter: drop-shadow(0 20px 36px rgba(47, 212, 111, 0.16));
   animation: globeDrift 7.5s ease-in-out infinite;
   transform-origin: center center;
 }
@@ -280,9 +270,9 @@ h3 {
 }
 .map-callout {
   position: absolute;
-  left: 24px;
-  bottom: 24px;
-  width: min(390px, calc(100% - 48px));
+  left: 12px;
+  bottom: 12px;
+  width: min(390px, calc(100% - 24px));
   display: flex;
   gap: 12px;
   align-items: flex-start;
@@ -541,10 +531,10 @@ h3 {
   .cta-card,
   .privacy-card { border-radius: 24px; }
   .feature-card:not(.wide) img { height: auto; }
-  .map-callout { position: static; width: auto; margin: 14px; }
-  .map-showcase-visual {
-    min-height: 300px;
-    padding: 36px 18px 18px;
+  .map-callout {
+    position: static;
+    width: auto;
+    margin-top: 16px;
   }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
