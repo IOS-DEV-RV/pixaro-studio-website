@@ -249,18 +249,15 @@ h3 {
 
 .map-showcase {
   position: relative;
-  width: fit-content;
-  max-width: 100%;
-  margin: 0 auto;
-}
-.map-showcase-globe {
-  display: block;
-  width: min(440px, 78vw);
-  margin: 0 auto;
-  object-fit: contain;
+  overflow: hidden;
+  border-radius: var(--radius);
   background: transparent;
+}
+.map-showcase img {
+  width: 100%;
+  max-height: 680px;
+  object-fit: cover;
   mix-blend-mode: screen;
-  filter: drop-shadow(0 20px 36px rgba(47, 212, 111, 0.16));
   animation: globeDrift 7.5s ease-in-out infinite;
   transform-origin: center center;
 }
@@ -270,9 +267,9 @@ h3 {
 }
 .map-callout {
   position: absolute;
-  left: 12px;
-  bottom: 12px;
-  width: min(390px, calc(100% - 24px));
+  left: 24px;
+  bottom: 24px;
+  width: min(390px, calc(100% - 48px));
   display: flex;
   gap: 12px;
   align-items: flex-start;
@@ -531,16 +528,12 @@ h3 {
   .cta-card,
   .privacy-card { border-radius: 24px; }
   .feature-card:not(.wide) img { height: auto; }
-  .map-callout {
-    position: static;
-    width: auto;
-    margin-top: 16px;
-  }
+  .map-callout { position: static; width: auto; margin: 14px; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .map-showcase-globe,
+  .map-showcase img,
   .floating {
     animation: none;
   }
