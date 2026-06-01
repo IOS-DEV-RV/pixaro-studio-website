@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Collaglow — Shape Collages That Actually Look Good</title>
+  <meta name="description" content="Collaglow helps you turn everyday photos into polished shape collages with smart grids, filters, text, emoji overlays and story-ready exports." />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="ambient-orb ambient-orb-one"></div>
+  <div class="ambient-orb ambient-orb-two"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="nav" id="nav">
+    <a href="../../apps.html" class="nav-back" aria-label="Back to apps">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Our Apps
+    </a>
+    <a href="index.html" class="nav-brand">
+      <img src="images/icon.png" alt="Collaglow icon" />
+      Collaglow
+    </a>
+    <div class="nav-links">
+      <a href="#showcase">Showcase</a>
+      <a href="#features">Features</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Shape collage editor</p>
+          <h1>Shape Collages That Actually Look Good</h1>
+          <p class="hero-lead">Turn everyday photos into polished collages in minutes. Collaglow combines clean shape layouts, smart photo grids, and creative tools in one calm, focused editor — built for people who care how their posts look.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#download">Download Collaglow</a>
+            <a class="btn btn-ghost" href="#features">Explore features</a>
+          </div>
+          <div class="hero-stats">
+            <span><strong>Templates</strong>Balanced shape layouts</span>
+            <span><strong>Formats</strong>Story, post and custom</span>
+            <span><strong>Export</strong>What you see is what you get</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay-1" data-tilt>
+          <div class="collage-stage">
+            <div class="collage-tile tile-blue" aria-hidden="true"></div>
+            <div class="collage-tile tile-orange" aria-hidden="true"></div>
+            <div class="collage-tile tile-purple" aria-hidden="true"></div>
+            <div class="collage-tile tile-indigo" aria-hidden="true"></div>
+            <img class="hero-icon" src="images/icon.png" alt="Collaglow app icon" />
+            <div class="glass-pill pill-templates">Shape Templates</div>
+            <div class="glass-pill pill-filters">Photo Filters</div>
+            <div class="glass-pill pill-export">True Export</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase" id="showcase">
+      <div class="section-head reveal">
+        <p class="eyebrow">Built for creators</p>
+        <h2>No clutter. No guesswork. Just beautiful collages.</h2>
+        <p>Open a template, drop in your photos, fine-tune the details, and export something you’ll want to share.</p>
+      </div>
+      <div class="phone-strip">
+        <article class="phone-card reveal" data-tilt>
+          <img src="images/screenshot-templates.png" alt="Collaglow shape collage templates screen" />
+          <div class="phone-caption">
+            <span>Shape Collage Templates</span>
+            <p>Choose from a library of layout templates and start creating instantly.</p>
+          </div>
+        </article>
+        <article class="phone-card reveal reveal-delay-1" data-tilt>
+          <img src="images/screenshot-filters.png" alt="Collaglow photo filters screen" />
+          <div class="phone-caption">
+            <span>Photo Filters &amp; Custom Looks</span>
+            <p>Apply beautiful filters in one tap, or craft your own custom preset.</p>
+          </div>
+        </article>
+        <article class="phone-card reveal reveal-delay-2" data-tilt>
+          <img src="images/screenshot-emoji.png" alt="Collaglow emoji overlay screen" />
+          <div class="phone-caption">
+            <span>Emoji &amp; Photo Overlays</span>
+            <p>Layer emoji and extra photos directly on your canvas with full control.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="why-panel">
+      <div class="format-demo reveal">
+        <div class="section-head" style="margin-bottom:24px;">
+          <p class="eyebrow">Perfect fit for every format</p>
+          <h2>Create for square posts, vertical stories, wide frames, and more.</h2>
+        </div>
+        <div class="format-tabs">
+          <button class="format-tab active" type="button" data-format="story">Story 9:16</button>
+          <button class="format-tab" type="button" data-format="post">Post 1:1</button>
+          <button class="format-tab" type="button" data-format="portrait">Portrait 4:5</button>
+          <button class="format-tab" type="button" data-format="video">Video 16:9</button>
+        </div>
+        <div class="format-preview">
+          <div class="format-frame" id="formatFrame" style="width:180px;height:320px;">
+            <div class="format-frame-inner">
+              <div class="format-cell"></div>
+              <div class="format-cell"></div>
+              <div class="format-cell"></div>
+              <div class="format-cell"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-head reveal">
+        <p class="eyebrow">What you get</p>
+        <h2>Everything you need to build collages that glow.</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card reveal" data-tilt>
+          <div class="feature-icon">▦</div>
+          <h3>Smart Photo Grids</h3>
+          <p>Build classic grid collages with adjustable spacing between sections. Resize, refine, and reshape your layout until it feels exactly right.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-1" data-tilt>
+          <div class="feature-icon">Aa</div>
+          <h3>Text That Belongs</h3>
+          <p>Add styled text with colors, backdrop, and outline control. Your words look intentional — not pasted on as an afterthought.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-2" data-tilt>
+          <div class="feature-icon">◎</div>
+          <h3>Background Control</h3>
+          <p>Set the perfect canvas background color to match your mood, your brand, or your feed aesthetic.</p>
+        </article>
+        <article class="feature-card reveal" data-tilt>
+          <div class="feature-icon">↔</div>
+          <h3>Photo Editing Inside Each Section</h3>
+          <p>Zoom, reposition, and refine photos inside every section so faces, details, and composition always land where they should.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-1" data-tilt>
+          <div class="feature-icon">✦</div>
+          <h3>Export What You See</h3>
+          <p>What you design on canvas is what you get in the final image. Clean output, ready for sharing.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-2" data-tilt>
+          <div class="feature-icon">◷</div>
+          <h3>Your Collage History</h3>
+          <p>Save finished work and revisit your creations anytime. Perfect for iterating on ideas or reusing a layout you love.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="why-panel">
+      <div class="liquid-card reveal">
+        <div>
+          <p class="eyebrow">Why Collaglow</p>
+          <h2>Made for modern photo storytelling.</h2>
+          <p>Collaglow is made for travel diaries, friend highlights, mood boards, profile posts, and story-ready layouts. Whether you want a sharp grid or a bold shape collage, everything stays simple, visual, and under your control.</p>
+          <p style="margin-top:14px;">A weekend trip. A birthday. A new project. A favorite moment. Collaglow helps you arrange it all into something worth keeping — and worth showing.</p>
+        </div>
+        <div class="creator-list">
+          <div>Clean, minimal collage design</div>
+          <div>Flexible shape and grid layouts</div>
+          <div>Fast editing without a steep learning curve</div>
+          <div>Story-ready and post-ready results</div>
+          <div>A polished dark interface that keeps focus on your photos</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="download">
+      <div class="cta-card reveal">
+        <h2>Download Collaglow</h2>
+        <p>Start building collages that glow. Open a template, drop in your photos, fine-tune the details, and export something you’ll want to share.</p>
+        <a class="btn btn-primary" href="https://apps.apple.com/" target="_blank" rel="noopener">View on App Store</a>
+      </div>
+    </section>
+
+    <section class="privacy-note" id="privacy-note">
+      <div class="privacy-card-inline reveal">
+        Collaglow is designed with privacy in mind. Your collage projects and saved history stay on your device. We use analytics only to improve stability and product quality. Read the full policy on our <a href="privacy.html">Privacy page</a>.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Collaglow icon" />
+        Collaglow
+      </div>
+      <div class="footer-links">
+        <a href="../../apps.html">Our Apps</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="footer-copy">© 2026 Collaglow. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
