@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy - Virelia</title>
+  <meta name="description" content="Privacy Policy for Virelia, a sleep rhythm and recovery insights app for iPhone." />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .privacy-page-wrap {
+      width: min(960px, calc(100% - 48px));
+      margin: 0 auto;
+      padding: 130px 0 80px;
+    }
+
+    .privacy-header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .privacy-title {
+      font-size: clamp(42px, 7vw, 78px);
+      line-height: .96;
+      letter-spacing: -0.07em;
+      margin-bottom: 18px;
+    }
+
+    .privacy-subtitle {
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .policy-card {
+      padding: clamp(24px, 4vw, 46px);
+      border-radius: 36px;
+      border: 1px solid rgba(255,255,255,.15);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.055)),
+        rgba(8,14,32,.32);
+      backdrop-filter: blur(24px) saturate(135%);
+      -webkit-backdrop-filter: blur(24px) saturate(135%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.22), 0 28px 90px rgba(0,0,0,.3);
+    }
+
+    .policy-card h2 {
+      margin: 30px 0 12px;
+      font-size: 24px;
+      letter-spacing: -.04em;
+    }
+
+    .policy-card h2:first-child { margin-top: 0; }
+
+    .policy-card p,
+    .policy-card li {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 15px;
+    }
+
+    .policy-card ul {
+      margin: 10px 0 18px;
+      padding-left: 22px;
+    }
+
+    .policy-card strong { color: var(--text); }
+    .policy-card a { color: var(--warm); text-decoration: underline; text-underline-offset: 3px; }
+
+    @media (max-width: 680px) {
+      .privacy-page-wrap {
+        width: min(100% - 28px, 960px);
+        padding-top: 108px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="ambient-orb ambient-orb-one"></div>
+  <div class="ambient-orb ambient-orb-two"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-back" aria-label="Back to Virelia">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Virelia
+    </a>
+    <a href="index.html" class="nav-brand">
+      <img src="images/icon.png" alt="Virelia icon" />
+      Virelia
+    </a>
+    <div class="nav-links">
+      <a href="index.html#insights">Insights</a>
+      <a href="index.html#features">Features</a>
+      <a href="../../apps.html">Apps</a>
+    </div>
+  </nav>
+
+  <main class="privacy-page-wrap">
+    <header class="privacy-header reveal">
+      <p class="eyebrow">Legal</p>
+      <h1 class="privacy-title">Privacy Policy</h1>
+      <p class="privacy-subtitle">Virelia · Effective Date: June 1, 2026</p>
+    </header>
+
+    <section class="policy-card reveal reveal-delay-1">
+      <h2>1. General Provisions</h2>
+      <p>This Privacy Policy applies to all information collected or processed in the Virelia mobile application (the "Application"), available on iPhone. By using the Application, you agree to the terms of this Privacy Policy.</p>
+
+      <h2>2. What is Virelia</h2>
+      <p>Virelia helps users understand sleep quality, circadian rhythm, recovery signals, lifestyle patterns and daily recommendations. The Application is designed to make wellness information simple, visual and useful.</p>
+      <p>Virelia is <strong>not</strong> a medical application. It does not diagnose, treat, cure or prevent any disease or condition.</p>
+
+      <h2>3. Data Required for Functionality</h2>
+      <p>The Application may request access to the following system features:</p>
+      <ul>
+        <li><strong>Apple Health / HealthKit</strong> - used to read sleep analysis, heart rate, heart rate variability, respiratory rate, resting heart rate, steps and workouts in order to calculate sleep, recovery and rhythm insights.</li>
+        <li><strong>Notifications</strong> - used to send local bedtime, recovery, morning light and smart wake reminders. Notifications are scheduled on your device.</li>
+      </ul>
+      <p>All permissions are requested via the iOS system dialog and can be revoked at any time in iPhone Settings.</p>
+
+      <h2>4. User-Provided Information</h2>
+      <p>You may voluntarily provide profile and lifestyle information that helps Virelia tune recommendations, including:</p>
+      <ul>
+        <li>Age, height, weight and biological sex if entered by the user</li>
+        <li>Typical bedtime and wake time</li>
+        <li>Work schedule, activity level and caffeine sensitivity</li>
+        <li>Smart notification settings and selected wake windows</li>
+        <li>Messages sent to our support team</li>
+      </ul>
+
+      <h2>5. Local Data Storage</h2>
+      <p>Virelia stores app data locally on your device using local persistence technologies such as CoreData / SwiftData and UserDefaults. This may include sleep summaries, recovery history, rhythm estimates, user profile settings, notification preferences and smart alarm configuration.</p>
+      <p>Health data is used to generate insights inside the Application. We do not operate a server for storing your detailed sleep or HealthKit records.</p>
+
+      <h2>6. Recommendations and Public Sources</h2>
+      <p>Virelia's educational insights and recommendations are based on analysis of available user data and information from publicly available sources, including articles, academic papers, dissertations and educational materials from the internet. These recommendations are informational and should not be treated as medical advice.</p>
+
+      <h2>7. Use of Analytics Services</h2>
+      <p>We may use <strong>Mixpanel</strong>, a third-party analytics service, to analyze feature usage, improve the user experience, diagnose errors and improve stability. Analytics events are designed not to include detailed HealthKit samples, sleep records, medical information or personally sensitive health content. You can learn more at <a href="https://mixpanel.com/legal/privacy-policy" target="_blank" rel="noopener">mixpanel.com/legal/privacy-policy</a>.</p>
+
+      <h2>8. Subscription Management</h2>
+      <p>Premium features may be managed using <strong>Superwall</strong>, a paywall and subscription orchestration service. Superwall may receive anonymized subscription and paywall events, but it does not receive your detailed sleep data, HealthKit records or personal health content. You can learn more at <a href="https://superwall.com/privacy" target="_blank" rel="noopener">superwall.com/privacy</a>.</p>
+
+      <h2>9. Payments</h2>
+      <p>All payments are processed by Apple through the App Store. We do not receive or store your payment card information. Subscription management is handled through your Apple ID settings.</p>
+
+      <h2>10. Data Transfer and Disclosure</h2>
+      <p>We do not sell your personal data. Information may be shared only with service providers necessary for analytics, app stability, subscription management, legal compliance or protection of rights and safety.</p>
+
+      <h2>11. Security</h2>
+      <p>We use reasonable technical and organizational measures to protect information. Since Virelia is designed around local storage for sleep and rhythm data, the risk of unauthorized access to detailed wellness content is reduced, but no digital system can be guaranteed completely secure.</p>
+
+      <h2>12. Children</h2>
+      <p>The Application is not directed at children under the age of 13. We do not knowingly collect personal data from children. If you believe a child has provided personal data, please contact us.</p>
+
+      <h2>13. User Rights</h2>
+      <p>Depending on your jurisdiction, you may have the right to access, correct, delete, restrict or object to processing of your personal data. Since most app data is stored locally on your device, you can delete it by removing the Application. For other requests, contact us using the email below.</p>
+
+      <h2>14. Not a Medical Application</h2>
+      <p>Virelia does not provide medical diagnoses, treatment, prevention, cure or emergency guidance. The Application is intended for general wellness awareness only. For medical concerns, sleep disorders or health-related decisions, please consult a qualified healthcare professional.</p>
+
+      <h2>15. Changes to This Policy</h2>
+      <p>We may update this Privacy Policy periodically. The updated version will be published within the Application or on this website. Continued use of the Application after changes constitutes acceptance of the updated Policy.</p>
+
+      <h2>16. Contact</h2>
+      <p>For questions, requests or complaints, please contact us at:<br />
+        <a href="mailto:luminityapple@gmail.com">luminityapple@gmail.com</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">
+      <img src="images/icon.png" alt="Virelia icon" />
+      <span>Virelia</span>
+    </div>
+    <div class="footer-links">
+      <a href="index.html">Overview</a>
+      <a href="../../apps.html">Pixaro Apps</a>
+      <a href="mailto:luminityapple@gmail.com">Support</a>
+    </div>
+    <p>© 2026 Virelia. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
