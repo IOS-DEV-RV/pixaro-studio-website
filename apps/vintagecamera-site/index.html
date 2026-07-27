@@ -61,8 +61,8 @@
     <section class="section" id="studio">
       <div class="section-head reveal">
         <p class="eyebrow">Interactive demo</p>
-        <h2>Layer film looks and frames in real time</h2>
-        <p>Upload a photo, open your device camera, or pick a sample. Filters and frames are for demonstration only — the full experience lives in the app.</p>
+        <h2>Try filters and frames in real time</h2>
+        <p>Upload a photo or open your camera. Apply the same look collection and framing styles as in the app — demo only.</p>
       </div>
 
       <div class="studio reveal reveal-delay-1">
@@ -78,43 +78,18 @@
             </div>
 
             <div class="control-block">
-              <h3>Samples</h3>
+              <h3>Sample</h3>
               <div class="sample-pick" id="samplePick"></div>
             </div>
 
             <div class="control-block">
-              <h3>Look</h3>
-              <div class="chip-row" id="lookChips"></div>
+              <h3>Filters</h3>
+              <div class="filter-rail" id="filterRail"></div>
             </div>
 
             <div class="control-block">
               <h3>Frame</h3>
-              <div class="chip-row" id="frameChips"></div>
-            </div>
-
-            <div class="control-block">
-              <h3>Adjust</h3>
-              <div class="slider-row">
-                <label><span>Grain</span><span id="grainVal">45</span></label>
-                <input type="range" id="grainSlider" min="0" max="100" value="45" />
-              </div>
-              <div class="slider-row" style="margin-top:10px;">
-                <label><span>Vignette</span><span id="vignetteVal">40</span></label>
-                <input type="range" id="vignetteSlider" min="0" max="100" value="40" />
-              </div>
-              <div class="slider-row" style="margin-top:10px;">
-                <label><span>Light leak</span><span id="leakVal">35</span></label>
-                <input type="range" id="leakSlider" min="0" max="100" value="35" />
-              </div>
-            </div>
-
-            <div class="control-block">
-              <h3>Extras</h3>
-              <div class="chip-row">
-                <button type="button" class="chip active" id="gridToggle">Grid</button>
-                <button type="button" class="chip active" id="stampToggle">Stamp</button>
-              </div>
-              <input class="caption-input" id="captionInput" type="text" maxlength="42" placeholder="Caption or place mark" value="City, Country" style="margin-top:10px;" />
+              <div class="frame-rail" id="frameRail"></div>
             </div>
           </aside>
 

@@ -348,31 +348,6 @@ main { position: relative; z-index: 1; }
   font-weight: 700;
 }
 
-.chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.chip {
-  border: 1px solid var(--line);
-  background: var(--glass);
-  color: var(--cream-soft);
-  border-radius: 999px;
-  padding: 8px 12px;
-  font-size: 12px;
-  font-weight: 650;
-  cursor: pointer;
-  transition: .2s var(--ease);
-}
-
-.chip:hover { border-color: rgba(196,162,106,.45); color: var(--cream); }
-.chip.active {
-  background: rgba(196, 162, 106, 0.18);
-  border-color: rgba(196, 162, 106, 0.55);
-  color: var(--brass-hot);
-}
-
 .source-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -396,35 +371,115 @@ main { position: relative; z-index: 1; }
   background: rgba(196,162,106,.12);
 }
 
-.slider-row {
-  display: grid;
-  gap: 8px;
-}
-
-.slider-row label {
+/* Коллекция фильтров — как в приложении */
+.filter-rail, .frame-rail {
   display: flex;
-  justify-content: space-between;
-  font-size: 12px;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 4px 2px 8px;
+  scrollbar-width: thin;
+}
+
+.filter-chip, .frame-chip {
+  flex: 0 0 auto;
+  width: 68px;
+  border: none;
+  background: transparent;
   color: var(--cream-soft);
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
 
-.slider-row input[type="range"] {
+.filter-swatch, .frame-swatch {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: #111;
+  position: relative;
+}
+
+.filter-swatch img, .frame-swatch img {
   width: 100%;
-  accent-color: var(--brass);
+  height: 100%;
+  object-fit: cover;
 }
 
-.caption-input {
+.filter-swatch.original {
+  background:
+    linear-gradient(135deg, #2a2a2a 0%, #555 45%, #222 100%);
+}
+
+.filter-chip.active .filter-swatch,
+.frame-chip.active .frame-swatch {
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 1.5px #a78bfa;
+}
+
+.filter-chip span.label,
+.frame-chip span.label {
+  font-size: 9px;
+  font-weight: 650;
+  line-height: 1.2;
+  text-align: center;
+  min-height: 22px;
+  max-width: 68px;
+}
+
+.filter-chip.active span.label,
+.frame-chip.active span.label {
+  color: #c4b5fd;
+}
+
+.frame-swatch.polaroid {
+  background: #f3ebe0;
+  padding: 4px 4px 10px;
+  box-sizing: border-box;
+}
+
+.frame-swatch.polaroid::after {
+  content: "";
+  display: block;
   width: 100%;
-  min-height: 42px;
-  border-radius: 12px;
-  border: 1px solid var(--line);
-  background: rgba(0,0,0,.25);
-  color: var(--cream);
-  padding: 0 12px;
-  outline: none;
+  height: 100%;
+  border-radius: 2px;
+  background:
+    linear-gradient(160deg, #6a8a6e, #c45c4a 55%, #2a231c);
 }
 
-.caption-input:focus { border-color: rgba(196,162,106,.55); }
+.frame-swatch.film35 {
+  background: #151311;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3px 0;
+}
+
+.frame-swatch.film35 .sprocket-mini {
+  height: 7px;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #2a241c 0 5px,
+      transparent 5px 9px
+    );
+  margin: 0 3px;
+}
+
+.frame-swatch.film35 .film-mid {
+  flex: 1;
+  margin: 2px 0;
+  background: linear-gradient(160deg, #7a5a3a, #3a2a22);
+}
+
+.frame-swatch.none {
+  background: linear-gradient(160deg, #444, #222);
+}
 
 .studio-stage {
   display: flex;

@@ -1,53 +1,62 @@
 (() => {
-  const SAMPLE_COUNT = 13;
-  const samples = Array.from({ length: SAMPLE_COUNT }, (_, i) =>
-    `images/sample-${String(i + 1).padStart(2, '0')}.png`
-  );
+  const TEMPLATE = 'images/template.png';
 
-  const looks = [
-    { id: 'original', label: 'Original' },
-    { id: 'warm', label: 'Warm Film' },
-    { id: 'flare', label: 'Flare Burn' },
-    { id: 'ruby', label: 'Ruby Grit' },
-    { id: 'mono', label: 'Mono' },
-    { id: 'faded', label: 'Faded' }
+  // Те же look-фильтры, что в приложении
+  const filters = [
+    { id: 'look_original_clear', label: 'Original', overlay: null, opacity: 0, blend: 'screen', swatch: null },
+    { id: 'look_edge_decay', label: 'Edge Decay', overlay: 'images/filters/edge_decay.png', opacity: 0.72, blend: 'screen' },
+    { id: 'look_flare_burn', label: 'Flare Burn', overlay: 'images/filters/flare_burn.png', opacity: 0.78, blend: 'screen' },
+    { id: 'look_strip_burn', label: 'Strip Burn', overlay: 'images/filters/strip_burn.png', opacity: 0.42, blend: 'soft-light' },
+    { id: 'look_prism_leak', label: 'Prism Leak', overlay: 'images/filters/prism_leak.png', opacity: 0.7, blend: 'screen' },
+    { id: 'look_gate_weave', label: 'Gate Weave', overlay: 'images/filters/gate_weave.png', opacity: 0.62, blend: 'screen' },
+    { id: 'look_ruby_grit', label: 'Ruby Grit', overlay: 'images/filters/ruby_grit.png', opacity: 0.75, blend: 'screen' },
+    { id: 'look_violet_grit', label: 'Violet Grit', overlay: 'images/filters/violet_grit.png', opacity: 0.7, blend: 'screen' },
+    { id: 'look_mono_fog', label: 'Mono Fog', overlay: 'images/filters/mono_fog.png', opacity: 0.68, blend: 'screen' },
+    { id: 'look_hairline', label: 'Hairline', overlay: 'images/filters/hairline.png', opacity: 0.8, blend: 'screen' },
+    { id: 'look_field_leak', label: 'Field Leak', overlay: 'images/filters/field_leak.png', opacity: 0.48, blend: 'soft-light' }
   ];
 
   const frames = [
     { id: 'none', label: 'None' },
-    { id: 'polaroid', label: 'Polaroid' },
-    { id: 'film35', label: '35mm' },
-    { id: 'matte', label: 'Matte' }
+    { id: 'cool_instant', label: 'Cool Instant' },
+    { id: 'sun_chrome', label: 'Sun Chrome' }
   ];
 
   const state = {
-    look: 'warm',
-    frame: 'polaroid',
-    grain: 45,
-    vignette: 40,
-    leak: 35,
-    grid: true,
-    stamp: true,
-    caption: 'City, Country',
+    filterId: 'look_original_clear',
+    frame: 'cool_instant',
     sourceMode: 'image',
     stream: null
   };
 
+  const overlayCache = {};
   const canvas = document.getElementById('previewCanvas');
-  const ctx = canvas ? canvas.getContext('2d', { willReadFrequently: true }) : null;
+  const ctx = canvas ? canvas.getContext('2d', { willReadFrequently: false }) : null;
   const video = document.getElementById('cameraVideo');
   const image = new Image();
   image.crossOrigin = 'anonymous';
 
   let rafId = 0;
-  let grainNoise = null;
-  let cameraTick = 0;
+
+  function preloadOverlays() {
+    filters.forEach(filter => {
+      if (!filter.overlay) return;
+      const img = new Image();
+      img.src = filter.overlay;
+      overlayCache[filter.id] = img;
+    });
+  }
 
   function buildWall() {
     const track = document.getElementById('wallTrack');
     if (!track) return;
+    // Стена галереи — шаблон + остальные сэмплы для атмосферы
+    const wallSources = [
+      TEMPLATE,
+      ...Array.from({ length: 12 }, (_, i) => `images/sample-${String(i + 1).padStart(2, '0')}.png`)
+    ];
     const stamps = ['11:23', '11:47', '11:22', '12:04', '09:18', '18:41'];
-    const items = [...samples, ...samples];
+    const items = [...wallSources, ...wallSources];
     track.innerHTML = items.map((src, index) => `
       <figure class="wall-card">
         <img src="${src}" alt="Film sample ${index + 1}" loading="lazy" />
@@ -56,36 +65,73 @@
     `).join('');
   }
 
-  function buildChips(containerId, items, activeId, onPick) {
-    const root = document.getElementById(containerId);
+  function buildSample() {
+    const root = document.getElementById('samplePick');
     if (!root) return;
-    root.innerHTML = items.map(item => `
-      <button type="button" class="chip${item.id === activeId ? ' active' : ''}" data-id="${item.id}">
-        ${item.label}
-      </button>
-    `).join('');
-    root.querySelectorAll('.chip').forEach(chip => {
+    root.innerHTML = `
+      <img class="sample-thumb active" src="${TEMPLATE}" data-src="${TEMPLATE}" alt="Template sample" />
+    `;
+    root.querySelector('.sample-thumb')?.addEventListener('click', () => {
+      stopCamera();
+      loadImage(TEMPLATE);
+    });
+  }
+
+  function buildFilters() {
+    const root = document.getElementById('filterRail');
+    if (!root) return;
+    root.innerHTML = filters.map(filter => {
+      const swatch = filter.overlay
+        ? `<img src="${filter.overlay}" alt="" />`
+        : '';
+      return `
+        <button type="button" class="filter-chip${filter.id === state.filterId ? ' active' : ''}" data-id="${filter.id}">
+          <span class="filter-swatch${filter.overlay ? '' : ' original'}">${swatch}</span>
+          <span class="label">${filter.label}</span>
+        </button>
+      `;
+    }).join('');
+
+    root.querySelectorAll('.filter-chip').forEach(chip => {
       chip.addEventListener('click', () => {
-        root.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        root.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
         chip.classList.add('active');
-        onPick(chip.dataset.id);
-        renderFrame();
+        state.filterId = chip.dataset.id;
+        if (state.sourceMode !== 'camera') renderFrame();
       });
     });
   }
 
-  function buildSamples() {
-    const root = document.getElementById('samplePick');
+  function buildFrames() {
+    const root = document.getElementById('frameRail');
     if (!root) return;
-    root.innerHTML = samples.slice(0, 8).map((src, index) => `
-      <img class="sample-thumb${index === 0 ? ' active' : ''}" src="${src}" data-src="${src}" alt="Sample ${index + 1}" />
-    `).join('');
-    root.querySelectorAll('.sample-thumb').forEach(thumb => {
-      thumb.addEventListener('click', () => {
-        root.querySelectorAll('.sample-thumb').forEach(t => t.classList.remove('active'));
-        thumb.classList.add('active');
-        stopCamera();
-        loadImage(thumb.dataset.src);
+    root.innerHTML = frames.map(frame => {
+      let swatch = '<span class="frame-swatch none"></span>';
+      if (frame.id === 'cool_instant') {
+        swatch = '<span class="frame-swatch polaroid"></span>';
+      } else if (frame.id === 'sun_chrome') {
+        swatch = `
+          <span class="frame-swatch film35">
+            <span class="sprocket-mini"></span>
+            <span class="film-mid"></span>
+            <span class="sprocket-mini"></span>
+          </span>
+        `;
+      }
+      return `
+        <button type="button" class="frame-chip${frame.id === state.frame ? ' active' : ''}" data-id="${frame.id}">
+          ${swatch}
+          <span class="label">${frame.label}</span>
+        </button>
+      `;
+    }).join('');
+
+    root.querySelectorAll('.frame-chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        root.querySelectorAll('.frame-chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        state.frame = chip.dataset.id;
+        if (state.sourceMode !== 'camera') renderFrame();
       });
     });
   }
@@ -132,139 +178,21 @@
     rafId = requestAnimationFrame(loopCamera);
   }
 
-  function ensureGrain() {
-    if (grainNoise) return;
-    const size = 128;
-    const g = document.createElement('canvas');
-    g.width = size;
-    g.height = size;
-    const gctx = g.getContext('2d');
-    const data = gctx.createImageData(size, size);
-    for (let i = 0; i < data.data.length; i += 4) {
-      const v = Math.random() * 255;
-      data.data[i] = v;
-      data.data[i + 1] = v;
-      data.data[i + 2] = v;
-      data.data[i + 3] = 255;
-    }
-    gctx.putImageData(data, 0, 0);
-    grainNoise = g;
-  }
-
-  function lookFilterCss() {
-    switch (state.look) {
-      case 'warm': return 'sepia(0.22) saturate(1.15) contrast(1.05) brightness(1.03)';
-      case 'flare': return 'sepia(0.35) saturate(1.35) contrast(1.1) brightness(1.08)';
-      case 'ruby': return 'hue-rotate(-12deg) saturate(1.25) contrast(1.08)';
-      case 'mono': return 'grayscale(1) contrast(1.1)';
-      case 'faded': return 'saturate(0.7) contrast(0.9) brightness(1.08)';
-      default: return 'none';
-    }
-  }
-
-  function drawStamp() {
-    if (!state.stamp) return;
-    const text = (state.caption || '').trim();
-    if (!text) return;
-    ctx.save();
-    ctx.fillStyle = state.frame === 'polaroid' ? '#2a231c' : '#ff8a3d';
-    ctx.font = '500 22px ui-monospace, SFMono-Regular, Menlo, monospace';
-    ctx.textAlign = 'right';
-    const x = canvas.width - (state.frame === 'polaroid' ? 36 : 28);
-    const y = canvas.height - (state.frame === 'polaroid' ? 34 : 42);
-    ctx.fillText(text, x, y);
-    ctx.restore();
-  }
-
-  function drawFrameChrome() {
+  function frameInsets() {
     const { width, height } = canvas;
-    if (state.frame === 'none') return;
-
-    if (state.frame === 'polaroid') {
-      const inset = 28;
-      const bottom = 78;
-      ctx.fillStyle = '#f3ebe0';
-      ctx.fillRect(0, 0, width, inset);
-      ctx.fillRect(0, 0, inset, height);
-      ctx.fillRect(width - inset, 0, inset, height);
-      ctx.fillRect(0, height - bottom, width, bottom);
-      return;
+    if (state.frame === 'cool_instant') {
+      return {
+        t: Math.max(12, height * 0.05),
+        r: Math.max(12, width * 0.06),
+        b: Math.max(42, height * 0.16),
+        l: Math.max(12, width * 0.06)
+      };
     }
-
-    if (state.frame === 'matte') {
-      const border = 36;
-      ctx.fillStyle = '#111010';
-      ctx.fillRect(0, 0, width, border);
-      ctx.fillRect(0, height - border, width, border);
-      ctx.fillRect(0, 0, border, height);
-      ctx.fillRect(width - border, 0, border, height);
-      return;
+    if (state.frame === 'sun_chrome') {
+      const edge = Math.max(28, height * 0.085);
+      return { t: edge, r: 0, b: edge, l: 0 };
     }
-
-    if (state.frame === 'film35') {
-      const strip = 54;
-      ctx.fillStyle = '#151311';
-      ctx.fillRect(0, 0, width, strip);
-      ctx.fillRect(0, height - strip, width, strip);
-      ctx.fillStyle = '#2a241c';
-      const holeW = 18;
-      const holeH = 22;
-      const gap = 18;
-      for (let x = 16; x < width - 16; x += holeW + gap) {
-        ctx.fillRect(x, 14, holeW, holeH);
-        ctx.fillRect(x, height - 14 - holeH, holeW, holeH);
-      }
-      ctx.fillStyle = 'rgba(196,162,106,0.55)';
-      ctx.font = '12px ui-monospace, monospace';
-      ctx.fillText('22  →23A  KEY 22', 20, 48);
-      ctx.fillText('22  →23A  KEY 22', 20, height - 18);
-    }
-  }
-
-  function renderFrame() {
-    if (!ctx || !canvas) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.fillStyle = '#111';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    const insetMap = {
-      none: { t: 0, r: 0, b: 0, l: 0 },
-      polaroid: { t: 28, r: 28, b: 78, l: 28 },
-      matte: { t: 36, r: 36, b: 36, l: 36 },
-      film35: { t: 54, r: 0, b: 54, l: 0 }
-    };
-    const inset = insetMap[state.frame] || insetMap.none;
-    const live = state.sourceMode === 'camera';
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(inset.l, inset.t, canvas.width - inset.l - inset.r, canvas.height - inset.t - inset.b);
-    ctx.clip();
-
-    if (live) ctx.filter = lookFilterCss();
-
-    if (live && video && video.readyState >= 2) {
-      drawCoverInto(video, video.videoWidth || 1280, video.videoHeight || 720, inset);
-    } else if (image.complete && image.naturalWidth) {
-      drawCoverInto(image, image.naturalWidth, image.naturalHeight, inset);
-    }
-
-    ctx.filter = 'none';
-
-    if (!live) {
-      applyLookRegion(inset);
-    }
-
-    drawVignetteRegion(inset);
-    // Grain every other camera frame for smoother live preview
-    cameraTick += 1;
-    if (!live || cameraTick % 2 === 0) drawGrainRegion(inset);
-    drawLeakRegion(inset);
-    drawGridRegion(inset);
-    ctx.restore();
-
-    drawFrameChrome();
-    drawStamp();
+    return { t: 0, r: 0, b: 0, l: 0 };
   }
 
   function drawCoverInto(source, sw, sh, inset) {
@@ -278,120 +206,134 @@
     ctx.drawImage(source, dx, dy, dw, dh);
   }
 
-  function applyLookRegion(inset) {
+  function currentFilter() {
+    return filters.find(f => f.id === state.filterId) || filters[0];
+  }
+
+  function drawFilterOverlay(inset) {
+    const filter = currentFilter();
+    if (!filter.overlay) return;
+    const overlay = overlayCache[filter.id];
+    if (!overlay || !overlay.complete || !overlay.naturalWidth) return;
+
     const x = inset.l;
     const y = inset.t;
     const w = canvas.width - inset.l - inset.r;
     const h = canvas.height - inset.t - inset.b;
-    if (w <= 0 || h <= 0) return;
-    const img = ctx.getImageData(x, y, w, h);
-    const d = img.data;
-    const look = state.look;
-    for (let i = 0; i < d.length; i += 4) {
-      let r = d[i];
-      let g = d[i + 1];
-      let b = d[i + 2];
-      if (look === 'warm') {
-        r = Math.min(255, r * 1.08 + 12);
-        g = Math.min(255, g * 1.02 + 4);
-        b = b * 0.9;
-      } else if (look === 'flare') {
-        r = Math.min(255, r * 1.15 + 18);
-        g = Math.min(255, g * 1.05 + 8);
-        b = b * 0.82;
-      } else if (look === 'ruby') {
-        r = Math.min(255, r * 1.12 + 8);
-        g = g * 0.88;
-        b = Math.min(255, b * 1.05 + 10);
-      } else if (look === 'mono') {
-        const yy = 0.299 * r + 0.587 * g + 0.114 * b;
-        r = g = b = yy;
-      } else if (look === 'faded') {
-        r = r * 0.85 + 40;
-        g = g * 0.85 + 36;
-        b = b * 0.85 + 32;
+    ctx.save();
+    ctx.globalAlpha = filter.opacity;
+    ctx.globalCompositeOperation = filter.blend;
+    ctx.drawImage(overlay, x, y, w, h);
+    ctx.restore();
+  }
+
+  function drawCoolInstantFrame() {
+    const { width, height } = canvas;
+    const inset = frameInsets();
+    ctx.fillStyle = '#f3ebe0';
+    ctx.fillRect(0, 0, width, inset.t);
+    ctx.fillRect(0, 0, inset.l, height);
+    ctx.fillRect(width - inset.r, 0, inset.r, height);
+    ctx.fillRect(0, height - inset.b, width, inset.b);
+
+    // Лёгкая «бумажная» тень по внутреннему краю
+    ctx.save();
+    ctx.strokeStyle = 'rgba(40, 30, 20, 0.12)';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(
+      inset.l + 1,
+      inset.t + 1,
+      width - inset.l - inset.r - 2,
+      height - inset.t - inset.b - 2
+    );
+    ctx.restore();
+  }
+
+  function drawSunChromeFrame() {
+    const { width, height } = canvas;
+    const edge = Math.max(28, height * 0.085);
+    const holeH = Math.max(8, edge * 0.38);
+    const holeW = holeH * 1.35;
+    const gap = holeW * 0.42;
+    const pitch = holeW + gap;
+
+    ctx.fillStyle = '#151311';
+    ctx.fillRect(0, 0, width, edge);
+    ctx.fillRect(0, height - edge, width, edge);
+
+    const drawHoles = (topY) => {
+      ctx.fillStyle = '#2a241c';
+      for (let x = 14; x < width - 14; x += pitch) {
+        roundRect(ctx, x, topY, holeW, holeH, 2.2);
+        ctx.fill();
       }
-      d[i] = r;
-      d[i + 1] = g;
-      d[i + 2] = b;
+    };
+
+    drawHoles((edge - holeH) * 0.45);
+    drawHoles(height - edge + (edge - holeH) * 0.55);
+
+    // Маркировки как у Sun Chrome
+    ctx.fillStyle = 'rgba(224, 191, 132, 0.72)';
+    ctx.font = '600 13px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.fillText('KEY 22', 18, edge - 8);
+    ctx.fillText('→23A', width * 0.38, edge - 8);
+    ctx.fillText('KEY 22', 18, height - 10);
+    ctx.fillText('→23A', width * 0.38, height - 10);
+
+    // Маленький «штрихкод» по центру низа
+    ctx.fillStyle = 'rgba(224, 191, 132, 0.45)';
+    const barY = height - edge * 0.42;
+    for (let i = 0; i < 18; i++) {
+      const bw = i % 3 === 0 ? 2 : 1;
+      ctx.fillRect(width * 0.5 - 40 + i * 4.5, barY, bw, 10);
     }
-    ctx.putImageData(img, x, y);
   }
 
-  function drawVignetteRegion(inset) {
-    const strength = state.vignette / 100;
-    if (strength <= 0.01) return;
-    const x = inset.l;
-    const y = inset.t;
-    const w = canvas.width - inset.l - inset.r;
-    const h = canvas.height - inset.t - inset.b;
-    const grad = ctx.createRadialGradient(x + w / 2, y + h / 2, Math.min(w, h) * 0.22, x + w / 2, y + h / 2, Math.max(w, h) * 0.72);
-    grad.addColorStop(0, 'rgba(0,0,0,0)');
-    grad.addColorStop(1, `rgba(0,0,0,${0.75 * strength})`);
-    ctx.fillStyle = grad;
-    ctx.fillRect(x, y, w, h);
+  function roundRect(context, x, y, w, h, r) {
+    const radius = Math.min(r, w / 2, h / 2);
+    context.beginPath();
+    context.moveTo(x + radius, y);
+    context.arcTo(x + w, y, x + w, y + h, radius);
+    context.arcTo(x + w, y + h, x, y + h, radius);
+    context.arcTo(x, y + h, x, y, radius);
+    context.arcTo(x, y, x + w, y, radius);
+    context.closePath();
   }
 
-  function drawGrainRegion(inset) {
-    const amount = state.grain / 100;
-    if (amount <= 0.01) return;
-    ensureGrain();
-    const x = inset.l;
-    const y = inset.t;
-    const w = canvas.width - inset.l - inset.r;
-    const h = canvas.height - inset.t - inset.b;
+  function renderFrame() {
+    if (!ctx || !canvas) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#111';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    const inset = frameInsets();
+
     ctx.save();
-    ctx.globalAlpha = 0.12 + amount * 0.28;
-    ctx.globalCompositeOperation = 'overlay';
-    ctx.drawImage(grainNoise, x, y, w, h);
-    ctx.restore();
-  }
+    ctx.beginPath();
+    ctx.rect(inset.l, inset.t, canvas.width - inset.l - inset.r, canvas.height - inset.t - inset.b);
+    ctx.clip();
 
-  function drawLeakRegion(inset) {
-    const amount = state.leak / 100;
-    if (amount <= 0.01) return;
-    const x = inset.l;
-    const y = inset.t;
-    const w = canvas.width - inset.l - inset.r;
-    const h = canvas.height - inset.t - inset.b;
-    const grad = ctx.createLinearGradient(x + w * 0.65, y, x + w, y + h);
-    grad.addColorStop(0, 'rgba(255,120,40,0)');
-    grad.addColorStop(0.55, `rgba(255,90,40,${0.18 * amount})`);
-    grad.addColorStop(1, `rgba(255,60,80,${0.42 * amount})`);
-    ctx.fillStyle = grad;
-    ctx.fillRect(x, y, w, h);
-  }
-
-  function drawGridRegion(inset) {
-    if (!state.grid) return;
-    const x = inset.l;
-    const y = inset.t;
-    const w = canvas.width - inset.l - inset.r;
-    const h = canvas.height - inset.t - inset.b;
-    ctx.save();
-    ctx.strokeStyle = 'rgba(255,255,255,0.35)';
-    ctx.lineWidth = 1;
-    for (let i = 1; i < 3; i++) {
-      const gx = x + (w / 3) * i;
-      const gy = y + (h / 3) * i;
-      ctx.beginPath();
-      ctx.moveTo(gx, y);
-      ctx.lineTo(gx, y + h);
-      ctx.moveTo(x, gy);
-      ctx.lineTo(x + w, gy);
-      ctx.stroke();
+    if (state.sourceMode === 'camera' && video && video.readyState >= 2) {
+      drawCoverInto(video, video.videoWidth || 1280, video.videoHeight || 720, inset);
+    } else if (image.complete && image.naturalWidth) {
+      drawCoverInto(image, image.naturalWidth, image.naturalHeight, inset);
     }
+
+    drawFilterOverlay(inset);
     ctx.restore();
+
+    if (state.frame === 'cool_instant') drawCoolInstantFrame();
+    if (state.frame === 'sun_chrome') drawSunChromeFrame();
   }
 
-  // Wire UI
   function bindUI() {
     buildWall();
     if (!canvas || !ctx) return;
 
-    buildSamples();
-    buildChips('lookChips', looks, state.look, id => { state.look = id; });
-    buildChips('frameChips', frames, state.frame, id => { state.frame = id; });
+    preloadOverlays();
+    buildSample();
+    buildFilters();
+    buildFrames();
 
     const fileInput = document.getElementById('fileInput');
     document.getElementById('btnUpload')?.addEventListener('click', () => fileInput?.click());
@@ -400,56 +342,32 @@
       if (!file) return;
       stopCamera();
       document.getElementById('btnUpload')?.classList.add('active');
-      const url = URL.createObjectURL(file);
-      loadImage(url);
+      loadImage(URL.createObjectURL(file));
     });
 
     document.getElementById('btnCamera')?.addEventListener('click', () => {
       if (state.sourceMode === 'camera' && state.stream) {
         stopCamera();
-        loadImage(samples[0]);
+        loadImage(TEMPLATE);
         return;
       }
       startCamera();
     });
 
-    const bindSlider = (id, key, labelId) => {
-      const el = document.getElementById(id);
-      const label = document.getElementById(labelId);
-      el?.addEventListener('input', () => {
-        state[key] = Number(el.value);
-        if (label) label.textContent = String(state[key]);
-        if (state.sourceMode !== 'camera') renderFrame();
-      });
-    };
-    bindSlider('grainSlider', 'grain', 'grainVal');
-    bindSlider('vignetteSlider', 'vignette', 'vignetteVal');
-    bindSlider('leakSlider', 'leak', 'leakVal');
-
-    const gridToggle = document.getElementById('gridToggle');
-    gridToggle?.addEventListener('click', () => {
-      state.grid = !state.grid;
-      gridToggle.classList.toggle('active', state.grid);
-      if (state.sourceMode !== 'camera') renderFrame();
+    // Перерисовка когда оверлеи догрузятся
+    filters.forEach(filter => {
+      if (!filter.overlay) return;
+      const img = overlayCache[filter.id];
+      if (img) {
+        img.onload = () => {
+          if (state.sourceMode !== 'camera') renderFrame();
+        };
+      }
     });
 
-    const stampToggle = document.getElementById('stampToggle');
-    stampToggle?.addEventListener('click', () => {
-      state.stamp = !state.stamp;
-      stampToggle.classList.toggle('active', state.stamp);
-      if (state.sourceMode !== 'camera') renderFrame();
-    });
-
-    const caption = document.getElementById('captionInput');
-    caption?.addEventListener('input', () => {
-      state.caption = caption.value;
-      if (state.sourceMode !== 'camera') renderFrame();
-    });
-
-    loadImage(samples[0]);
+    loadImage(TEMPLATE);
   }
 
-  // Scroll / reveal
   const nav = document.getElementById('nav');
   const progress = document.getElementById('scrollProgress');
 
