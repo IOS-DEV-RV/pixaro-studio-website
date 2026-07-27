@@ -188,11 +188,14 @@
         l: Math.max(12, width * 0.06)
       };
     }
-    if (state.frame === 'sun_chrome') {
-      const edge = Math.max(28, height * 0.085);
-      return { t: edge, r: 0, b: edge, l: 0 };
-    }
+    // Sun Chrome: плёнка поверх фото — кадр на весь холст
     return { t: 0, r: 0, b: 0, l: 0 };
+  }
+
+  function polaroidStampText() {
+    const d = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()} / ${pad(d.getMonth() + 1)} / ${pad(d.getDate())}  ${pad(d.getHours())}:${pad(d.getMinutes())}`;
   }
 
   function drawCoverInto(source, sw, sh, inset) {
@@ -247,6 +250,45 @@
       height - inset.t - inset.b - 2
     );
     ctx.restore();
+
+    // Актуальная дата/время — как на Polaroid в приложении
+    const stamp = polaroidStampText();
+    const stampFont = Math.max(14, width * 0.032);
+    ctx.save();
+    ctx.fillStyle = '#2a231c';
+    ctx.font = `600 ${stampFont}px ui-monospace, SFMono-Regular, Menlo, monospace`;
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'alphabetic';
+    const stampX = width - inset.r - 4;
+    const stampY = height - Math.max(12, inset.b * 0.34);
+    ctx.fillText(stamp, stampX, stampY);
+    ctx.restore();
+  }
+
+  function drawFilmStripWithHoles(bandTop, edge, holeW, holeH, pitch) {
+    const { width } = canvas;
+    const originY = bandTop + (edge - holeH) * 0.5;
+
+    // Полоса плёнки с вырезанными дырками — сквозь них видно фото
+    ctx.beginPath();
+    ctx.rect(0, bandTop, width, edge);
+    for (let x = 10; x < width - 8; x += pitch) {
+      roundRect(ctx, x, originY, holeW, holeH, 2.2);
+    }
+    const stripGrad = ctx.createLinearGradient(0, bandTop, 0, bandTop + edge);
+    stripGrad.addColorStop(0, '#1c1814');
+    stripGrad.addColorStop(0.5, '#151311');
+    stripGrad.addColorStop(1, '#0f0d0b');
+    ctx.fillStyle = stripGrad;
+    ctx.fill('evenodd');
+
+    // Лёгкий ободок дырок
+    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
+    ctx.lineWidth = 1;
+    for (let x = 10; x < width - 8; x += pitch) {
+      roundRect(ctx, x, originY, holeW, holeH, 2.2);
+      ctx.stroke();
+    }
   }
 
   function drawSunChromeFrame() {
@@ -257,30 +299,18 @@
     const gap = holeW * 0.42;
     const pitch = holeW + gap;
 
-    ctx.fillStyle = '#151311';
-    ctx.fillRect(0, 0, width, edge);
-    ctx.fillRect(0, height - edge, width, edge);
+    // Плёнка поверх полного кадра; в перфорации видно изображение
+    drawFilmStripWithHoles(0, edge, holeW, holeH, pitch);
+    drawFilmStripWithHoles(height - edge, edge, holeW, holeH, pitch);
 
-    const drawHoles = (topY) => {
-      ctx.fillStyle = '#2a241c';
-      for (let x = 14; x < width - 14; x += pitch) {
-        roundRect(ctx, x, topY, holeW, holeH, 2.2);
-        ctx.fill();
-      }
-    };
-
-    drawHoles((edge - holeH) * 0.45);
-    drawHoles(height - edge + (edge - holeH) * 0.55);
-
-    // Маркировки как у Sun Chrome
     ctx.fillStyle = 'rgba(224, 191, 132, 0.72)';
     ctx.font = '600 13px ui-monospace, SFMono-Regular, Menlo, monospace';
+    ctx.textAlign = 'left';
     ctx.fillText('KEY 22', 18, edge - 8);
     ctx.fillText('→23A', width * 0.38, edge - 8);
     ctx.fillText('KEY 22', 18, height - 10);
     ctx.fillText('→23A', width * 0.38, height - 10);
 
-    // Маленький «штрихкод» по центру низа
     ctx.fillStyle = 'rgba(224, 191, 132, 0.45)';
     const barY = height - edge * 0.42;
     for (let i = 0; i < 18; i++) {
