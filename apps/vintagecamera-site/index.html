@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vintage Camera — Film Looks for Everyday Moments</title>
+  <meta name="description" content="Vintage Camera is an iPhone camera app for photos and videos with the timeless look of film photography and Polaroid pictures. Preview grain, glow, frames and looks in real time." />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="nav" id="nav">
+    <a href="../../apps.html" class="nav-back" aria-label="Back to apps">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Our Apps
+    </a>
+    <a href="index.html" class="nav-brand">
+      <img src="images/icon.png" alt="Vintage Camera icon" />
+      Vintage Camera
+    </a>
+    <div class="nav-links">
+      <a href="#studio">Try Looks</a>
+      <a href="#features">Features</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Film camera for iPhone</p>
+          <h1>Vintage Camera</h1>
+          <p class="hero-lead">Capture photos and videos with the timeless look of film and Polaroid — grain, glow, frames and looks previewed live in the viewfinder.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="https://apps.apple.com/app/id6793943265" target="_blank" rel="noopener">Get on the App Store</a>
+            <a class="btn btn-ghost" href="#studio">Try filters here</a>
+          </div>
+          <div class="hero-stats">
+            <span><strong>Live preview</strong>Looks in the viewfinder</span>
+            <span><strong>35mm &amp; Polaroid</strong>Frames and collections</span>
+            <span><strong>Photo &amp; Video</strong>One calm camera flow</span>
+          </div>
+        </div>
+        <div class="hero-visual reveal reveal-delay-1">
+          <div class="hero-icon-wrap">
+            <img src="images/icon.png" alt="Vintage Camera app icon" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wall-section" aria-label="Sample film frames">
+      <div class="wall-track" id="wallTrack"></div>
+    </section>
+
+    <section class="section" id="studio">
+      <div class="section-head reveal">
+        <p class="eyebrow">Interactive demo</p>
+        <h2>Layer film looks and frames in real time</h2>
+        <p>Upload a photo, open your device camera, or pick a sample. Filters and frames are for demonstration only — the full experience lives in the app.</p>
+      </div>
+
+      <div class="studio reveal reveal-delay-1">
+        <div class="studio-layout">
+          <aside class="studio-controls">
+            <div class="control-block">
+              <h3>Source</h3>
+              <div class="source-row">
+                <button type="button" class="source-btn" id="btnUpload">Upload photo</button>
+                <button type="button" class="source-btn" id="btnCamera">Open camera</button>
+              </div>
+              <input type="file" id="fileInput" accept="image/*" hidden />
+            </div>
+
+            <div class="control-block">
+              <h3>Samples</h3>
+              <div class="sample-pick" id="samplePick"></div>
+            </div>
+
+            <div class="control-block">
+              <h3>Look</h3>
+              <div class="chip-row" id="lookChips"></div>
+            </div>
+
+            <div class="control-block">
+              <h3>Frame</h3>
+              <div class="chip-row" id="frameChips"></div>
+            </div>
+
+            <div class="control-block">
+              <h3>Adjust</h3>
+              <div class="slider-row">
+                <label><span>Grain</span><span id="grainVal">45</span></label>
+                <input type="range" id="grainSlider" min="0" max="100" value="45" />
+              </div>
+              <div class="slider-row" style="margin-top:10px;">
+                <label><span>Vignette</span><span id="vignetteVal">40</span></label>
+                <input type="range" id="vignetteSlider" min="0" max="100" value="40" />
+              </div>
+              <div class="slider-row" style="margin-top:10px;">
+                <label><span>Light leak</span><span id="leakVal">35</span></label>
+                <input type="range" id="leakSlider" min="0" max="100" value="35" />
+              </div>
+            </div>
+
+            <div class="control-block">
+              <h3>Extras</h3>
+              <div class="chip-row">
+                <button type="button" class="chip active" id="gridToggle">Grid</button>
+                <button type="button" class="chip active" id="stampToggle">Stamp</button>
+              </div>
+              <input class="caption-input" id="captionInput" type="text" maxlength="42" placeholder="Caption or place mark" value="City, Country" style="margin-top:10px;" />
+            </div>
+          </aside>
+
+          <div class="studio-stage">
+            <div class="stage-frame">
+              <canvas id="previewCanvas" width="720" height="960"></canvas>
+            </div>
+            <p class="demo-note">Demo preview · Not the full app experience</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="features">
+      <div class="section-head reveal">
+        <p class="eyebrow">Inside the app</p>
+        <h2>Familiar camera tools. Instant film mood.</h2>
+        <p>Shoot in photo or video mode and see the final look before you press the shutter.</p>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card reveal">
+          <h3>Live film looks</h3>
+          <p>Grain, glow, vignette and color profiles apply in real time in the viewfinder — no detour through another editor.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-1">
+          <h3>35mm &amp; Polaroid</h3>
+          <p>Explore film collections, decorative frames and retro-inspired Video FX that feel made for everyday shots.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-2">
+          <h3>Fine control</h3>
+          <p>Tune exposure, white balance, grain, blur and noise intensity so each look matches your style.</p>
+        </article>
+        <article class="feature-card reveal">
+          <h3>Personal diary</h3>
+          <p>Add text to the frame, use an icon, or show city and country automatically — a small mark for each moment.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-1">
+          <h3>Starter set free</h3>
+          <p>Core camera features and a starter collection of styles are available from the start.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-2">
+          <h3>More with access</h3>
+          <p>Additional profiles, expanded framing options and advanced recording settings unlock with a subscription.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head reveal">
+        <p class="eyebrow">Gallery</p>
+        <h2>Warm aesthetics for ordinary days</h2>
+        <p>From city walks to short evening videos — a nostalgic atmosphere, ready in the viewfinder.</p>
+      </div>
+      <div class="gallery reveal">
+        <figure><img src="images/sample-01.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-04.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-08.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-07.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-13.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-09.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-11.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+        <figure><img src="images/sample-06.png" alt="Vintage Camera sample frame" loading="lazy" /></figure>
+      </div>
+    </section>
+
+    <section class="cta reveal" id="download">
+      <h2>Bring film mood to everyday moments</h2>
+      <p>Vintage Camera for iPhone — photo and video with classic looks, frames and live preview.</p>
+      <a class="btn btn-primary" href="https://apps.apple.com/app/id6793943265" target="_blank" rel="noopener">Get on the App Store</a>
+    </section>
+
+    <p class="privacy-note">
+      We care about your privacy. Read the
+      <a href="privacy.html">Privacy Policy</a>
+      for how Vintage Camera uses camera, microphone, photos and location on your device.
+    </p>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Vintage Camera icon" />
+        Vintage Camera
+      </div>
+      <div class="footer-links">
+        <a href="../../apps.html">Our Apps</a>
+        <a href="privacy.html">Privacy</a>
+      </div>
+      <p class="footer-copy">© 2026 Pixaro Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <video id="cameraVideo" playsinline muted hidden></video>
+  <script src="js/main.js"></script>
+</body>
+</html>

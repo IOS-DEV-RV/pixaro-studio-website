@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Vintage Camera</title>
+  <meta name="description" content="Privacy Policy for Vintage Camera — film-style photo and video camera for iPhone." />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="grain-overlay" aria-hidden="true"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="nav" id="nav">
+    <a href="index.html" class="nav-back" aria-label="Back to Vintage Camera">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Vintage Camera
+    </a>
+    <a href="index.html" class="nav-brand">
+      <img src="images/icon.png" alt="Vintage Camera icon" />
+      Vintage Camera
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="../../apps.html">Apps</a>
+    </div>
+  </nav>
+
+  <main class="privacy-page-wrap">
+    <header class="reveal">
+      <p class="eyebrow" style="text-align:center;display:block;">Legal</p>
+      <h1 class="privacy-title">Privacy Policy</h1>
+      <p class="privacy-subtitle">Vintage Camera · Effective Date: July 27, 2026</p>
+    </header>
+
+    <section class="policy-card reveal reveal-delay-1">
+      <h2>1. General Provisions</h2>
+      <p>This Privacy Policy applies to all information collected or processed in the Vintage Camera mobile application (the "Application"), available on iPhone. By using the Application, you agree to the terms of this Privacy Policy.</p>
+
+      <h2>2. What is Vintage Camera</h2>
+      <p>Vintage Camera is an iPhone camera app that helps you capture photos and videos with the timeless look of film photography and Polaroid pictures. It combines familiar camera features with vintage styles, frames, effects, captions and optional place marks previewed in the viewfinder.</p>
+
+      <h2>3. Data Required for Functionality</h2>
+      <p>The Application may request access to the following system features:</p>
+      <ul>
+        <li><strong>Camera</strong> — used to capture photos and record videos with live film looks, frames and effects in the viewfinder.</li>
+        <li><strong>Microphone</strong> — used when you record video with sound.</li>
+        <li><strong>Photo Library</strong> — used to save captures you choose to keep, and to import photos when you select media from your library.</li>
+        <li><strong>Location</strong> — used only when you enable place marks, so city and country can appear on the frame. Location is processed on your device for this feature and is not required for basic camera use.</li>
+      </ul>
+      <p>You can manage these permissions at any time in iOS Settings.</p>
+
+      <h2>4. Local Storage</h2>
+      <p>Most Vintage Camera content stays on your device, including captured media you save, selected looks and frames, editor preferences, captions and local settings. This helps keep your work available inside the Application without requiring an account.</p>
+
+      <h2>5. Analytics</h2>
+      <p>We use Mixpanel to understand feature usage, improve product stability and detect technical issues. Mixpanel receives event-level analytics data that does not directly identify you. Learn more at <a href="https://mixpanel.com/legal/privacy-policy" target="_blank" rel="noopener">mixpanel.com/legal/privacy-policy</a>.</p>
+
+      <h2>6. Subscription Services</h2>
+      <p>The Application uses Superwall for paywall presentation and subscription flow orchestration. Superwall may process anonymous paywall and purchase-flow events. Learn more at <a href="https://superwall.com/privacy" target="_blank" rel="noopener">superwall.com/privacy</a>.</p>
+
+      <h2>7. Payments</h2>
+      <p>Payments are processed by Apple through the App Store. We do not receive or store your payment card details. Subscription renewal and cancellation are managed in iOS Settings.</p>
+
+      <h2>8. Data Sharing</h2>
+      <p>We do not sell personal data. Data may be shared only with service providers required for Application functionality, analytics, diagnostics or when legally required.</p>
+
+      <h2>9. Security</h2>
+      <p>We apply reasonable technical and organisational safeguards to protect information handled by the Application. No digital system can be guaranteed completely secure, but we limit processing to what is needed for the product experience.</p>
+
+      <h2>10. Children</h2>
+      <p>The Application is not directed to children under 13. We do not knowingly collect personal data from children under 13. If you believe a child has submitted personal data, contact us for review.</p>
+
+      <h2>11. Your Rights</h2>
+      <p>Depending on your region, you may have rights to access, correct, delete or restrict processing of your data. You may also request additional details via the contact email below.</p>
+
+      <h2>12. Website Demo</h2>
+      <p>The Vintage Camera page on the Pixaro Studio website may offer a local browser demo that uses your camera or an uploaded image only on your device for preview. That demo does not upload your photo or camera stream to our servers.</p>
+
+      <h2>13. Policy Updates</h2>
+      <p>We may update this Privacy Policy from time to time. Continued use of the Application after updates means you accept the revised Policy.</p>
+
+      <h2>14. Contact</h2>
+      <p>For privacy questions, requests or complaints, contact us at:<br />
+      <a href="mailto:luminityapple@gmail.com">luminityapple@gmail.com</a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Vintage Camera icon" />
+        Vintage Camera
+      </div>
+      <div class="footer-links">
+        <a href="index.html">App Page</a>
+        <a href="../../apps.html">Our Apps</a>
+      </div>
+      <p class="footer-copy">© 2026 Pixaro Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const progress = document.getElementById('scrollProgress');
+    function updateScrollEffects() {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const amount = max > 0 ? window.scrollY / max : 0;
+      if (progress) progress.style.width = `${amount * 100}%`;
+      if (nav) nav.classList.toggle('scrolled', window.scrollY > 24);
+    }
+    window.addEventListener('scroll', updateScrollEffects, { passive: true });
+    updateScrollEffects();
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
