@@ -64,7 +64,7 @@
     `).join('');
   }
 
-  const SLOT_SCALES = [0.64, 0.84, 1.14, 0.84, 0.64];
+  const SLOT_SCALES = [0.78, 0.94, 1.22, 0.94, 0.78];
 
   function accordionSlots() {
     const selectedIndex = Math.max(0, filters.findIndex(f => f.id === state.filterId));
