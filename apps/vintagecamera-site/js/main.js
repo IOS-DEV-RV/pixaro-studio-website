@@ -48,20 +48,116 @@
   }
 
   function buildWall() {
+    const section = document.querySelector('.wall-section');
     const track = document.getElementById('wallTrack');
-    if (!track) return;
-    // Стена галереи — шаблон + остальные сэмплы для атмосферы
-    const wallSources = [
-      TEMPLATE,
-      ...Array.from({ length: 12 }, (_, i) => `images/sample-${String(i + 1).padStart(2, '0')}.png`)
-    ];
-    // Рамки уже в самих фото — без дополнительных бордеров и подписей
+    if (!track || !section) return;
+
+    // Без template/sample-01 (пример для студии) — только атмосферные кадры
+    const wallSources = Array.from({ length: 12 }, (_, i) =>
+      `images/sample-${String(i + 2).padStart(2, '0')}.png`
+    );
     const items = [...wallSources, ...wallSources];
     track.innerHTML = items.map((src, index) => `
       <figure class="wall-card">
-        <img src="${src}" alt="Film sample ${index + 1}" loading="lazy" />
+        <img src="${src}" alt="Film sample ${index + 1}" draggable="false" />
       </figure>
     `).join('');
+
+    enableWallDrag(section, track);
+  }
+
+  // Перетаскивание стены курсором / пальцем (бесконечная лента)
+  function enableWallDrag(section, track) {
+    let offset = 0;
+    let loopWidth = 0;
+    let dragging = false;
+    let pointerId = null;
+    let startX = 0;
+    let startOffset = 0;
+    let lastX = 0;
+    let lastT = 0;
+    let velocity = 0;
+    let raf = 0;
+
+    function measure() {
+      loopWidth = track.scrollWidth / 2;
+    }
+
+    function wrap() {
+      if (loopWidth <= 0) return;
+      while (offset <= -loopWidth) offset += loopWidth;
+      while (offset > 0) offset -= loopWidth;
+    }
+
+    function paint() {
+      wrap();
+      track.style.transform = `translate3d(${offset}px, 0, 0)`;
+    }
+
+    function stopInertia() {
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+    }
+
+    function inertia() {
+      velocity *= 0.95;
+      if (Math.abs(velocity) < 0.08) {
+        raf = 0;
+        return;
+      }
+      offset += velocity;
+      paint();
+      raf = requestAnimationFrame(inertia);
+    }
+
+    function onPointerDown(event) {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      stopInertia();
+      dragging = true;
+      pointerId = event.pointerId;
+      startX = event.clientX;
+      lastX = event.clientX;
+      lastT = performance.now();
+      startOffset = offset;
+      velocity = 0;
+      section.classList.add('is-dragging');
+      section.setPointerCapture?.(event.pointerId);
+      event.preventDefault();
+    }
+
+    function onPointerMove(event) {
+      if (!dragging || event.pointerId !== pointerId) return;
+      const now = performance.now();
+      const dx = event.clientX - startX;
+      offset = startOffset + dx;
+      const dt = Math.max(1, now - lastT);
+      velocity = (event.clientX - lastX) / dt * 16;
+      lastX = event.clientX;
+      lastT = now;
+      paint();
+    }
+
+    function onPointerUp(event) {
+      if (!dragging || event.pointerId !== pointerId) return;
+      dragging = false;
+      pointerId = null;
+      section.classList.remove('is-dragging');
+      try { section.releasePointerCapture?.(event.pointerId); } catch (_) {}
+      stopInertia();
+      raf = requestAnimationFrame(inertia);
+    }
+
+    measure();
+    paint();
+    window.addEventListener('resize', () => {
+      measure();
+      paint();
+    });
+
+    section.addEventListener('pointerdown', onPointerDown);
+    section.addEventListener('pointermove', onPointerMove);
+    section.addEventListener('pointerup', onPointerUp);
+    section.addEventListener('pointercancel', onPointerUp);
   }
 
   const SLOT_SCALES = [0.78, 0.94, 1.22, 0.94, 0.78];

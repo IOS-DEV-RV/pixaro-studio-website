@@ -239,25 +239,36 @@ main { position: relative; z-index: 1; }
   50% { transform: translateY(-10px); }
 }
 
-/* Photo wall */
+/* Photo wall — тянется курсором / пальцем */
 .wall-section {
   position: relative;
   height: 340px;
   margin: 20px 0 10px;
   overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
   mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.wall-section.is-dragging {
+  cursor: grabbing;
 }
 
 .wall-track {
   display: flex;
   gap: 14px;
   width: max-content;
-  animation: wallDrift 55s linear infinite;
   padding: 20px 0;
+  will-change: transform;
 }
 
-.wall-track:hover { animation-play-state: paused; }
+.wall-track img {
+  pointer-events: none;
+  -webkit-user-drag: none;
+}
 
 .wall-card {
   width: 150px;
@@ -280,11 +291,6 @@ main { position: relative; z-index: 1; }
   height: 100%;
   object-fit: cover;
   display: block;
-}
-
-@keyframes wallDrift {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
 }
 
 .section {
