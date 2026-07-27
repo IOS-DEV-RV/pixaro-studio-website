@@ -24,11 +24,11 @@
 
   // Video FX как в онбординге приложения (HUD + look)
   const videoFXList = [
-    { id: 'vx_blizzard', label: 'Blizzard', hud: 'blizzard', look: 'look_ruby_grit', opacity: 0.58, blend: 'screen' },
-    { id: 'vx_playhead', label: 'Playhead', hud: 'playhead', look: 'look_flare_burn', opacity: 0.55, blend: 'screen' },
-    { id: 'vx_couchcam', label: 'CouchCam', hud: 'couchCam', look: 'look_prism_leak', opacity: 0.52, blend: 'screen' },
-    { id: 'vx_callsheet', label: 'Call Sheet', hud: 'callSheet', look: 'look_strip_burn', opacity: 0.4, blend: 'soft-light' },
-    { id: 'vx_spdeck', label: 'SP Deck', hud: 'spDeck', look: 'look_violet_grit', opacity: 0.5, blend: 'screen' }
+    { id: 'vx_blizzard', label: 'Blizzard', hud: 'blizzard', look: 'look_ruby_grit', opacity: 0.6, blend: 'screen' },
+    { id: 'vx_playhead', label: 'Playhead', hud: 'playhead', look: 'look_flare_burn', opacity: 0.6, blend: 'screen' },
+    { id: 'vx_couchcam', label: 'CouchCam', hud: 'couchCam', look: 'look_prism_leak', opacity: 0.6, blend: 'screen' },
+    { id: 'vx_callsheet', label: 'Call Sheet', hud: 'callSheet', look: 'look_strip_burn', opacity: 0.6, blend: 'soft-light' },
+    { id: 'vx_spdeck', label: 'SP Deck', hud: 'spDeck', look: 'look_violet_grit', opacity: 0.6, blend: 'screen' }
   ];
 
   const state = {
@@ -709,6 +709,104 @@
     layer.classList.toggle('is-soft', fx.blend === 'soft-light');
   }
 
+  // Тот же RNG, что AmberReelSeededNoiseRNG в приложении
+  function makeSeededNoiseRNG(seed) {
+    let state = seed === 0n ? 0x9E3779B97F4A7C15n : BigInt.asUintN(64, seed);
+    return {
+      nextUnit() {
+        state = BigInt.asUintN(64, state + 0x9E3779B97F4A7C15n);
+        let z = state;
+        z = BigInt.asUintN(64, (z ^ (z >> 30n)) * 0xBF58476D1CE4E5B9n);
+        z = BigInt.asUintN(64, (z ^ (z >> 27n)) * 0x94D049BB133111EBn);
+        z = z ^ (z >> 31n);
+        return Number(z % 10000n) / 10000;
+      }
+    };
+  }
+
+  // 1:1 AmberReelVideoHUDNoiseVeil как на 1-м онбординге
+  // trackingStrength: 0.28, scanlineOpacity: 0.05, layer opacity: 0.32
+  function startVideoFxNoise() {
+    const noiseCanvas = document.getElementById('fxNoiseCanvas');
+    const stage = noiseCanvas?.closest('.videofx-stage');
+    if (!noiseCanvas || !stage) return;
+    const nctx = noiseCanvas.getContext('2d', { alpha: true });
+    if (!nctx) return;
+
+    const trackingStrength = 0.28;
+    const scanlineOpacity = 0.05;
+    let lastFrame = 0;
+
+    function resize() {
+      const rect = stage.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const w = Math.max(1, Math.round(rect.width * dpr));
+      const h = Math.max(1, Math.round(rect.height * dpr));
+      if (noiseCanvas.width !== w || noiseCanvas.height !== h) {
+        noiseCanvas.width = w;
+        noiseCanvas.height = h;
+      }
+    }
+
+    function drawNoise(seedInt) {
+      resize();
+      const w = noiseCanvas.width;
+      const h = noiseCanvas.height;
+      nctx.clearRect(0, 0, w, h);
+
+      // Сканлайны
+      nctx.fillStyle = `rgba(255,255,255,${scanlineOpacity})`;
+      for (let y = 0; y < h; y += 3) {
+        nctx.fillRect(0, y, w, 1);
+      }
+
+      // Лёгкая общая вуаль
+      nctx.fillStyle = `rgba(0,0,0,${0.12 * trackingStrength})`;
+      nctx.fillRect(0, 0, w, h);
+
+      const rng = makeSeededNoiseRNG(BigInt(seedInt));
+      const rowStep = Math.max(2, 3.5 - trackingStrength * 1.2);
+      const rows = Math.floor(h / rowStep);
+      const streaksPerRow = 2 + Math.floor(trackingStrength * 10);
+
+      for (let row = 0; row < rows; row += 1) {
+        const y = row * rowStep;
+        const streaks = streaksPerRow + Math.floor(rng.nextUnit() * 4);
+        for (let s = 0; s < streaks; s += 1) {
+          const x = rng.nextUnit() * w;
+          const streakW = 3 + rng.nextUnit() * (18 + 36 * trackingStrength);
+          const alpha = (0.18 + rng.nextUnit() * 0.7) * trackingStrength;
+          const lineW = rng.nextUnit() > 0.7 ? 1.6 : 1.0;
+          nctx.fillStyle = `rgba(255,255,255,${alpha})`;
+          nctx.fillRect(x, y, Math.min(w - x, streakW), lineW);
+        }
+      }
+
+      const glitchCount = 1 + Math.floor(trackingStrength * 5);
+      for (let g = 0; g < glitchCount; g += 1) {
+        const y = rng.nextUnit() * h;
+        const gh = 2 + rng.nextUnit() * (6 + 10 * trackingStrength);
+        const alpha = (0.15 + rng.nextUnit() * 0.35) * trackingStrength;
+        nctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        nctx.fillRect(0, y, w, gh);
+      }
+    }
+
+    function tick(now) {
+      // 24 fps как TimelineView(.animation(minimumInterval: 1/24))
+      if (now - lastFrame >= 1000 / 24) {
+        lastFrame = now;
+        const seed = Math.floor(Date.now() / (1000 / 24));
+        drawNoise(seed);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+    requestAnimationFrame(tick);
+  }
+
   function buildVideoFx() {
     const rail = document.getElementById('videoFxRail');
     const video = document.getElementById('fxDemoVideo');
@@ -736,6 +834,7 @@
     });
 
     selectVideoFx(state.videoFxId);
+    startVideoFxNoise();
 
     if (video) {
       const tryPlay = () => video.play().catch(() => {});
