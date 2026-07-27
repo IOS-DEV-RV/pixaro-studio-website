@@ -88,10 +88,11 @@ button, input { font: inherit; }
 .nav-brand img {
   width: 34px;
   height: 34px;
-  border-radius: 8px;
+  border-radius: 0;
   border: none;
   outline: none;
   box-shadow: none;
+  background: transparent;
 }
 
 .nav-brand { color: var(--cream); font-family: var(--font); letter-spacing: 0.02em; }
@@ -715,10 +716,11 @@ main { position: relative; z-index: 1; }
 .footer-logo img {
   width: 28px;
   height: 28px;
-  border-radius: 7px;
+  border-radius: 0;
   border: none;
   outline: none;
   box-shadow: none;
+  background: transparent;
 }
 
 .footer-links { display: flex; gap: 18px; font-size: 13px; color: var(--cream-soft); }
