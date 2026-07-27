@@ -55,12 +55,11 @@
       TEMPLATE,
       ...Array.from({ length: 12 }, (_, i) => `images/sample-${String(i + 1).padStart(2, '0')}.png`)
     ];
-    const stamps = ['11:23', '11:47', '11:22', '12:04', '09:18', '18:41'];
+    // Рамки уже в самих фото — без дополнительных бордеров и подписей
     const items = [...wallSources, ...wallSources];
     track.innerHTML = items.map((src, index) => `
       <figure class="wall-card">
         <img src="${src}" alt="Film sample ${index + 1}" loading="lazy" />
-        <figcaption>2026 / 07 / 24  ${stamps[index % stamps.length]}</figcaption>
       </figure>
     `).join('');
   }
