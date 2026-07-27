@@ -65,27 +65,31 @@
     `).join('');
   }
 
-  function buildSample() {
-    const root = document.getElementById('samplePick');
-    if (!root) return;
-    root.innerHTML = `
-      <img class="sample-thumb active" src="${TEMPLATE}" data-src="${TEMPLATE}" alt="Template sample" />
-    `;
-    root.querySelector('.sample-thumb')?.addEventListener('click', () => {
-      stopCamera();
-      loadImage(TEMPLATE);
+  const SLOT_SCALES = [0.64, 0.84, 1.14, 0.84, 0.64];
+
+  function accordionSlots() {
+    const selectedIndex = Math.max(0, filters.findIndex(f => f.id === state.filterId));
+    const centerSlot = 2;
+    return SLOT_SCALES.map((scale, slot) => {
+      const filterIndex = (selectedIndex - centerSlot + slot + filters.length) % filters.length;
+      return { filter: filters[filterIndex], scale, isCenter: slot === centerSlot };
     });
   }
 
   function buildFilters() {
     const root = document.getElementById('filterRail');
     if (!root) return;
-    root.innerHTML = filters.map(filter => {
+    const slots = accordionSlots();
+    root.innerHTML = slots.map(({ filter, scale, isCenter }) => {
       const swatch = filter.overlay
         ? `<img src="${filter.overlay}" alt="" />`
         : '';
       return `
-        <button type="button" class="filter-chip${filter.id === state.filterId ? ' active' : ''}" data-id="${filter.id}">
+        <button type="button"
+          class="filter-chip${isCenter ? ' is-center' : ''}"
+          data-id="${filter.id}"
+          style="--slot-scale:${scale};"
+          aria-pressed="${isCenter}">
           <span class="filter-swatch${filter.overlay ? '' : ' original'}">${swatch}</span>
           <span class="label">${filter.label}</span>
         </button>
@@ -94,9 +98,9 @@
 
     root.querySelectorAll('.filter-chip').forEach(chip => {
       chip.addEventListener('click', () => {
-        root.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
+        if (chip.dataset.id === state.filterId) return;
         state.filterId = chip.dataset.id;
+        buildFilters();
         if (state.sourceMode !== 'camera') renderFrame();
       });
     });
@@ -136,6 +140,12 @@
     });
   }
 
+  function setSourceActive(which) {
+    document.getElementById('btnUpload')?.classList.toggle('active', which === 'upload');
+    document.getElementById('btnCamera')?.classList.toggle('active', which === 'camera');
+    document.getElementById('btnSample')?.classList.toggle('active', which === 'sample');
+  }
+
   function loadImage(src) {
     state.sourceMode = 'image';
     image.onload = () => renderFrame();
@@ -153,8 +163,7 @@
       state.sourceMode = 'camera';
       video.srcObject = stream;
       await video.play();
-      document.getElementById('btnCamera')?.classList.add('active');
-      document.getElementById('btnUpload')?.classList.remove('active');
+      setSourceActive('camera');
       loopCamera();
     } catch (error) {
       alert('Camera access was denied or is unavailable in this browser.');
@@ -169,7 +178,6 @@
       state.stream = null;
     }
     video.srcObject = null;
-    document.getElementById('btnCamera')?.classList.remove('active');
   }
 
   function loopCamera() {
@@ -379,7 +387,6 @@
     if (!canvas || !ctx) return;
 
     preloadOverlays();
-    buildSample();
     buildFilters();
     buildFrames();
 
@@ -389,18 +396,27 @@
       const file = fileInput.files?.[0];
       if (!file) return;
       stopCamera();
-      document.getElementById('btnUpload')?.classList.add('active');
+      setSourceActive('upload');
       loadImage(URL.createObjectURL(file));
+    });
+
+    document.getElementById('btnSample')?.addEventListener('click', () => {
+      stopCamera();
+      setSourceActive('sample');
+      loadImage(TEMPLATE);
     });
 
     document.getElementById('btnCamera')?.addEventListener('click', () => {
       if (state.sourceMode === 'camera' && state.stream) {
         stopCamera();
+        setSourceActive('sample');
         loadImage(TEMPLATE);
         return;
       }
       startCamera();
     });
+
+    setSourceActive('sample');
 
     // Перерисовка когда оверлеи догрузятся
     filters.forEach(filter => {

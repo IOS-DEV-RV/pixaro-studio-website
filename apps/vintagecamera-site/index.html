@@ -66,39 +66,41 @@
       </div>
 
       <div class="studio reveal reveal-delay-1">
-        <div class="studio-layout">
-          <aside class="studio-controls">
-            <div class="control-block">
-              <h3>Source</h3>
-              <div class="source-row">
-                <button type="button" class="source-btn" id="btnUpload">Upload photo</button>
-                <button type="button" class="source-btn" id="btnCamera">Open camera</button>
+        <div class="studio-board">
+          <div class="studio-main-row">
+            <aside class="studio-side">
+              <div class="control-block">
+                <h3>Source</h3>
+                <div class="side-actions">
+                  <button type="button" class="source-btn" id="btnUpload">Upload photo</button>
+                  <button type="button" class="source-btn" id="btnCamera">Open camera</button>
+                  <button type="button" class="source-btn source-sample" id="btnSample">
+                    <img src="images/template.png" alt="" />
+                    <span>Sample</span>
+                  </button>
+                </div>
+                <input type="file" id="fileInput" accept="image/*" hidden />
               </div>
-              <input type="file" id="fileInput" accept="image/*" hidden />
-            </div>
 
-            <div class="control-block">
-              <h3>Sample</h3>
-              <div class="sample-pick" id="samplePick"></div>
-            </div>
+              <div class="control-block">
+                <h3>Frame</h3>
+                <div class="frame-rail" id="frameRail"></div>
+              </div>
+            </aside>
 
-            <div class="control-block">
-              <h3>Filters</h3>
-              <div class="filter-rail" id="filterRail"></div>
+            <div class="studio-stage">
+              <div class="stage-frame">
+                <canvas id="previewCanvas" width="720" height="960"></canvas>
+              </div>
             </div>
-
-            <div class="control-block">
-              <h3>Frame</h3>
-              <div class="frame-rail" id="frameRail"></div>
-            </div>
-          </aside>
-
-          <div class="studio-stage">
-            <div class="stage-frame">
-              <canvas id="previewCanvas" width="720" height="960"></canvas>
-            </div>
-            <p class="demo-note">Demo preview · Not the full app experience</p>
           </div>
+
+          <div class="studio-filters">
+            <h3>Filters</h3>
+            <div class="filter-accordion" id="filterRail"></div>
+          </div>
+
+          <p class="demo-note">Demo preview · Not the full app experience</p>
         </div>
       </div>
     </section>
