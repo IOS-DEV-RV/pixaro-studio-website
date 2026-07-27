@@ -67,8 +67,9 @@
     enableWallDrag(section, track);
   }
 
-  // Перетаскивание стены курсором / пальцем (бесконечная лента)
+  // Автоскролл + перетаскивание курсором / пальцем (бесконечная лента)
   function enableWallDrag(section, track) {
+    const AUTO_SPEED = 28; // px/sec влево
     let offset = 0;
     let loopWidth = 0;
     let dragging = false;
@@ -78,7 +79,8 @@
     let lastX = 0;
     let lastT = 0;
     let velocity = 0;
-    let raf = 0;
+    let mode = 'auto'; // auto | inertia
+    let prevFrame = performance.now();
 
     function measure() {
       loopWidth = track.scrollWidth / 2;
@@ -95,32 +97,37 @@
       track.style.transform = `translate3d(${offset}px, 0, 0)`;
     }
 
-    function stopInertia() {
-      if (raf) cancelAnimationFrame(raf);
-      raf = 0;
-    }
+    function tick(now) {
+      const dt = Math.min(48, now - prevFrame);
+      prevFrame = now;
 
-    function inertia() {
-      velocity *= 0.95;
-      if (Math.abs(velocity) < 0.08) {
-        raf = 0;
-        return;
+      if (!dragging) {
+        if (mode === 'inertia') {
+          velocity *= 0.94;
+          offset += velocity;
+          if (Math.abs(velocity) < 0.12) {
+            velocity = 0;
+            mode = 'auto';
+          }
+        } else {
+          offset -= AUTO_SPEED * (dt / 1000);
+        }
+        paint();
       }
-      offset += velocity;
-      paint();
-      raf = requestAnimationFrame(inertia);
+
+      requestAnimationFrame(tick);
     }
 
     function onPointerDown(event) {
       if (event.pointerType === 'mouse' && event.button !== 0) return;
-      stopInertia();
       dragging = true;
+      mode = 'auto';
+      velocity = 0;
       pointerId = event.pointerId;
       startX = event.clientX;
       lastX = event.clientX;
       lastT = performance.now();
       startOffset = offset;
-      velocity = 0;
       section.classList.add('is-dragging');
       section.setPointerCapture?.(event.pointerId);
       event.preventDefault();
@@ -131,8 +138,8 @@
       const now = performance.now();
       const dx = event.clientX - startX;
       offset = startOffset + dx;
-      const dt = Math.max(1, now - lastT);
-      velocity = (event.clientX - lastX) / dt * 16;
+      const frameDt = Math.max(1, now - lastT);
+      velocity = (event.clientX - lastX) / frameDt * 16;
       lastX = event.clientX;
       lastT = now;
       paint();
@@ -144,8 +151,8 @@
       pointerId = null;
       section.classList.remove('is-dragging');
       try { section.releasePointerCapture?.(event.pointerId); } catch (_) {}
-      stopInertia();
-      raf = requestAnimationFrame(inertia);
+      mode = Math.abs(velocity) > 0.2 ? 'inertia' : 'auto';
+      prevFrame = performance.now();
     }
 
     measure();
@@ -159,6 +166,7 @@
     section.addEventListener('pointermove', onPointerMove);
     section.addEventListener('pointerup', onPointerUp);
     section.addEventListener('pointercancel', onPointerUp);
+    requestAnimationFrame(tick);
   }
 
   const SLOT_SCALES = [0.78, 0.94, 1.22, 0.94, 0.78];
