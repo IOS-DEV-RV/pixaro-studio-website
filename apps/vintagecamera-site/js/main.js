@@ -281,61 +281,98 @@
     ctx.restore();
   }
 
-  function drawFilmStripWithHoles(bandTop, edge, holeW, holeH, pitch) {
-    const { width } = canvas;
-    const originY = bandTop + (edge - holeH) * 0.5;
+  // Offscreen-полоса: как в приложении — тёмная плёнка + destinationOut дырки
+  function makeFilmStripLayer(width, edge, holeW, holeH, pitch) {
+    const layer = document.createElement('canvas');
+    layer.width = Math.max(1, Math.round(width));
+    layer.height = Math.max(1, Math.round(edge));
+    const lctx = layer.getContext('2d');
 
-    // Полоса плёнки с вырезанными дырками — сквозь них видно фото
-    ctx.beginPath();
-    ctx.rect(0, bandTop, width, edge);
-    for (let x = 10; x < width - 8; x += pitch) {
-      roundRect(ctx, x, originY, holeW, holeH, 2.2);
-    }
-    const stripGrad = ctx.createLinearGradient(0, bandTop, 0, bandTop + edge);
-    stripGrad.addColorStop(0, '#1c1814');
-    stripGrad.addColorStop(0.5, '#151311');
-    stripGrad.addColorStop(1, '#0f0d0b');
-    ctx.fillStyle = stripGrad;
-    ctx.fill('evenodd');
+    const grad = lctx.createLinearGradient(0, 0, 0, edge);
+    grad.addColorStop(0, '#1a1a1a');
+    grad.addColorStop(0.45, '#0a0a0a');
+    grad.addColorStop(1, '#000000');
+    lctx.fillStyle = grad;
+    lctx.fillRect(0, 0, width, edge);
 
-    // Лёгкий ободок дырок
-    ctx.strokeStyle = 'rgba(0,0,0,0.35)';
-    ctx.lineWidth = 1;
-    for (let x = 10; x < width - 8; x += pitch) {
-      roundRect(ctx, x, originY, holeW, holeH, 2.2);
-      ctx.stroke();
+    // Лёгкий fog по краям полосы
+    const fog = lctx.createLinearGradient(0, 0, width, 0);
+    fog.addColorStop(0, 'rgba(0,0,0,0.35)');
+    fog.addColorStop(0.5, 'rgba(0,0,0,0)');
+    fog.addColorStop(1, 'rgba(0,0,0,0.3)');
+    lctx.fillStyle = fog;
+    lctx.fillRect(0, 0, width, edge);
+
+    // Вырезаем перфорацию — сквозь дырки видно фото
+    lctx.globalCompositeOperation = 'destination-out';
+    const originY = (edge - holeH) * 0.5;
+    const corner = 2.2;
+    for (let x = 12; x < width - 10; x += pitch) {
+      fillRoundRect(lctx, x, originY, holeW, holeH, corner);
     }
+    lctx.globalCompositeOperation = 'source-over';
+
+    // Тонкий тёмный ободок дырки (не серые «плашки»)
+    lctx.strokeStyle = 'rgba(0,0,0,0.55)';
+    lctx.lineWidth = 1.2;
+    for (let x = 12; x < width - 10; x += pitch) {
+      strokeRoundRect(lctx, x, originY, holeW, holeH, corner);
+    }
+    lctx.strokeStyle = 'rgba(255,255,255,0.06)';
+    lctx.lineWidth = 0.6;
+    for (let x = 12; x < width - 10; x += pitch) {
+      strokeRoundRect(lctx, x + 0.5, originY + 0.5, holeW - 1, holeH - 1, corner);
+    }
+
+    return layer;
   }
 
   function drawSunChromeFrame() {
     const { width, height } = canvas;
-    const edge = Math.max(28, height * 0.085);
-    const holeH = Math.max(8, edge * 0.38);
+    const edge = Math.max(32, height * 0.085);
+    const holeH = Math.max(10, edge * 0.38);
     const holeW = holeH * 1.35;
     const gap = holeW * 0.42;
     const pitch = holeW + gap;
 
-    // Плёнка поверх полного кадра; в перфорации видно изображение
-    drawFilmStripWithHoles(0, edge, holeW, holeH, pitch);
-    drawFilmStripWithHoles(height - edge, edge, holeW, holeH, pitch);
+    const strip = makeFilmStripLayer(width, edge, holeW, holeH, pitch);
+    ctx.drawImage(strip, 0, 0);
+    ctx.drawImage(strip, 0, height - edge);
 
-    ctx.fillStyle = 'rgba(224, 191, 132, 0.72)';
-    ctx.font = '600 13px ui-monospace, SFMono-Regular, Menlo, monospace';
+    // Маркировки Sun Chrome — латунный тон как в приложении
+    ctx.fillStyle = 'rgba(212, 184, 120, 0.78)';
+    ctx.font = `600 ${Math.max(11, edge * 0.22)}px ui-monospace, SFMono-Regular, Menlo, monospace`;
     ctx.textAlign = 'left';
-    ctx.fillText('KEY 22', 18, edge - 8);
-    ctx.fillText('→23A', width * 0.38, edge - 8);
-    ctx.fillText('KEY 22', 18, height - 10);
-    ctx.fillText('→23A', width * 0.38, height - 10);
+    ctx.textBaseline = 'alphabetic';
+    const topMarkY = edge - Math.max(7, edge * 0.18);
+    const botMarkY = height - Math.max(7, edge * 0.18);
+    ctx.fillText('KEY 22', 16, topMarkY);
+    ctx.fillText('→23A', width * 0.36, topMarkY);
+    ctx.fillText('SC', width * 0.72, topMarkY);
+    ctx.fillText('KEY 22', 16, botMarkY);
+    ctx.fillText('→23A', width * 0.36, botMarkY);
+    ctx.fillText('SC', width * 0.72, botMarkY);
 
-    ctx.fillStyle = 'rgba(224, 191, 132, 0.45)';
-    const barY = height - edge * 0.42;
-    for (let i = 0; i < 18; i++) {
+    // Малый штрихкод по центру нижней полосы
+    ctx.fillStyle = 'rgba(212, 184, 120, 0.4)';
+    const barY = height - edge * 0.52;
+    for (let i = 0; i < 20; i++) {
       const bw = i % 3 === 0 ? 2 : 1;
-      ctx.fillRect(width * 0.5 - 40 + i * 4.5, barY, bw, 10);
+      ctx.fillRect(width * 0.5 - 44 + i * 4.4, barY, bw, Math.max(8, edge * 0.22));
     }
   }
 
-  function roundRect(context, x, y, w, h, r) {
+  function fillRoundRect(context, x, y, w, h, r) {
+    pathRoundRect(context, x, y, w, h, r);
+    context.fill();
+  }
+
+  function strokeRoundRect(context, x, y, w, h, r) {
+    pathRoundRect(context, x, y, w, h, r);
+    context.stroke();
+  }
+
+  function pathRoundRect(context, x, y, w, h, r) {
     const radius = Math.min(r, w / 2, h / 2);
     context.beginPath();
     context.moveTo(x + radius, y);
