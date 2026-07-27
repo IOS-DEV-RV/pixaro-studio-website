@@ -724,21 +724,28 @@
     };
   }
 
-  // 1:1 AmberReelVideoHUDNoiseVeil как на 1-м онбординге
+  // VHS-шум как на 1-м онбординге по интенсивности, но мягче по качеству
   // trackingStrength: 0.28, scanlineOpacity: 0.05, layer opacity: 0.32
   function startVideoFxNoise() {
     const noiseCanvas = document.getElementById('fxNoiseCanvas');
     const stage = noiseCanvas?.closest('.videofx-stage');
     if (!noiseCanvas || !stage) return;
-    const nctx = noiseCanvas.getContext('2d', { alpha: true });
+    const nctx = noiseCanvas.getContext('2d', { alpha: true, desynchronized: true });
     if (!nctx) return;
 
     const trackingStrength = 0.28;
     const scanlineOpacity = 0.05;
+    const tileSize = 192;
+    const tile = document.createElement('canvas');
+    tile.width = tileSize;
+    tile.height = tileSize;
+    const tctx = tile.getContext('2d', { alpha: true });
     let lastFrame = 0;
+    let cssW = 1;
 
     function resize() {
       const rect = stage.getBoundingClientRect();
+      cssW = Math.max(1, rect.width);
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       const w = Math.max(1, Math.round(rect.width * dpr));
       const h = Math.max(1, Math.round(rect.height * dpr));
@@ -748,52 +755,113 @@
       }
     }
 
+    function rebuildGrainTile(seedInt) {
+      if (!tctx) return;
+      const img = tctx.createImageData(tileSize, tileSize);
+      const data = img.data;
+      const rng = makeSeededNoiseRNG(BigInt(seedInt));
+
+      for (let y = 0; y < tileSize; y += 1) {
+        // лёгкий горизонтальный bias — ближе к VHS-строкам, без «кирпичей»
+        const rowJitter = (rng.nextUnit() - 0.5) * 18;
+        for (let x = 0; x < tileSize; x += 1) {
+          const i = (y * tileSize + x) * 4;
+          const n = rng.nextUnit();
+          const streakBoost = Math.max(0, 1 - Math.abs(((x + rowJitter) % 14) - 7) / 7) * 0.35;
+          const amp = n * 0.75 + streakBoost * rng.nextUnit();
+          const v = Math.floor(140 + amp * 115);
+          // плотный мелкий grain, суммарная яркость ~ как у старых streaks
+          const a = Math.floor((0.1 + amp * 0.55) * trackingStrength * 255);
+          data[i] = v;
+          data[i + 1] = v;
+          data[i + 2] = v;
+          data[i + 3] = a;
+        }
+      }
+      tctx.putImageData(img, 0, 0);
+    }
+
     function drawNoise(seedInt) {
       resize();
       const w = noiseCanvas.width;
       const h = noiseCanvas.height;
-      nctx.clearRect(0, 0, w, h);
+      const dpr = w / cssW;
 
-      // Сканлайны
-      nctx.fillStyle = `rgba(255,255,255,${scanlineOpacity})`;
-      for (let y = 0; y < h; y += 3) {
-        nctx.fillRect(0, y, w, 1);
-      }
+      // Лёгкий trail — убирает дёрганый стробоскоп, интенсивность та же
+      nctx.globalCompositeOperation = 'destination-out';
+      nctx.fillStyle = 'rgba(0,0,0,0.5)';
+      nctx.fillRect(0, 0, w, h);
+      nctx.globalCompositeOperation = 'source-over';
 
-      // Лёгкая общая вуаль
+      // Общая вуаль
       nctx.fillStyle = `rgba(0,0,0,${0.12 * trackingStrength})`;
       nctx.fillRect(0, 0, w, h);
 
-      const rng = makeSeededNoiseRNG(BigInt(seedInt));
-      const rowStep = Math.max(2, 3.5 - trackingStrength * 1.2);
-      const rows = Math.floor(h / rowStep);
-      const streaksPerRow = 2 + Math.floor(trackingStrength * 10);
+      rebuildGrainTile(seedInt);
+      const pattern = nctx.createPattern(tile, 'repeat');
+      if (pattern) {
+        const ox = (seedInt % 23) * dpr;
+        const oy = (seedInt % 19) * dpr;
+        nctx.save();
+        nctx.globalAlpha = 0.9;
+        nctx.translate(ox, oy);
+        nctx.fillStyle = pattern;
+        nctx.fillRect(-ox, -oy, w + tileSize, h + tileSize);
+        nctx.restore();
+      }
 
-      for (let row = 0; row < rows; row += 1) {
-        const y = row * rowStep;
-        const streaks = streaksPerRow + Math.floor(rng.nextUnit() * 4);
+      // Мягкие сканлайны (в css-пикселях)
+      const step = Math.max(2, Math.round(3 * dpr));
+      for (let y = 0; y < h; y += step) {
+        const grad = nctx.createLinearGradient(0, y, 0, y + step);
+        grad.addColorStop(0, `rgba(255,255,255,${scanlineOpacity * 0.15})`);
+        grad.addColorStop(0.35, `rgba(255,255,255,${scanlineOpacity})`);
+        grad.addColorStop(1, `rgba(255,255,255,0)`);
+        nctx.fillStyle = grad;
+        nctx.fillRect(0, y, w, Math.max(1, step * 0.55));
+      }
+
+      // Тонкие мягкие streaks + редкие glitch-полосы (как в приложении, но без «квадратов»)
+      const rng = makeSeededNoiseRNG(BigInt(seedInt) + 77n);
+      const rowStep = Math.max(2 * dpr, (3.5 - trackingStrength * 1.2) * dpr);
+      const rows = Math.floor(h / rowStep);
+      const streaksPerRow = 1 + Math.floor(trackingStrength * 6);
+      nctx.lineCap = 'round';
+      nctx.lineJoin = 'round';
+
+      for (let row = 0; row < rows; row += 2) {
+        const y = row * rowStep + rng.nextUnit() * dpr;
+        const streaks = streaksPerRow + Math.floor(rng.nextUnit() * 3);
         for (let s = 0; s < streaks; s += 1) {
           const x = rng.nextUnit() * w;
-          const streakW = 3 + rng.nextUnit() * (18 + 36 * trackingStrength);
-          const alpha = (0.18 + rng.nextUnit() * 0.7) * trackingStrength;
-          const lineW = rng.nextUnit() > 0.7 ? 1.6 : 1.0;
-          nctx.fillStyle = `rgba(255,255,255,${alpha})`;
-          nctx.fillRect(x, y, Math.min(w - x, streakW), lineW);
+          const streakW = (4 + rng.nextUnit() * (14 + 28 * trackingStrength)) * dpr;
+          const alpha = (0.14 + rng.nextUnit() * 0.55) * trackingStrength;
+          const lineW = (rng.nextUnit() > 0.75 ? 1.35 : 0.85) * dpr;
+          nctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+          nctx.lineWidth = lineW;
+          nctx.beginPath();
+          nctx.moveTo(x, y);
+          nctx.lineTo(Math.min(w, x + streakW), y + (rng.nextUnit() - 0.5) * dpr);
+          nctx.stroke();
         }
       }
 
-      const glitchCount = 1 + Math.floor(trackingStrength * 5);
+      const glitchCount = 1 + Math.floor(trackingStrength * 4);
       for (let g = 0; g < glitchCount; g += 1) {
         const y = rng.nextUnit() * h;
-        const gh = 2 + rng.nextUnit() * (6 + 10 * trackingStrength);
-        const alpha = (0.15 + rng.nextUnit() * 0.35) * trackingStrength;
-        nctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        const gh = (1.5 + rng.nextUnit() * (4 + 7 * trackingStrength)) * dpr;
+        const alpha = (0.12 + rng.nextUnit() * 0.28) * trackingStrength;
+        const grad = nctx.createLinearGradient(0, y, 0, y + gh);
+        grad.addColorStop(0, `rgba(255,255,255,0)`);
+        grad.addColorStop(0.5, `rgba(255,255,255,${alpha})`);
+        grad.addColorStop(1, `rgba(255,255,255,0)`);
+        nctx.fillStyle = grad;
         nctx.fillRect(0, y, w, gh);
       }
     }
 
     function tick(now) {
-      // 24 fps как TimelineView(.animation(minimumInterval: 1/24))
+      // ~24 fps как в TimelineView онбординга
       if (now - lastFrame >= 1000 / 24) {
         lastFrame = now;
         const seed = Math.floor(Date.now() / (1000 / 24));
