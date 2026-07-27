@@ -489,26 +489,27 @@ main { position: relative; z-index: 1; }
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 10px;
   min-height: 420px;
 }
 
 .camera-flip-btn {
   display: none;
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  z-index: 8;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  min-height: 44px;
-  padding: 0 14px;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 52px;
+  min-height: 72px;
+  padding: 10px 8px;
   border: 1px solid rgba(243,235,224,0.35);
-  border-radius: 999px;
+  border-radius: 18px;
   background: rgba(20,17,14,0.82);
   color: var(--cream);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
+  line-height: 1.1;
   cursor: pointer;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -1033,8 +1034,18 @@ main { position: relative; z-index: 1; }
   .gallery { grid-template-columns: 1fr 1fr; }
   .nav-links { display: none; }
   .wall-section { height: 260px; }
+  .studio-stage {
+    justify-content: center;
+    gap: 12px;
+    min-height: 0;
+  }
   .camera-flip-btn.is-visible:not([hidden]) {
     display: inline-flex !important;
+    order: -1; /* слева от превью / рамки */
+  }
+  .stage-frame {
+    width: min(100%, calc(100vw - 110px));
+    max-width: 340px;
   }
 }
 
@@ -1045,8 +1056,13 @@ main { position: relative; z-index: 1; }
   .studio { padding: 14px; }
   .filter-accordion { padding-left: 8px; padding-right: 8px; gap: 6px; min-height: 156px; }
   .filter-chip { width: calc(68px * var(--slot-scale, 1)); }
-  .stage-frame { width: min(100%, 300px); }
+  .studio-stage { gap: 8px; }
+  .stage-frame { width: min(100%, calc(100vw - 96px)); max-width: 300px; }
   .camera-flip-btn.is-visible:not([hidden]) {
     display: inline-flex !important;
+    order: -1;
+    min-width: 48px;
+    min-height: 64px;
+    padding: 8px 6px;
   }
 }
