@@ -26,7 +26,8 @@
     filterId: 'look_original_clear',
     frame: 'cool_instant',
     sourceMode: 'image',
-    stream: null
+    stream: null,
+    facingMode: 'environment'
   };
 
   const overlayCache = {};
@@ -247,22 +248,48 @@
     image.src = src;
   }
 
-  async function startCamera() {
+  function setFlipButtonVisible(visible) {
+    const btn = document.getElementById('btnFlipCamera');
+    if (!btn) return;
+    btn.hidden = !visible;
+    btn.classList.toggle('is-visible', visible);
+  }
+
+  async function startCamera(facing = state.facingMode) {
     try {
-      if (state.stream) stopCamera();
+      if (state.stream) {
+        state.stream.getTracks().forEach(track => track.stop());
+        state.stream = null;
+      }
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = 0;
+
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 960 } },
+        video: {
+          facingMode: { ideal: facing },
+          width: { ideal: 1280 },
+          height: { ideal: 960 }
+        },
         audio: false
       });
       state.stream = stream;
+      state.facingMode = facing;
       state.sourceMode = 'camera';
       video.srcObject = stream;
       await video.play();
       setSourceActive('camera');
+      setFlipButtonVisible(true);
       loopCamera();
     } catch (error) {
+      setFlipButtonVisible(false);
       alert('Camera access was denied or is unavailable in this browser.');
     }
+  }
+
+  async function flipCamera() {
+    if (state.sourceMode !== 'camera') return;
+    const next = state.facingMode === 'environment' ? 'user' : 'environment';
+    await startCamera(next);
   }
 
   function stopCamera() {
@@ -273,6 +300,7 @@
       state.stream = null;
     }
     video.srcObject = null;
+    setFlipButtonVisible(false);
   }
 
   function loopCamera() {
@@ -545,10 +573,15 @@
         loadImage(TEMPLATE);
         return;
       }
-      startCamera();
+      startCamera(state.facingMode || 'environment');
+    });
+
+    document.getElementById('btnFlipCamera')?.addEventListener('click', () => {
+      flipCamera();
     });
 
     setSourceActive('sample');
+    setFlipButtonVisible(false);
 
     // Перерисовка когда оверлеи догрузятся
     filters.forEach(filter => {
