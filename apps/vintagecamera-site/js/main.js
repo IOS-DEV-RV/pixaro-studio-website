@@ -73,7 +73,7 @@
     let offset = 0;
     let loopWidth = 0;
     let dragging = false;
-    let pointerId = null;
+    let activePointer = null;
     let startX = 0;
     let startOffset = 0;
     let lastX = 0;
@@ -83,13 +83,15 @@
     let prevFrame = performance.now();
 
     function measure() {
-      loopWidth = track.scrollWidth / 2;
+      // Важно: при ширине 0 wrap() нельзя крутить — на iOS ломает весь rAF
+      const half = track.scrollWidth / 2;
+      loopWidth = Number.isFinite(half) && half > 1 ? half : 0;
     }
 
     function wrap() {
-      if (loopWidth <= 0) return;
-      while (offset <= -loopWidth) offset += loopWidth;
-      while (offset > 0) offset -= loopWidth;
+      if (!(loopWidth > 1)) return;
+      offset = ((offset % loopWidth) + loopWidth) % loopWidth;
+      if (offset > 0) offset -= loopWidth;
     }
 
     function paint() {
@@ -101,7 +103,9 @@
       const dt = Math.min(48, now - prevFrame);
       prevFrame = now;
 
-      if (!dragging) {
+      if (!loopWidth) measure();
+
+      if (!dragging && loopWidth > 1) {
         if (mode === 'inertia') {
           velocity *= 0.94;
           offset += velocity;
@@ -118,41 +122,75 @@
       requestAnimationFrame(tick);
     }
 
-    function onPointerDown(event) {
-      if (event.pointerType === 'mouse' && event.button !== 0) return;
+    function beginDrag(clientX, pointerId) {
       dragging = true;
       mode = 'auto';
       velocity = 0;
-      pointerId = event.pointerId;
-      startX = event.clientX;
-      lastX = event.clientX;
+      activePointer = pointerId;
+      startX = clientX;
+      lastX = clientX;
       lastT = performance.now();
       startOffset = offset;
       section.classList.add('is-dragging');
-      section.setPointerCapture?.(event.pointerId);
-      event.preventDefault();
     }
 
-    function onPointerMove(event) {
-      if (!dragging || event.pointerId !== pointerId) return;
+    function moveDrag(clientX) {
+      if (!dragging) return;
       const now = performance.now();
-      const dx = event.clientX - startX;
-      offset = startOffset + dx;
+      offset = startOffset + (clientX - startX);
       const frameDt = Math.max(1, now - lastT);
-      velocity = (event.clientX - lastX) / frameDt * 16;
-      lastX = event.clientX;
+      velocity = (clientX - lastX) / frameDt * 16;
+      lastX = clientX;
       lastT = now;
       paint();
     }
 
-    function onPointerUp(event) {
-      if (!dragging || event.pointerId !== pointerId) return;
+    function endDrag() {
+      if (!dragging) return;
       dragging = false;
-      pointerId = null;
+      activePointer = null;
       section.classList.remove('is-dragging');
-      try { section.releasePointerCapture?.(event.pointerId); } catch (_) {}
       mode = Math.abs(velocity) > 0.2 ? 'inertia' : 'auto';
       prevFrame = performance.now();
+    }
+
+    function onPointerDown(event) {
+      if (event.pointerType === 'mouse' && event.button !== 0) return;
+      beginDrag(event.clientX, event.pointerId);
+      try { section.setPointerCapture(event.pointerId); } catch (_) {}
+      event.preventDefault();
+    }
+
+    function onPointerMove(event) {
+      if (!dragging || event.pointerId !== activePointer) return;
+      moveDrag(event.clientX);
+      event.preventDefault();
+    }
+
+    function onPointerUp(event) {
+      if (!dragging || event.pointerId !== activePointer) return;
+      try { section.releasePointerCapture(event.pointerId); } catch (_) {}
+      endDrag();
+    }
+
+    // Fallback для старых WebKit без стабильных Pointer Events
+    const needsTouchFallback = !window.PointerEvent;
+
+    function onTouchStart(event) {
+      if (!needsTouchFallback || event.touches.length !== 1) return;
+      beginDrag(event.touches[0].clientX, 'touch');
+      event.preventDefault();
+    }
+
+    function onTouchMove(event) {
+      if (!needsTouchFallback || !dragging || activePointer !== 'touch' || event.touches.length !== 1) return;
+      moveDrag(event.touches[0].clientX);
+      event.preventDefault();
+    }
+
+    function onTouchEnd() {
+      if (!needsTouchFallback || activePointer !== 'touch') return;
+      endDrag();
     }
 
     measure();
@@ -161,11 +199,18 @@
       measure();
       paint();
     });
+    track.querySelectorAll('img').forEach(img => {
+      if (!img.complete) img.addEventListener('load', measure, { once: true });
+    });
 
-    section.addEventListener('pointerdown', onPointerDown);
-    section.addEventListener('pointermove', onPointerMove);
+    section.addEventListener('pointerdown', onPointerDown, { passive: false });
+    section.addEventListener('pointermove', onPointerMove, { passive: false });
     section.addEventListener('pointerup', onPointerUp);
     section.addEventListener('pointercancel', onPointerUp);
+    section.addEventListener('touchstart', onTouchStart, { passive: false });
+    section.addEventListener('touchmove', onTouchMove, { passive: false });
+    section.addEventListener('touchend', onTouchEnd);
+    section.addEventListener('touchcancel', onTouchEnd);
     requestAnimationFrame(tick);
   }
 
@@ -259,8 +304,12 @@
   function setFlipButtonVisible(visible) {
     const btn = document.getElementById('btnFlipCamera');
     if (!btn) return;
-    btn.hidden = !visible;
-    btn.classList.toggle('is-visible', visible);
+    // Только когда реально открыта одна из камер
+    const show = Boolean(visible && state.sourceMode === 'camera' && state.stream);
+    if (show) btn.removeAttribute('hidden');
+    else btn.setAttribute('hidden', '');
+    btn.classList.toggle('is-visible', show);
+    btn.setAttribute('aria-hidden', show ? 'false' : 'true');
   }
 
   async function startCamera(facing = state.facingMode) {

@@ -495,23 +495,29 @@ main { position: relative; z-index: 1; }
 .camera-flip-btn {
   display: none;
   position: absolute;
-  right: 12px;
-  bottom: 12px;
-  z-index: 4;
+  right: 10px;
+  bottom: 10px;
+  z-index: 8;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  min-height: 42px;
+  min-height: 44px;
   padding: 0 14px;
-  border: 1px solid rgba(243,235,224,0.28);
+  border: 1px solid rgba(243,235,224,0.35);
   border-radius: 999px;
-  background: rgba(20,17,14,0.72);
+  background: rgba(20,17,14,0.82);
   color: var(--cream);
   font-size: 12px;
   font-weight: 700;
   cursor: pointer;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  box-shadow: 0 8px 20px rgba(0,0,0,.35);
+  box-shadow: 0 8px 20px rgba(0,0,0,.4);
+  pointer-events: auto;
+}
+
+.camera-flip-btn[hidden] {
+  display: none !important;
 }
 
 .camera-flip-btn svg {
@@ -861,7 +867,9 @@ main { position: relative; z-index: 1; }
   .gallery { grid-template-columns: 1fr 1fr; }
   .nav-links { display: none; }
   .wall-section { height: 260px; }
-  .camera-flip-btn.is-visible { display: inline-flex; }
+  .camera-flip-btn.is-visible:not([hidden]) {
+    display: inline-flex !important;
+  }
 }
 
 @media (max-width: 560px) {
@@ -872,5 +880,7 @@ main { position: relative; z-index: 1; }
   .filter-accordion { padding-left: 8px; padding-right: 8px; gap: 6px; min-height: 156px; }
   .filter-chip { width: calc(68px * var(--slot-scale, 1)); }
   .stage-frame { width: min(100%, 300px); }
-  .camera-flip-btn.is-visible { display: inline-flex; }
+  .camera-flip-btn.is-visible:not([hidden]) {
+    display: inline-flex !important;
+  }
 }
