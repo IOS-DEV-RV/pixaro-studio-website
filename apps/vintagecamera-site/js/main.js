@@ -198,7 +198,7 @@
     return `${d.getFullYear()} / ${pad(d.getMonth() + 1)} / ${pad(d.getDate())}  ${pad(d.getHours())}:${pad(d.getMinutes())}`;
   }
 
-  function drawCoverInto(source, sw, sh, inset) {
+  function drawCoverInto(source, sw, sh, inset, mirrorX = false) {
     const cw = canvas.width - inset.l - inset.r;
     const ch = canvas.height - inset.t - inset.b;
     const scale = Math.max(cw / sw, ch / sh);
@@ -206,6 +206,15 @@
     const dh = sh * scale;
     const dx = inset.l + (cw - dw) / 2;
     const dy = inset.t + (ch - dh) / 2;
+    if (mirrorX) {
+      // Снимаем зеркало с фронтальной камеры браузера
+      ctx.save();
+      ctx.translate(dx + dw, dy);
+      ctx.scale(-1, 1);
+      ctx.drawImage(source, 0, 0, dw, dh);
+      ctx.restore();
+      return;
+    }
     ctx.drawImage(source, dx, dy, dw, dh);
   }
 
@@ -344,7 +353,16 @@
     ctx.clip();
 
     if (state.sourceMode === 'camera' && video && video.readyState >= 2) {
-      drawCoverInto(video, video.videoWidth || 1280, video.videoHeight || 720, inset);
+      // Фронтальная камера в браузере часто зеркалит кадр — снимаем отражение
+      const facing = state.stream?.getVideoTracks?.()[0]?.getSettings?.().facingMode;
+      const unmirror = facing !== 'environment';
+      drawCoverInto(
+        video,
+        video.videoWidth || 1280,
+        video.videoHeight || 720,
+        inset,
+        unmirror
+      );
     } else if (image.complete && image.naturalWidth) {
       drawCoverInto(image, image.naturalWidth, image.naturalHeight, inset);
     }
