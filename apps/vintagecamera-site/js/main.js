@@ -22,12 +22,22 @@
     { id: 'sun_chrome', label: 'Sun Chrome' }
   ];
 
+  // Video FX как в онбординге приложения (HUD + look)
+  const videoFXList = [
+    { id: 'vx_blizzard', label: 'Blizzard', hud: 'blizzard', look: 'look_ruby_grit', opacity: 0.58, blend: 'screen' },
+    { id: 'vx_playhead', label: 'Playhead', hud: 'playhead', look: 'look_flare_burn', opacity: 0.55, blend: 'screen' },
+    { id: 'vx_couchcam', label: 'CouchCam', hud: 'couchCam', look: 'look_prism_leak', opacity: 0.52, blend: 'screen' },
+    { id: 'vx_callsheet', label: 'Call Sheet', hud: 'callSheet', look: 'look_strip_burn', opacity: 0.4, blend: 'soft-light' },
+    { id: 'vx_spdeck', label: 'SP Deck', hud: 'spDeck', look: 'look_violet_grit', opacity: 0.5, blend: 'screen' }
+  ];
+
   const state = {
     filterId: 'look_original_clear',
     frame: 'cool_instant',
     sourceMode: 'image',
     stream: null,
-    facingMode: 'environment'
+    facingMode: 'environment',
+    videoFxId: 'vx_blizzard'
   };
 
   const overlayCache = {};
@@ -599,8 +609,162 @@
     if (state.frame === 'sun_chrome') drawSunChromeFrame();
   }
 
+  function pad2(n) {
+    return String(n).padStart(2, '0');
+  }
+
+  function formatHMS(totalSec) {
+    const s = Math.max(0, Math.floor(totalSec));
+    const h = Math.floor(s / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    return `${pad2(h)}:${pad2(m)}:${pad2(sec)}`;
+  }
+
+  function formatCinemaTC(totalSec) {
+    const s = Math.max(0, totalSec);
+    const whole = Math.floor(s);
+    const frames = Math.floor((s - whole) * 30);
+    const h = Math.floor(whole / 3600);
+    const m = Math.floor((whole % 3600) / 60);
+    const sec = whole % 60;
+    return `${pad2(h)}:${pad2(m)}:${pad2(sec)}:${pad2(frames)}`;
+  }
+
+  function currentVideoFX() {
+    return videoFXList.find(v => v.id === state.videoFxId) || videoFXList[0];
+  }
+
+  function renderVideoFxHud() {
+    const root = document.getElementById('fxHudLayer');
+    if (!root) return;
+    const fx = currentVideoFX();
+    const video = document.getElementById('fxDemoVideo');
+    const now = new Date();
+    const clock = `${pad2(now.getHours())}:${pad2(now.getMinutes())}:${pad2(now.getSeconds())}`;
+    const dateSlash = `${pad2(now.getMonth() + 1)}/${pad2(now.getDate())}/${String(now.getFullYear()).slice(2)}`;
+    const dateDash = `${now.getFullYear()}-${pad2(now.getMonth() + 1)}-${pad2(now.getDate())}`;
+    const elapsed = video && Number.isFinite(video.currentTime) ? video.currentTime : 0;
+    const pad = '4.2%';
+
+    let html = '';
+    switch (fx.hud) {
+      case 'playhead':
+        html = `
+          <div class="osd" style="top:${pad};left:${pad}">PLAY  ▶</div>
+          <div class="osd" style="bottom:${pad};left:${pad}">${clock}<br>${dateSlash}</div>
+        `;
+        break;
+      case 'blizzard':
+        html = `
+          <div class="corners"><span></span></div>
+          <div class="osd" style="top:${pad};left:${pad}">PLAY  ▶<br>REC<span class="rec-dot"></span></div>
+          <div class="osd" style="top:${pad};right:${pad}">${formatHMS(elapsed).slice(3)}</div>
+          <div class="osd" style="bottom:${pad};left:${pad}">${clock}<br>${dateDash}</div>
+        `;
+        break;
+      case 'couchCam':
+        html = `
+          <div class="osd" style="top:${pad};left:${pad}">REC<span class="rec-dot"></span></div>
+          <div class="osd" style="top:${pad};right:${pad}">${formatHMS(elapsed)}</div>
+          <div class="osd" style="bottom:${pad};right:${pad};text-align:right">${clock}<br>${dateSlash}</div>
+        `;
+        break;
+      case 'callSheet':
+        html = `
+          <div class="corners"><span></span></div>
+          <div class="focus-box">+</div>
+          <div class="osd osd-red" style="top:${pad};left:${pad}"><span class="rec-dot" style="margin:0 6px 0 0"></span>REC</div>
+          <div class="osd" style="top:${pad};left:50%;transform:translateX(-50%)">${formatCinemaTC(elapsed)}</div>
+          <div class="osd" style="top:${pad};right:${pad}">86%</div>
+          <div class="osd" style="bottom:${pad};left:${pad};font-size:0.85em">FULL HD  FPS  ISO200</div>
+          <div class="osd" style="bottom:${pad};right:${pad}">4X ZOOM</div>
+        `;
+        break;
+      case 'spDeck':
+        html = `
+          <div class="osd" style="top:${pad};left:${pad}"><span class="osd-green">TBC</span></div>
+          <div class="osd" style="top:${pad};right:${pad};text-align:right">SP ▶<br>${formatHMS(elapsed)}</div>
+          <div class="osd" style="bottom:${pad};left:${pad}">${dateDash}</div>
+        `;
+        break;
+      default:
+        html = '';
+    }
+    root.innerHTML = html;
+  }
+
+  function applyVideoFxLook() {
+    const layer = document.getElementById('fxLookLayer');
+    if (!layer) return;
+    const fx = currentVideoFX();
+    const filter = filters.find(f => f.id === fx.look);
+    if (!filter?.overlay) {
+      layer.style.opacity = '0';
+      layer.style.backgroundImage = '';
+      return;
+    }
+    layer.style.backgroundImage = `url("${filter.overlay}")`;
+    layer.style.opacity = String(fx.opacity);
+    layer.classList.toggle('is-soft', fx.blend === 'soft-light');
+  }
+
+  function buildVideoFx() {
+    const rail = document.getElementById('videoFxRail');
+    const video = document.getElementById('fxDemoVideo');
+    if (!rail) return;
+    let resumeAutoAt = 0;
+
+    function selectVideoFx(id, fromUser = false) {
+      state.videoFxId = id;
+      if (fromUser) resumeAutoAt = Date.now() + 8000;
+      rail.querySelectorAll('.videofx-chip').forEach(c => {
+        c.classList.toggle('active', c.dataset.id === id);
+      });
+      applyVideoFxLook();
+      renderVideoFxHud();
+    }
+
+    rail.innerHTML = videoFXList.map(fx => `
+      <button type="button" class="videofx-chip${fx.id === state.videoFxId ? ' active' : ''}" data-id="${fx.id}">
+        ${fx.label}
+      </button>
+    `).join('');
+
+    rail.querySelectorAll('.videofx-chip').forEach(chip => {
+      chip.addEventListener('click', () => selectVideoFx(chip.dataset.id, true));
+    });
+
+    selectVideoFx(state.videoFxId);
+
+    if (video) {
+      const tryPlay = () => video.play().catch(() => {});
+      video.addEventListener('loadeddata', tryPlay, { once: true });
+      tryPlay();
+
+      let lastHud = 0;
+      const hudLoop = (t) => {
+        if (t - lastHud > 200) {
+          lastHud = t;
+          renderVideoFxHud();
+        }
+        requestAnimationFrame(hudLoop);
+      };
+      requestAnimationFrame(hudLoop);
+
+      // Авто-ротация эффектов как на онбординге
+      setInterval(() => {
+        if (Date.now() < resumeAutoAt) return;
+        const idx = videoFXList.findIndex(v => v.id === state.videoFxId);
+        const next = videoFXList[(Math.max(0, idx) + 1) % videoFXList.length];
+        selectVideoFx(next.id);
+      }, 4200);
+    }
+  }
+
   function bindUI() {
     buildWall();
+    buildVideoFx();
     if (!canvas || !ctx) return;
 
     preloadOverlays();

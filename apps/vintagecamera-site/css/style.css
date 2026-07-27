@@ -654,6 +654,154 @@ main { position: relative; z-index: 1; }
   margin-top: -4px;
 }
 
+/* Video FX demo — под фильтрами фото */
+.studio-videofx {
+  width: 100%;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+}
+
+.studio-videofx h3 {
+  text-align: center;
+  margin-bottom: 6px;
+}
+
+.videofx-lead {
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--cream-soft);
+  max-width: 520px;
+  margin: 0 auto 16px;
+}
+
+.videofx-stage {
+  position: relative;
+  width: min(100%, 420px);
+  aspect-ratio: 3 / 4;
+  margin: 0 auto 14px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0c0a08;
+  box-shadow:
+    0 24px 60px rgba(0,0,0,.55),
+    0 0 0 1px rgba(243,235,224,0.06);
+}
+
+.videofx-stage video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.videofx-look {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0;
+  background-size: cover;
+  background-position: center;
+  transition: opacity .28s var(--ease);
+}
+
+.videofx-look.is-soft {
+  mix-blend-mode: soft-light;
+}
+
+.videofx-hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  color: #fff;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0,0,0,.55);
+  z-index: 2;
+}
+
+.videofx-hud .osd {
+  position: absolute;
+  font-size: clamp(11px, 2.8vw, 14px);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.videofx-hud .osd-red { color: #ff3b30; }
+.videofx-hud .osd-green { color: #6dff8a; }
+.videofx-hud .rec-dot {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: #ff3b30;
+  margin-left: 0.35em;
+  vertical-align: middle;
+  box-shadow: 0 0 6px rgba(255,59,48,.7);
+}
+
+.videofx-hud .corners::before,
+.videofx-hud .corners::after,
+.videofx-hud .corners span::before,
+.videofx-hud .corners span::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255,255,255,.9);
+}
+.videofx-hud .corners::before { top: 10px; left: 10px; border-right: 0; border-bottom: 0; }
+.videofx-hud .corners::after { top: 10px; right: 10px; border-left: 0; border-bottom: 0; }
+.videofx-hud .corners span::before { bottom: 10px; left: 10px; border-right: 0; border-top: 0; }
+.videofx-hud .corners span::after { bottom: 10px; right: 10px; border-left: 0; border-top: 0; }
+
+.videofx-hud .focus-box {
+  position: absolute;
+  left: 50%;
+  top: 46%;
+  width: 54px;
+  height: 40px;
+  transform: translate(-50%, -50%);
+  border: 1.2px solid rgba(255,255,255,.85);
+  border-radius: 2px;
+  display: grid;
+  place-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.videofx-rail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.videofx-chip {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(243,235,224,0.08), rgba(243,235,224,0.03));
+  color: var(--cream);
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color .25s var(--ease), background .25s var(--ease), transform .2s var(--ease);
+}
+
+.videofx-chip:hover,
+.videofx-chip.active {
+  border-color: rgba(196,162,106,.55);
+  background: rgba(196,162,106,.16);
+  transform: translateY(-1px);
+}
+
 /* Features */
 .features-grid {
   display: grid;
