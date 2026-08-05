@@ -130,17 +130,29 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
 .phone-screen {
   position: relative; overflow: hidden; border-radius: 26px;
   aspect-ratio: 9 / 16;
-  background:
-    linear-gradient(180deg, rgba(7,6,11,0.15) 0%, rgba(7,6,11,0.05) 40%, rgba(7,6,11,0.55) 100%),
-    url('../images/avatar.jpg') center 18% / cover no-repeat,
-    #15121f;
+  background: #15121f;
+}
+.phone-avatar,
+.frame-avatar {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 18%;
+  z-index: 0; pointer-events: none;
+}
+.phone-screen::after,
+.play-frame::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(7,6,11,0.12) 0%, rgba(7,6,11,0.05) 42%, rgba(7,6,11,0.58) 100%);
 }
 .phone-status {
+  position: relative; z-index: 2;
   display: flex; justify-content: space-between; padding: 14px 16px 0;
   font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.75);
 }
 .phone-preview {
-  position: absolute; inset: 0; display: grid; place-items: end center;
+  position: absolute; inset: 0; z-index: 2;
+  display: grid; place-items: end center;
   padding: 0 18px 72px;
 }
 .caption-line {
@@ -222,16 +234,14 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   aspect-ratio: var(--frame-ratio, 9 / 16);
   border-radius: 22px; overflow: hidden;
   border: 1px solid rgba(255,255,255,0.18);
-  background:
-    linear-gradient(180deg, rgba(7,6,11,0.12) 0%, rgba(7,6,11,0.08) 45%, rgba(7,6,11,0.62) 100%),
-    url('../images/avatar.jpg') center 16% / cover no-repeat,
-    #1a1028;
+  background: #1a1028;
   box-shadow: 0 24px 60px rgba(0,0,0,0.35);
   transition: width 0.35s var(--ease), aspect-ratio 0.35s var(--ease);
   display: grid; place-items: end center;
   padding: 0 14px 16%;
 }
 .play-caption {
+  position: relative; z-index: 2;
   display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
   gap: 6px; width: 100%; text-align: center;
 }
