@@ -103,9 +103,15 @@
     });
   }
 
-  function startHighlight(nodes, intervalMs = 520) {
+  function setTalking(avatars, on) {
+    avatars.forEach((avatar) => avatar.classList.toggle('is-talking', on));
+  }
+
+  function startHighlight(nodes, avatars, intervalMs = 560) {
     if (!nodes.length) return () => {};
     let index = 0;
+    let mouthTimer = 0;
+
     const tick = () => {
       nodes.forEach((node, i) => {
         const on = i === index;
@@ -122,23 +128,38 @@
           node.style.boxShadow = 'none';
         }
       });
+
+      // Рот открывается на слово и чуть прикрывается перед следующим
+      setTalking(avatars, true);
+      window.clearTimeout(mouthTimer);
+      mouthTimer = window.setTimeout(() => setTalking(avatars, false), Math.max(140, intervalMs * 0.62));
+
       index = (index + 1) % nodes.length;
     };
+
     tick();
     const id = window.setInterval(tick, intervalMs);
-    return () => window.clearInterval(id);
+    return () => {
+      window.clearInterval(id);
+      window.clearTimeout(mouthTimer);
+      setTalking(avatars, false);
+    };
   }
 
   const heroCaption = document.getElementById('heroCaption');
+  const heroAvatars = Array.from(
+    heroCaption?.closest('.phone-screen')?.querySelectorAll('[data-talk-avatar]') || []
+  );
   let heroNodes = buildCaption(heroCaption, 'EVERY WORD COUNTS');
   applyStyle(heroNodes, 'bold');
-  let stopHero = startHighlight(heroNodes, 560);
+  let stopHero = startHighlight(heroNodes, heroAvatars, 560);
 
   const playCaption = document.getElementById('playCaption');
   const playFrame = document.getElementById('playFrame');
+  const playAvatars = Array.from(playFrame?.querySelectorAll('[data-talk-avatar]') || []);
   let playNodes = buildCaption(playCaption, STYLE_WORDS.bold);
   applyStyle(playNodes, 'bold');
-  let stopPlay = startHighlight(playNodes, 560);
+  let stopPlay = startHighlight(playNodes, playAvatars, 560);
 
   const styleRail = document.getElementById('styleRail');
   styleRail?.addEventListener('click', (event) => {
@@ -149,7 +170,7 @@
     stopPlay();
     playNodes = buildCaption(playCaption, STYLE_WORDS[key] || STYLE_WORDS.bold);
     applyStyle(playNodes, key);
-    stopPlay = startHighlight(playNodes, 560);
+    stopPlay = startHighlight(playNodes, playAvatars, 560);
   });
 
   const formatRail = document.getElementById('formatRail');
