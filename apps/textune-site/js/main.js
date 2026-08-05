@@ -103,50 +103,57 @@
     });
   }
 
-  // --- Живой Memoji ---
+  // --- Живой Memoji: только idle/talk/blink + мягкий 2D lerp (без резких смен поз) ---
   function createMemojiController(rig) {
     if (!rig) return null;
     const frames = Array.from(rig.querySelectorAll('.memoji-frame'));
     let pose = 'idle';
-    let yaw = 0;
-    let pitch = 0;
-    let roll = 0;
-    let bob = 0;
+    let x = 0;
+    let y = 0;
+    let rot = 0;
     let scale = 1;
+    let targetX = 0;
+    let targetY = 0;
+    let targetRot = 0;
+    let targetScale = 1;
     let raf = 0;
     let blinkTimer = 0;
     let mouthCloseTimer = 0;
     let talking = false;
     let turnDir = 1;
     const t0 = performance.now();
+    let lastTs = t0;
+
+    const smooth = (a, b, speed, dt) => a + (b - a) * (1 - Math.exp(-speed * dt));
 
     const setPose = (next) => {
       if (pose === next) return;
+      // left/right кадры отключены — только мягкий рот/моргание
+      if (next === 'left' || next === 'right') next = 'talk';
       pose = next;
       frames.forEach((img) => img.classList.toggle('is-on', img.dataset.pose === next));
     };
 
-    const render = () => {
-      const t = (performance.now() - t0) / 1000;
-      // Постоянное «живое» микродвижение
-      const idleYaw = Math.sin(t * 0.9) * 10 + Math.sin(t * 2.1) * 3;
-      const idlePitch = Math.sin(t * 1.15 + 0.4) * 5;
-      const idleRoll = Math.sin(t * 0.7) * 3;
-      const idleBob = Math.sin(t * 2.4) * 4;
-      const breath = 1 + Math.sin(t * 1.7) * 0.012;
+    const render = (now) => {
+      const dt = Math.min(0.05, (now - lastTs) / 1000);
+      lastTs = now;
+      const t = (now - t0) / 1000;
 
-      const liveYaw = yaw + idleYaw;
-      const livePitch = pitch + idlePitch;
-      const liveRoll = roll + idleRoll;
-      const liveBob = bob + idleBob;
-      const liveScale = scale * breath;
+      // Медленное сглаживание — без рывков
+      x = smooth(x, targetX, 2.8, dt);
+      y = smooth(y, targetY, 3.2, dt);
+      rot = smooth(rot, targetRot, 2.6, dt);
+      scale = smooth(scale, targetScale, 3.0, dt);
+
+      const liveX = x + Math.sin(t * 0.35) * 3.2 + Math.sin(t * 0.9) * 1.1;
+      const liveY = y + Math.sin(t * 0.55 + 0.3) * 2.4;
+      const liveRot = rot + Math.sin(t * 0.4) * 1.4;
+      const liveScale = scale * (1 + Math.sin(t * 1.05) * 0.006);
 
       rig.style.transform = [
-        `translateY(${liveBob}px)`,
-        `rotateX(${livePitch}deg)`,
-        `rotateY(${liveYaw}deg)`,
-        `rotateZ(${liveRoll}deg)`,
-        `scale(${liveScale})`
+        `translate3d(${liveX.toFixed(2)}px, ${liveY.toFixed(2)}px, 0)`,
+        `rotate(${liveRot.toFixed(2)}deg)`,
+        `scale(${liveScale.toFixed(4)})`
       ].join(' ');
       raf = requestAnimationFrame(render);
     };
@@ -158,39 +165,30 @@
           setPose('blink');
           window.setTimeout(() => {
             if (!talking) setPose('idle');
-          }, 120);
+          }, 180);
         }
         scheduleBlink();
-      }, 2200 + Math.random() * 2600);
+      }, 3200 + Math.random() * 3600);
     };
 
     const speakWord = () => {
       talking = true;
       turnDir *= -1;
-      // Рот + поворот головы в сторону слова
-      const sidePose = turnDir > 0 ? 'left' : 'right';
-      const useSide = Math.random() > 0.35;
-      setPose(useSide ? sidePose : 'talk');
-      yaw = (useSide ? turnDir : Math.sign(Math.random() - 0.5) || 1) * (14 + Math.random() * 12);
-      pitch = 3 + Math.random() * 6;
-      roll = turnDir * (3 + Math.random() * 4);
-      bob = 4;
-      scale = 1.045;
+      setPose('talk');
+      targetX = turnDir * (4 + Math.random() * 5);
+      targetY = -1.5 - Math.random() * 2.5;
+      targetRot = turnDir * (2 + Math.random() * 2.5);
+      targetScale = 1.018;
 
       window.clearTimeout(mouthCloseTimer);
-      // Быстрый «слог» — открыл / прикрыл рот внутри слова
-      window.setTimeout(() => {
-        if (talking) setPose('talk');
-      }, 90);
       mouthCloseTimer = window.setTimeout(() => {
         talking = false;
         setPose('idle');
-        yaw *= 0.2;
-        pitch *= 0.2;
-        roll *= 0.2;
-        bob = 0;
-        scale = 1;
-      }, 360);
+        targetX *= 0.2;
+        targetY *= 0.2;
+        targetRot *= 0.2;
+        targetScale = 1;
+      }, 520);
     };
 
     setPose('idle');
@@ -207,7 +205,7 @@
     };
   }
 
-  function startHighlight(nodes, controllers, intervalMs = 560) {
+  function startHighlight(nodes, controllers, intervalMs = 780) {
     if (!nodes.length) return () => {};
     let index = 0;
 
@@ -244,7 +242,7 @@
 
   let heroNodes = buildCaption(heroCaption, 'EVERY WORD COUNTS');
   applyStyle(heroNodes, 'bold');
-  let stopHero = startHighlight(heroNodes, heroControllers, 560);
+  let stopHero = startHighlight(heroNodes, heroControllers, 780);
 
   const playCaption = document.getElementById('playCaption');
   const playFrame = document.getElementById('playFrame');
@@ -254,7 +252,7 @@
 
   let playNodes = buildCaption(playCaption, STYLE_WORDS.bold);
   applyStyle(playNodes, 'bold');
-  let stopPlay = startHighlight(playNodes, playControllers, 560);
+  let stopPlay = startHighlight(playNodes, playControllers, 780);
 
   const styleRail = document.getElementById('styleRail');
   styleRail?.addEventListener('click', (event) => {
@@ -265,7 +263,7 @@
     stopPlay();
     playNodes = buildCaption(playCaption, STYLE_WORDS[key] || STYLE_WORDS.bold);
     applyStyle(playNodes, key);
-    stopPlay = startHighlight(playNodes, playControllers, 560);
+    stopPlay = startHighlight(playNodes, playControllers, 780);
   });
 
   const formatRail = document.getElementById('formatRail');

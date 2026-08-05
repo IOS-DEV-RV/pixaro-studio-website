@@ -153,34 +153,41 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   padding: 0 18px 72px;
 }
 
-/* Живой Memoji: кадры мимики + 3D-качание головы */
+/* Живой Memoji: только голова, без плиты и без 3D-filter артефактов */
 .memoji-stage {
   position: absolute; inset: 0; z-index: 0;
   display: grid; place-items: center;
-  padding-bottom: 20%;
+  padding-bottom: 18%;
   pointer-events: none;
-  perspective: 900px;
+  background: none;
 }
 .memoji-rig {
-  width: min(72%, 240px);
+  width: min(78%, 260px);
   aspect-ratio: 1;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 22px 36px rgba(0,0,0,0.45));
   will-change: transform;
-  transition: transform 0.18s ease-out;
+  background: none;
+  /* Без CSS filter — в Safari filter+transform даёт тёмный прямоугольник */
 }
 .memoji-frames {
-  position: relative; width: 100%; height: 100%;
-  transform-style: preserve-3d;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: none;
+  /* Страховка: срезаем любые остатки квадратной плиты */
+  -webkit-mask-image: radial-gradient(ellipse 52% 58% at 50% 46%, #000 72%, transparent 100%);
+  mask-image: radial-gradient(ellipse 52% 58% at 50% 46%, #000 72%, transparent 100%);
 }
 .memoji-frame {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: contain;
   opacity: 0;
-  transition: opacity 0.07s linear;
+  transition: opacity 0.28s ease-in-out;
   user-select: none;
   -webkit-user-drag: none;
+  background: none;
+  /* На случай старого кэша с непрозрачной плитой */
+  mix-blend-mode: normal;
 }
 .memoji-frame.is-on { opacity: 1; }
 .caption-line {
