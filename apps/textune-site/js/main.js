@@ -37,7 +37,8 @@
       letter: '-0.03em',
       activeBg: 'linear-gradient(120deg,#7c3aed,#d946ef,#f97316)',
       activeColor: '#120816',
-      idleColor: '#ffffff'
+      idleColor: '#ffffff',
+      idleShadow: '0 2px 10px rgba(0,0,0,0.45)'
     },
     minimal: {
       weight: '600',
@@ -45,16 +46,18 @@
       letter: '-0.01em',
       activeBg: 'rgba(255,255,255,0.92)',
       activeColor: '#120816',
-      idleColor: 'rgba(255,255,255,0.92)'
+      idleColor: 'rgba(255,255,255,0.92)',
+      idleShadow: '0 2px 10px rgba(0,0,0,0.35)'
     },
     neon: {
       weight: '800',
       transform: 'uppercase',
       letter: '0.04em',
-      activeBg: 'transparent',
+      activeBg: 'rgba(57,255,20,0.16)',
       activeColor: '#39ff14',
       idleColor: '#7dffb3',
-      shadow: '0 0 12px rgba(57,255,20,0.55)'
+      idleShadow: '0 0 12px rgba(57,255,20,0.55)',
+      activeShadow: '0 0 18px rgba(57,255,20,0.75)'
     },
     clean: {
       weight: '800',
@@ -62,7 +65,8 @@
       letter: '-0.02em',
       activeBg: 'linear-gradient(120deg,#ec4899,#d946ef)',
       activeColor: '#ffffff',
-      idleColor: '#ffffff'
+      idleColor: '#ffffff',
+      idleShadow: '0 2px 10px rgba(0,0,0,0.45)'
     }
   };
 
@@ -70,6 +74,7 @@
     if (!container) return [];
     const words = text.split(/\s+/).filter(Boolean);
     container.innerHTML = '';
+    container.classList.remove('is-row');
     return words.map((word) => {
       const span = document.createElement('span');
       span.className = 'cap-word';
@@ -82,20 +87,23 @@
   function applyStyle(nodes, styleKey) {
     const look = STYLE_LOOK[styleKey] || STYLE_LOOK.bold;
     nodes.forEach((node) => {
+      node.classList.remove('active');
       node.style.fontWeight = look.weight;
       node.style.textTransform = look.transform;
       node.style.letterSpacing = look.letter;
       node.style.color = look.idleColor;
-      node.style.textShadow = look.shadow || '0 2px 10px rgba(0,0,0,0.45)';
+      node.style.textShadow = look.idleShadow;
       node.style.background = 'transparent';
-      node.style.padding = '0';
+      node.style.boxShadow = 'none';
       node.dataset.activeBg = look.activeBg;
       node.dataset.activeColor = look.activeColor;
       node.dataset.idleColor = look.idleColor;
+      node.dataset.idleShadow = look.idleShadow;
+      node.dataset.activeShadow = look.activeShadow || '0 8px 22px rgba(217, 70, 239, 0.35)';
     });
   }
 
-  function startHighlight(nodes, intervalMs = 420) {
+  function startHighlight(nodes, intervalMs = 520) {
     if (!nodes.length) return () => {};
     let index = 0;
     const tick = () => {
@@ -105,11 +113,13 @@
         if (on) {
           node.style.background = node.dataset.activeBg || '';
           node.style.color = node.dataset.activeColor || '';
-          node.style.padding = node.dataset.activeBg === 'transparent' ? '0' : '2px 8px';
+          node.style.textShadow = 'none';
+          node.style.boxShadow = node.dataset.activeShadow || '';
         } else {
           node.style.background = 'transparent';
           node.style.color = node.dataset.idleColor || '';
-          node.style.padding = '0';
+          node.style.textShadow = node.dataset.idleShadow || '';
+          node.style.boxShadow = 'none';
         }
       });
       index = (index + 1) % nodes.length;
@@ -122,13 +132,13 @@
   const heroCaption = document.getElementById('heroCaption');
   let heroNodes = buildCaption(heroCaption, 'EVERY WORD COUNTS');
   applyStyle(heroNodes, 'bold');
-  let stopHero = startHighlight(heroNodes, 480);
+  let stopHero = startHighlight(heroNodes, 560);
 
   const playCaption = document.getElementById('playCaption');
   const playFrame = document.getElementById('playFrame');
   let playNodes = buildCaption(playCaption, STYLE_WORDS.bold);
   applyStyle(playNodes, 'bold');
-  let stopPlay = startHighlight(playNodes, 400);
+  let stopPlay = startHighlight(playNodes, 560);
 
   const styleRail = document.getElementById('styleRail');
   styleRail?.addEventListener('click', (event) => {
@@ -139,7 +149,7 @@
     stopPlay();
     playNodes = buildCaption(playCaption, STYLE_WORDS[key] || STYLE_WORDS.bold);
     applyStyle(playNodes, key);
-    stopPlay = startHighlight(playNodes, 400);
+    stopPlay = startHighlight(playNodes, 560);
   });
 
   const formatRail = document.getElementById('formatRail');
@@ -151,7 +161,6 @@
     playFrame.style.setProperty('--frame-w', btn.dataset.w);
   });
 
-  // Parallax chips for a bit of motion depth
   const visual = document.querySelector('.hero-visual');
   visual?.addEventListener('pointermove', (event) => {
     const rect = visual.getBoundingClientRect();

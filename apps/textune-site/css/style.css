@@ -131,8 +131,8 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   position: relative; overflow: hidden; border-radius: 26px;
   aspect-ratio: 9 / 16;
   background:
-    radial-gradient(circle at 30% 20%, rgba(124,58,237,0.45), transparent 45%),
-    radial-gradient(circle at 80% 70%, rgba(249,115,22,0.28), transparent 40%),
+    linear-gradient(180deg, rgba(7,6,11,0.15) 0%, rgba(7,6,11,0.05) 40%, rgba(7,6,11,0.55) 100%),
+    url('../images/avatar.jpg') center 18% / cover no-repeat,
     #15121f;
 }
 .phone-status {
@@ -144,18 +144,29 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   padding: 0 18px 72px;
 }
 .caption-line {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
-  max-width: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  gap: 6px; max-width: 100%; width: 100%;
 }
 .cap-word {
+  position: relative;
+  display: inline-block;
   font-family: var(--font-display); font-weight: 800; font-size: 1.35rem;
   letter-spacing: -0.03em; color: #fff;
   text-shadow: 0 2px 10px rgba(0,0,0,0.45);
-  transition: transform 0.25s var(--ease), background 0.25s, color 0.25s, padding 0.25s;
+  /* Паддинг всегда одинаковый — подсветка не меняет ширину и не ломает переносы */
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: transparent;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  transition: color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+  will-change: color, background;
 }
 .cap-word.active {
-  padding: 2px 8px; border-radius: 8px;
-  background: var(--grad); color: #120816; transform: scale(1.08);
+  background: var(--grad);
+  color: #120816;
+  text-shadow: none;
+  box-shadow: 0 8px 22px rgba(217, 70, 239, 0.35);
 }
 .phone-glow {
   position: absolute; inset: 18% -10% auto; height: 60%;
@@ -212,18 +223,22 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   border-radius: 22px; overflow: hidden;
   border: 1px solid rgba(255,255,255,0.18);
   background:
-    radial-gradient(circle at 40% 25%, rgba(255,255,255,0.12), transparent 40%),
-    linear-gradient(160deg, #2a1848, #1a1028 55%, #2c1420);
+    linear-gradient(180deg, rgba(7,6,11,0.12) 0%, rgba(7,6,11,0.08) 45%, rgba(7,6,11,0.62) 100%),
+    url('../images/avatar.jpg') center 16% / cover no-repeat,
+    #1a1028;
   box-shadow: 0 24px 60px rgba(0,0,0,0.35);
   transition: width 0.35s var(--ease), aspect-ratio 0.35s var(--ease);
   display: grid; place-items: end center;
-  padding: 0 14px 18%;
+  padding: 0 14px 16%;
 }
 .play-caption {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 7px;
-  text-align: center;
+  display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
+  gap: 6px; width: 100%; text-align: center;
 }
-.play-caption .cap-word { font-size: clamp(1rem, 2.2vw, 1.45rem); }
+.play-caption .cap-word { font-size: clamp(1.05rem, 2.1vw, 1.4rem); }
+.play-caption.is-row {
+  flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 8px;
+}
 .play-controls { display: grid; gap: 18px; align-content: start; }
 .control-block h3 {
   margin: 0 0 10px; font-size: 13px; letter-spacing: 0.06em;
