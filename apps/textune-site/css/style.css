@@ -153,78 +153,36 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   padding: 0 18px 72px;
 }
 
-/* Анимированный эмодзи-аватар: рот открывается в такт словам */
-.emoji-stage {
+/* Живой Memoji: кадры мимики + 3D-качание головы */
+.memoji-stage {
   position: absolute; inset: 0; z-index: 0;
   display: grid; place-items: center;
-  padding-bottom: 18%;
+  padding-bottom: 20%;
   pointer-events: none;
+  perspective: 900px;
 }
-.emoji-avatar {
-  width: min(58%, 190px);
+.memoji-rig {
+  width: min(72%, 240px);
   aspect-ratio: 1;
-  filter: drop-shadow(0 18px 28px rgba(0,0,0,0.35));
-  animation: emoji-bob 2.8s ease-in-out infinite;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 22px 36px rgba(0,0,0,0.45));
+  will-change: transform;
+  transition: transform 0.18s ease-out;
 }
-.emoji-face {
-  position: relative; width: 100%; height: 100%; border-radius: 50%;
-  background:
-    radial-gradient(circle at 32% 28%, #ffe566 0%, #ffcc33 38%, #f5a623 78%, #e8900f 100%);
-  box-shadow:
-    inset -10px -14px 24px rgba(180, 90, 0, 0.28),
-    inset 8px 10px 18px rgba(255, 255, 255, 0.35);
+.memoji-frames {
+  position: relative; width: 100%; height: 100%;
+  transform-style: preserve-3d;
 }
-.emoji-brow {
-  position: absolute; top: 28%; width: 16%; height: 5%;
-  border-radius: 999px; background: rgba(90, 50, 10, 0.55);
-}
-.emoji-brow.left { left: 24%; transform: rotate(-8deg); }
-.emoji-brow.right { right: 24%; transform: rotate(8deg); }
-.emoji-eye {
-  position: absolute; top: 36%; width: 14%; height: 16%;
-  border-radius: 50%; background: #2b1a08;
-  overflow: hidden;
-}
-.emoji-eye.left { left: 26%; }
-.emoji-eye.right { right: 26%; }
-.emoji-eye i {
-  position: absolute; left: 28%; top: 22%;
-  width: 38%; height: 38%; border-radius: 50%; background: #fff;
-}
-.emoji-mouth {
-  position: absolute; left: 50%; top: 62%;
-  width: 34%; height: 10%;
-  transform: translate(-50%, 0);
-  border-radius: 0 0 50% 50% / 0 0 100% 100%;
-  background: #6b2b12;
-  overflow: hidden;
-  transition: height 0.08s linear, border-radius 0.08s linear, top 0.08s linear;
-}
-.emoji-mouth i {
-  position: absolute; left: 18%; right: 18%; bottom: 0; height: 42%;
-  border-radius: 40% 40% 0 0;
-  background: #ff6b7a;
+.memoji-frame {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: contain;
   opacity: 0;
-  transition: opacity 0.08s linear;
+  transition: opacity 0.07s linear;
+  user-select: none;
+  -webkit-user-drag: none;
 }
-.emoji-avatar.is-talking .emoji-mouth {
-  top: 58%;
-  height: 28%;
-  border-radius: 46% 46% 50% 50% / 35% 35% 70% 70%;
-  background: #4a1c0c;
-}
-.emoji-avatar.is-talking .emoji-mouth i { opacity: 1; }
-.emoji-avatar.is-talking {
-  animation: emoji-talk-bob 0.18s ease-in-out;
-}
-@keyframes emoji-bob {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
-@keyframes emoji-talk-bob {
-  0%, 100% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(2px) scale(1.02); }
-}
+.memoji-frame.is-on { opacity: 1; }
 .caption-line {
   display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
   gap: 6px; max-width: 100%; width: 100%;
@@ -313,7 +271,7 @@ button { font: inherit; border: 0; cursor: pointer; background: none; color: inh
   display: grid; place-items: end center;
   padding: 0 14px 16%;
 }
-.play-frame .emoji-avatar { width: min(62%, 160px); }
+.play-frame .memoji-rig { width: min(78%, 210px); }
 .play-caption {
   position: relative; z-index: 2;
   display: flex; flex-direction: column; align-items: center; justify-content: flex-end;
