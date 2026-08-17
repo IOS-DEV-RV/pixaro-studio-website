@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Grid Planner — Plan Your Perfect Feed Before You Post</title>
+  <meta name="description" content="Grid Planner helps you design Instagram-style grids, edit posts, import screenshots, set publish reminders, and keep multiple plans for every account." />
+  <link rel="icon" href="images/icon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="images/icon.png" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="ambient-orb ambient-orb-one"></div>
+  <div class="ambient-orb ambient-orb-two"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <nav class="nav" id="nav">
+    <a href="../../apps.html" class="nav-back" aria-label="Back to apps">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Our Apps
+    </a>
+    <a href="index.html" class="nav-brand">
+      <img src="images/icon.png" alt="Grid Planner icon" />
+      Grid Planner
+    </a>
+    <div class="nav-links">
+      <a href="#showcase">Showcase</a>
+      <a href="#features">Features</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Feed planning for iPhone</p>
+          <h1>See your grid before you post.</h1>
+          <p class="hero-lead">Grid Planner lets you arrange posts, carousels and drafts into a clean visual plan. Preview the whole feed, edit every cell, import a screenshot layout, and set reminders for the moment you want to publish.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#download">Download Grid Planner</a>
+            <a class="btn btn-ghost" href="#features">Explore features</a>
+          </div>
+          <div class="hero-stats">
+            <span><strong>Plans</strong>Multiple grids &amp; accounts</span>
+            <span><strong>Import</strong>Screenshot to grid</span>
+            <span><strong>Reminders</strong>Post on your schedule</span>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal reveal-delay-1" data-tilt>
+          <div class="collage-stage">
+            <div class="collage-tile tile-blue" aria-hidden="true"></div>
+            <div class="collage-tile tile-orange" aria-hidden="true"></div>
+            <div class="collage-tile tile-purple" aria-hidden="true"></div>
+            <div class="collage-tile tile-indigo" aria-hidden="true"></div>
+            <img class="hero-icon" src="images/icon.png" alt="Grid Planner app icon" />
+            <div class="glass-pill pill-templates">Grid Preview</div>
+            <div class="glass-pill pill-filters">Post Editor</div>
+            <div class="glass-pill pill-export">Publish Reminders</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase" id="showcase">
+      <div class="section-head reveal">
+        <p class="eyebrow">Built for creators</p>
+        <h2>Plan the feed. Perfect every post. Publish with confidence.</h2>
+        <p>Design layouts offline, compare looks, and keep drafts ready — then post when the timing is right.</p>
+      </div>
+      <div class="phone-strip">
+        <article class="phone-card reveal" data-tilt>
+          <img src="images/screenshot-import.png" alt="Grid Planner import grid screen" />
+          <div class="phone-caption">
+            <span>Import Grid</span>
+            <p>Bring in a screenshot of your feed and rebuild the layout in one pass.</p>
+          </div>
+        </article>
+        <article class="phone-card reveal reveal-delay-1" data-tilt>
+          <img src="images/screenshot-preview.png" alt="Grid Planner multi-plan preview" />
+          <div class="phone-caption">
+            <span>Preview &amp; Compare</span>
+            <p>See how the profile grid will look before anything goes live.</p>
+          </div>
+        </article>
+        <article class="phone-card reveal reveal-delay-2" data-tilt>
+          <img src="images/screenshot-reminder.png" alt="Grid Planner publish reminder screen" />
+          <div class="phone-caption">
+            <span>Publish Reminders</span>
+            <p>Pick the date and time you want to post — and get a reminder then.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="why-panel">
+      <div class="format-demo reveal">
+        <div class="section-head" style="margin-bottom:24px;">
+          <p class="eyebrow">Every post, every cell</p>
+          <h2>Crop, adjust and polish inside the same planner.</h2>
+        </div>
+        <div class="phone-strip" style="justify-content:center;">
+          <article class="phone-card" data-tilt style="max-width:320px;">
+            <img src="images/screenshot-editor.png" alt="Grid Planner crop and edit screen" />
+            <div class="phone-caption">
+              <span>In-app editing</span>
+              <p>Crop, rotate and refine photos without leaving your grid plan.</p>
+            </div>
+          </article>
+          <article class="phone-card" data-tilt style="max-width:320px;">
+            <img src="images/screenshot-grid.png" alt="Grid Planner neon photo grid" />
+            <div class="phone-caption">
+              <span>Visual planning</span>
+              <p>Arrange a vivid 3×3 feed that matches the story you want to tell.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="features" id="features">
+      <div class="section-head reveal">
+        <p class="eyebrow">What you get</p>
+        <h2>Everything you need to plan a feed that looks intentional.</h2>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card reveal" data-tilt>
+          <div class="feature-icon">▦</div>
+          <h3>Visual Grid Planning</h3>
+          <p>Drag, reorder and preview posts in a familiar profile-style grid so the whole feed feels balanced before you publish.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-1" data-tilt>
+          <div class="feature-icon">⧉</div>
+          <h3>Multiple Plans</h3>
+          <p>Keep a separate grid for each account or campaign — personal, brand, seasonal — without mixing layouts.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-2" data-tilt>
+          <div class="feature-icon">⤓</div>
+          <h3>Import from Screenshot</h3>
+          <p>Capture an existing feed screenshot and turn it into editable cells you can rearrange and refine.</p>
+        </article>
+        <article class="feature-card reveal" data-tilt>
+          <div class="feature-icon">✎</div>
+          <h3>Post Editing Tools</h3>
+          <p>Crop, adjust and format each post inside the planner so every cell is ready to share.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-1" data-tilt>
+          <div class="feature-icon">◷</div>
+          <h3>Publish Reminders</h3>
+          <p>Set the date and time you want to post. Grid Planner reminds you locally when it’s time to go live.</p>
+        </article>
+        <article class="feature-card reveal reveal-delay-2" data-tilt>
+          <div class="feature-icon">◎</div>
+          <h3>Drafts &amp; Archive</h3>
+          <p>Park ideas, archive older posts and keep your active plan focused on what’s next.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="why-panel">
+      <div class="liquid-card reveal">
+        <div>
+          <p class="eyebrow">Why Grid Planner</p>
+          <h2>Made for people who care how the feed looks.</h2>
+          <p>Whether you run one account or several, Grid Planner keeps planning, editing and reminders in one calm dark workspace — so posting feels intentional instead of last-minute.</p>
+          <p style="margin-top:14px;">Travel diaries, brand launches, content batches, personal aesthetics. Build the grid first. Publish when you’re ready.</p>
+        </div>
+        <div class="creator-list">
+          <div>Profile-style grid preview</div>
+          <div>Plans for multiple accounts</div>
+          <div>Screenshot import for fast rebuilds</div>
+          <div>Local publish reminders</div>
+          <div>Editors and drafts without leaving the plan</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="download">
+      <div class="cta-card reveal">
+        <h2>Download Grid Planner</h2>
+        <p>Plan your perfect grid, polish every post, and get a reminder when it’s time to publish — all on iPhone.</p>
+        <a class="btn btn-primary" href="https://apps.apple.com/app/id6800284214" target="_blank" rel="noopener">View on App Store</a>
+      </div>
+    </section>
+
+    <section class="privacy-note" id="privacy-note">
+      <div class="privacy-card-inline reveal">
+        Grid Planner is designed with privacy in mind. Your plans, posts and drafts stay on your device. We use analytics only to improve stability and product quality. Read the full policy on our <a href="privacy.html">Privacy page</a>.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">
+        <img src="images/icon.png" alt="Grid Planner icon" />
+        Grid Planner
+      </div>
+      <div class="footer-links">
+        <a href="privacy.html">Privacy</a>
+        <a href="../../apps.html">Our Apps</a>
+        <a href="../../index.html">Pixaro Studio</a>
+      </div>
+      <p class="footer-copy">© 2026 Pixaro Studio. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
