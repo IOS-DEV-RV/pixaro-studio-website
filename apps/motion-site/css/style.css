@@ -140,16 +140,55 @@ button { font: inherit; border: 0; background: none; color: inherit; cursor: poi
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  width: min(1180px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 16px 0;
-  transition: background 0.3s var(--ease), backdrop-filter 0.3s var(--ease);
+  width: 100%;
+  margin: 0;
+  padding: 16px 20px;
+  background: transparent;
 }
 
-.nav.scrolled {
-  background: rgba(246, 255, 212, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+.nav > * {
+  position: relative;
+  z-index: 1;
+}
+
+.nav::before,
+.nav::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 168px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+
+.nav::before {
+  backdrop-filter: blur(22px) saturate(140%);
+  -webkit-backdrop-filter: blur(22px) saturate(140%);
+  mask-image: linear-gradient(180deg, #000 0%, #000 32%, rgba(0, 0, 0, 0.45) 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, #000 32%, rgba(0, 0, 0, 0.45) 62%, transparent 100%);
+}
+
+.nav::after {
+  background: linear-gradient(
+    180deg,
+    rgba(246, 255, 212, 0.88) 0%,
+    rgba(246, 255, 212, 0.5) 38%,
+    rgba(216, 255, 114, 0.16) 68%,
+    transparent 100%
+  );
+}
+
+.nav.scrolled::before,
+.nav.scrolled::after {
+  opacity: 1;
+}
+
+@media (min-width: 1220px) {
+  .nav { padding-inline: calc((100% - 1180px) / 2); }
 }
 
 .nav-back,
@@ -932,4 +971,5 @@ button { font: inherit; border: 0; background: none; color: inherit; cursor: poi
   .float-chip { display: none; }
   .hero-actions .btn { width: 100%; }
   .container { width: min(1180px, calc(100% - 28px)); }
+  .nav { padding-inline: 14px; }
 }
