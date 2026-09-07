@@ -86,7 +86,7 @@ if (supportForm) {
     // Build mailto
     const subjectEncoded = encodeURIComponent(subject || 'Tellio Support Request');
     const bodyEncoded    = encodeURIComponent(`From: ${email}\n\n${message}`);
-    const mailto         = `mailto:luminityapple@gmail.com?subject=${subjectEncoded}&body=${bodyEncoded}`;
+    const mailto         = `mailto:pixarostudio@outlook.com?subject=${subjectEncoded}&body=${bodyEncoded}`;
 
     // Open mail client
     setTimeout(() => {

@@ -69,7 +69,7 @@ if (contactForm) {
     if (!emailVal || !messageVal) return;
 
     const body = `From: ${emailVal}\n\n${messageVal}`;
-    const mailto = `mailto:luminityapple@gmail.com?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(body)}`;
+    const mailto = `mailto:pixarostudio@outlook.com?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(body)}`;
 
     window.location.href = mailto;
 
