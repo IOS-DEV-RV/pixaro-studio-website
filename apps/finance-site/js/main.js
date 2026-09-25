@@ -42,7 +42,7 @@
       points: ["Any period you choose", "One-step export", "A file you can keep"]
     },
     currencies: {
-      src: "images/finance-poster-rates.png",
+      src: "images/finance-poster-currencies.png",
       alt: "Accounts in different currencies",
       title: "Accounts in different currencies",
       copy: "Each account keeps its own currency. Income, spending, and a transfer stay in that currency, so amounts from different currencies are not mixed into one total.",
