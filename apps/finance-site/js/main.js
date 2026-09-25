@@ -3,10 +3,7 @@
   const nav = document.getElementById("nav");
   const glow = document.getElementById("cursorGlow");
   const shot = document.getElementById("featureShot");
-  const title = document.getElementById("featureTitle");
-  const copy = document.getElementById("featureCopy");
-  const list = document.getElementById("featureList");
-  const buttons = document.querySelectorAll("[data-feature]");
+  const panel = document.getElementById("featurePanel");
 
   const features = {
     money: {
@@ -76,24 +73,37 @@
 
   const paint = (key) => {
     const feature = features[key];
-    if (!feature || !shot) return;
-    shot.style.opacity = "0.35";
-    window.setTimeout(() => {
+    if (!feature) return;
+    document.querySelectorAll("[data-feature]").forEach((button) => {
+      button.classList.toggle("active", button.getAttribute("data-feature") === key);
+    });
+    if (shot) {
       shot.src = feature.src;
       shot.alt = feature.alt;
-      shot.style.opacity = "1";
-    }, 140);
-    if (title) title.textContent = feature.title;
-    if (copy) copy.textContent = feature.copy;
-    if (list) {
-      list.innerHTML = feature.points.map((point) => `<li>${point}</li>`).join("");
     }
-    buttons.forEach((button) => button.classList.toggle("active", button.dataset.feature === key));
+    if (!panel) return;
+    const heading = document.createElement("h3");
+    heading.id = "featureTitle";
+    heading.textContent = feature.title;
+    const paragraph = document.createElement("p");
+    paragraph.id = "featureCopy";
+    paragraph.textContent = feature.copy;
+    const points = document.createElement("ul");
+    points.id = "featureList";
+    points.className = "ticks";
+    feature.points.forEach((point) => {
+      const item = document.createElement("li");
+      item.textContent = point;
+      points.appendChild(item);
+    });
+    panel.replaceChildren(heading, paragraph, points);
   };
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => paint(button.dataset.feature));
-  });
+  document.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-feature]");
+    if (!button) return;
+    paint(button.getAttribute("data-feature"));
+  }, true);
 
   const board = document.getElementById("pairBoard");
   if (board) {
