@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finance — Personal money, in one place</title>
+  <meta name="description" content="Finance helps you plan a budget, follow spending, set goals, watch rates, and understand your money. Widgets on the Home Screen. iPhone." />
+  <link rel="icon" href="images/icon.jpg" type="image/jpeg" />
+  <link rel="apple-touch-icon" href="images/icon.jpg" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+
+  <nav class="nav" id="nav">
+    <a class="nav-back" href="../../apps.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Our Apps
+    </a>
+    <a class="nav-brand" href="index.html">
+      <img src="images/icon.jpg" alt="Finance icon" />
+      Finance
+    </a>
+    <div class="nav-links">
+      <a href="#story">Story</a>
+      <a href="#features">Features</a>
+      <a href="#learn">Learn</a>
+      <a href="privacy.html">Privacy</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-grid">
+      <div class="reveal">
+        <p class="eyebrow">iPhone · Personal finance</p>
+        <h1>Manage money <span>with less friction.</span></h1>
+        <p class="lead">Plan a budget, follow spending, set money aside for goals, and understand your finances more clearly. One place for personal money — without heavy spreadsheets or extra steps.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://apps.apple.com/app/id6814774835" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download for iPhone
+          </a>
+          <a class="btn btn-ghost" href="#features">Explore features</a>
+        </div>
+      </div>
+      <div class="stage reveal reveal-delay" aria-hidden="true">
+        <div class="stage-glow"></div>
+        <img class="hero-shot" src="images/finance-poster-widgets.png" alt="" />
+        <span class="chip a">Home Screen widgets</span>
+        <span class="chip b">Watched rates</span>
+        <span class="chip c">Clear charts</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Budget</span><span><b>Spending</b></span><span>Goals</span><span><b>Analytics</b></span><span>PDF reports</span><span><b>Widgets</b></span><span>Live rates</span><span><b>Lessons</b></span>
+      <span>Budget</span><span><b>Spending</b></span><span>Goals</span><span><b>Analytics</b></span><span>PDF reports</span><span><b>Widgets</b></span><span>Live rates</span><span><b>Lessons</b></span>
+    </div>
+  </div>
+
+  <section class="section" id="story">
+    <div class="wrap">
+      <p class="eyebrow">The idea</p>
+      <h2>Personal finances, kept in one place.</h2>
+      <p class="section-lead">Finance helps you hold personal money in view without complicated tables. You see what comes in, what goes out, what is set aside, and what the picture looks like over time.</p>
+      <div class="grid-3">
+        <article class="card"><strong>Plan</strong><span>Give each part of the month a place before the money is gone.</span></article>
+        <article class="card"><strong>Follow</strong><span>Notice a category when spending moves past the plan.</span></article>
+        <article class="card"><strong>Set aside</strong><span>Keep a goal visible and watch the amount move toward it.</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="features">
+    <div class="wrap">
+      <p class="eyebrow">Features</p>
+      <h2>Tap a topic. The picture changes.</h2>
+      <div class="switcher" role="tablist">
+        <button type="button" class="active" data-feature="money">Money</button>
+        <button type="button" data-feature="budget">Budget</button>
+        <button type="button" data-feature="goals">Goals</button>
+        <button type="button" data-feature="analytics">Analytics</button>
+        <button type="button" data-feature="reports">PDF</button>
+        <button type="button" data-feature="rates">Widgets &amp; rates</button>
+        <button type="button" data-feature="learn">Lessons</button>
+      </div>
+      <div class="showcase">
+        <img id="featureShot" src="images/finance-poster-widgets.png" alt="Income and spending on the home screen" />
+        <article>
+          <h3 id="featureTitle">Follow income and spending</h3>
+          <p id="featureCopy">Add income and expenses, sort them into categories, and see where money goes. Keep more than one account, use different currencies, move money between accounts, and set operations that repeat.</p>
+          <ul class="ticks" id="featureList">
+            <li>Income and spending</li>
+            <li>Categories</li>
+            <li>Several accounts</li>
+            <li>Different currencies</li>
+            <li>Transfers between accounts</li>
+            <li>Repeating operations</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <img class="banner" src="images/finance-banner-wide.png" alt="Colorful chart bars and a wallet, in the Finance palette" />
+
+  <section class="section" id="learn">
+    <div class="wrap">
+      <p class="eyebrow">Learning</p>
+      <h2>Short lessons, practical tone.</h2>
+      <p class="section-lead">The Learning section collects clear notes on everyday money. No heavy theory — explanations, examples, and approaches you can try.</p>
+      <div class="learn">
+        <details open>
+          <summary>How to split a budget</summary>
+          <p>See necessary spending, everyday purchases, and goals as separate parts of the same month.</p>
+        </details>
+        <details>
+          <summary>How to start setting money aside</summary>
+          <p>Begin with a small amount you can repeat, even when income is modest.</p>
+        </details>
+        <details>
+          <summary>A financial cushion, impulse spending, and larger goals</summary>
+          <p>Learn how a reserve works, how to pause a purchase you did not plan, and how to approach a large goal or a debt one step at a time.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section class="section close">
+    <div class="wrap">
+      <p class="eyebrow">Clear money, clearer choices</p>
+      <h2>Plan. Follow. Set aside. Grow.</h2>
+      <p class="section-lead" style="margin: 0 auto 22px;">You do not have to earn more before you handle money more clearly. Start by seeing where it goes, build your own budget, and move toward the goals you set. Your finances stay in your hands.</p>
+      <a class="btn btn-primary" href="https://apps.apple.com/app/id6814774835" target="_blank" rel="noopener">Get Finance on the App Store</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <span>© 2026 Finance · Pixaro Studio</span>
+    <span><a href="privacy.html">Privacy Policy</a></span>
+  </footer>
+  <script src="js/main.js"></script>
+</body>
+</html>
