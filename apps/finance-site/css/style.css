@@ -149,6 +149,28 @@ h1 span {
 .ticks { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; }
 .ticks li::before { content: ""; display: inline-block; width: 8px; height: 8px; margin-right: 8px; border-radius: 50%; background: var(--mint); }
 
+.rates-layout {
+  display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 28px; align-items: center; margin-top: 28px;
+}
+.rates-layout img {
+  width: min(320px, 100%); margin: 0 auto; border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.4);
+}
+.pair-board { display: grid; gap: 10px; }
+.pair {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  background: rgba(23, 25, 38, 0.9); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px;
+}
+.pair b { display: block; letter-spacing: 0.02em; }
+.pair span, .preview-note { color: var(--muted); font-size: 0.92rem; line-height: 1.55; }
+.preview-note { margin: 12px 0 0; }
+.pair-rate { display: flex; align-items: center; gap: 8px; }
+.pair-rate strong { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.pair-rate em { font-style: normal; font-weight: 800; }
+.pair.up .pair-rate strong, .pair.up .pair-rate em, .pair.up polyline { color: var(--mint); stroke: var(--mint); }
+.pair.down .pair-rate strong, .pair.down .pair-rate em, .pair.down polyline { color: #ff6b8a; stroke: #ff6b8a; }
+.pair svg { width: 84px; height: 36px; fill: none; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
 .card {
   background: rgba(23, 25, 38, 0.78); border: 1px solid var(--line); border-radius: 22px; padding: 20px;
@@ -202,7 +224,7 @@ h1 span {
 
 @media (max-width: 860px) {
   .nav-links { display: none; }
-  .hero-grid, .showcase, .grid-3 { grid-template-columns: 1fr; }
+  .hero-grid, .showcase, .grid-3, .rates-layout { grid-template-columns: 1fr; }
   .stage { min-height: 380px; }
   .chip.a { left: 8px; }
 }

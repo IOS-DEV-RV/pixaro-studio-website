@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Finance — Personal money, in one place</title>
-  <meta name="description" content="Finance helps you plan a budget, follow spending, set goals, watch rates, and understand your money. Widgets on the Home Screen. iPhone." />
+  <meta name="description" content="Finance helps you plan a budget, follow spending, keep accounts in different currencies, watch currency rates, and set goals. Widgets on the Home Screen. iPhone." />
   <link rel="icon" href="images/icon.jpg" type="image/jpeg" />
   <link rel="apple-touch-icon" href="images/icon.jpg" />
   <link rel="stylesheet" href="css/style.css" />
@@ -25,6 +25,7 @@
     <div class="nav-links">
       <a href="#story">Story</a>
       <a href="#features">Features</a>
+      <a href="#rates">Rates</a>
       <a href="#learn">Learn</a>
       <a href="privacy.html">Privacy</a>
     </div>
@@ -35,7 +36,7 @@
       <div class="reveal">
         <p class="eyebrow">iPhone · Personal finance</p>
         <h1>Manage money <span>with less friction.</span></h1>
-        <p class="lead">Plan a budget, follow spending, set money aside for goals, and understand your finances more clearly. One place for personal money — without heavy spreadsheets or extra steps.</p>
+        <p class="lead">Plan a budget, follow spending, keep accounts in different currencies, and watch the rates you choose. Set money aside for goals and see the picture more clearly — without heavy spreadsheets or extra steps.</p>
         <div class="actions">
           <a class="btn btn-primary" href="https://apps.apple.com/app/id6814774835" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
@@ -47,17 +48,17 @@
       <div class="stage reveal reveal-delay" aria-hidden="true">
         <div class="stage-glow"></div>
         <img class="hero-shot" src="images/finance-poster-widgets.png" alt="" />
-        <span class="chip a">Home Screen widgets</span>
-        <span class="chip b">Watched rates</span>
-        <span class="chip c">Clear charts</span>
+        <span class="chip a">Several currencies</span>
+        <span class="chip b">Rate watching</span>
+        <span class="chip c">Home Screen widget</span>
       </div>
     </div>
   </header>
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee-track">
-      <span>Budget</span><span><b>Spending</b></span><span>Goals</span><span><b>Analytics</b></span><span>PDF reports</span><span><b>Widgets</b></span><span>Live rates</span><span><b>Lessons</b></span>
-      <span>Budget</span><span><b>Spending</b></span><span>Goals</span><span><b>Analytics</b></span><span>PDF reports</span><span><b>Widgets</b></span><span>Live rates</span><span><b>Lessons</b></span>
+      <span>Budget</span><span><b>Currencies</b></span><span>Rate watching</span><span><b>Spending</b></span><span>Goals</span><span><b>Widgets</b></span><span>PDF reports</span><span><b>Lessons</b></span>
+      <span>Budget</span><span><b>Currencies</b></span><span>Rate watching</span><span><b>Spending</b></span><span>Goals</span><span><b>Widgets</b></span><span>PDF reports</span><span><b>Lessons</b></span>
     </div>
   </div>
 
@@ -84,7 +85,9 @@
         <button type="button" data-feature="goals">Goals</button>
         <button type="button" data-feature="analytics">Analytics</button>
         <button type="button" data-feature="reports">PDF</button>
-        <button type="button" data-feature="rates">Widgets &amp; rates</button>
+        <button type="button" data-feature="currencies">Currencies</button>
+        <button type="button" data-feature="rates">Rate watching</button>
+        <button type="button" data-feature="widgets">Widgets</button>
         <button type="button" data-feature="learn">Lessons</button>
       </div>
       <div class="showcase">
@@ -101,6 +104,26 @@
             <li>Repeating operations</li>
           </ul>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="rates">
+    <div class="wrap">
+      <p class="eyebrow">Currencies and rates</p>
+      <h2>Several currencies. Pairs you choose to follow.</h2>
+      <p class="section-lead">Each account keeps its own currency. Income, spending, and transfers stay in that currency, so mixed amounts are not folded into one total. Pick the pairs you care about and follow the rate in the app and on a Home Screen widget.</p>
+      <div class="rates-layout">
+        <img src="images/finance-poster-rates.png" alt="Watched currency rates on the Finance home screen" />
+        <div>
+          <div class="pair-board" id="pairBoard" aria-label="Preview of watched currency pairs"></div>
+          <p class="preview-note">A preview of rate watching. In the app the rate refreshes about once a minute, and you can turn on a notice when a watched rate moves.</p>
+        </div>
+      </div>
+      <div class="grid-3">
+        <article class="card"><strong>Several currencies</strong><span>Give each account its currency. Record income and spending there, and move money between accounts.</span></article>
+        <article class="card"><strong>Rate watching</strong><span>Choose the pairs to follow. Each pair shows the rate and a small chart of how it has moved.</span></article>
+        <article class="card"><strong>On the Home Screen</strong><span>The rates widget keeps those pairs in view, so you can check the rate without opening the app.</span></article>
       </div>
     </div>
   </section>
@@ -133,7 +156,7 @@
     <div class="wrap">
       <p class="eyebrow">Clear money, clearer choices</p>
       <h2>Plan. Follow. Set aside. Grow.</h2>
-      <p class="section-lead" style="margin: 0 auto 22px;">You do not have to earn more before you handle money more clearly. Start by seeing where it goes, build your own budget, and move toward the goals you set. Your finances stay in your hands.</p>
+      <p class="section-lead" style="margin: 0 auto 22px;">You do not have to earn more before you handle money more clearly. See where it goes, keep each currency in its own account, follow the rates you choose, and move toward the goals you set.</p>
       <a class="btn btn-primary" href="https://apps.apple.com/app/id6814774835" target="_blank" rel="noopener">Get Finance on the App Store</a>
     </div>
   </section>
