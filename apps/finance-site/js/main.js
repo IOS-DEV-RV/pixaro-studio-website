@@ -29,7 +29,7 @@
     },
     analytics: {
       src: "images/finance-poster-analytics.png",
-      alt: "Finance analytics",
+      alt: "Monrise analytics",
       title: "See the whole picture",
       copy: "Clear charts show how spending is structured, how income and spending change, how money sits across categories, how the balance moves, and how savings progress.",
       points: ["Spending structure", "Income and spending over time", "Categories", "Balance changes", "Savings progress"]
